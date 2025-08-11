@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your KwH IQ</title>
+  <title>Your kWh IQ</title>
   <meta name="description" content="How Much Electricity Do We Really Need?" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@mkorostoff">
-  <meta name="twitter:creator" content="@mkorostoff">
-  <meta name="twitter:title" content="Electricity Usage">
+  <meta name="twitter:site" content="1 Million Energy Actions">
+  <meta name="twitter:creator" content="1 Million Energy Actions">
+  <meta name="twitter:title" content="One Nation, One Day of Energy">
   <meta name="twitter:description" content="Each icon represents one kWh">
   <meta name="twitter:image" content="https://1millionenergyactions.org/images/twitter_howmuch.png">
 
   <meta property="og:title" content="How Much Electricity Do We Really Need?" />
   <meta property="og:type" content="website" />
   <meta property="og:description" content="Each icon represents one kWh" />
-  <meta property="og:image" content="https://mkorostoff.github.io/incarceration-in-real-numbers/img/og_image.png" />
+  <meta property="og:image" content="images/og_image.jpg" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="styles.css?v=4">
@@ -24,20 +24,35 @@
 </head>
 <body class="black">
 <div class="main">
-  <div id="prisoners" class="person prisoners">
+  <div id="kwh" class="person kwh">
     <div class="spacer"></div>
     <div class="padder"></div>
-    <div id="title" class="title"><h1>How much energy do we use as a nation? </h1><span id="counter" class="counter"></span></div>
+    <div id="title" class="title" style="padding-top:40px;"><h1>One Nation, One Day of Energy </h1><span id="counter" class="counter"></span></div>
     <div data-background="black" class="subtitle">
-        <p class="description">Each lightning bolt icon represents one KwH <br class="mobile-only"><a href="#" target="_blank"></a></p>
-        <p class="scroll-down">scroll down</p>
+      
+        <p class="scroll-down" style="padding:50px 0 20px 0;font-size:1.4em;">From lightbulbs to EVs, what does a full day of U.S. energy use look like? </p><br /> <p class="scroll-down" style="padding:0 0 20px 0;">Scroll and find out!</p>
+        <p style="padding:0 0 50px 0;font-size:2em;">&#x2193;</p>
     </div>
 
-    <div class="infobox first">
-      <div class="infobox-inner">In 2022, the United States consumed approximately 4.07 trillion kilowatt-hours (kWh) of electricity.</div>
+    <div class="infobox intro">
+      <div class="infobox-inner">Each lightning bolt represents one 1 kWh<br /></div>
     </div>
 
-    <div class="infobox second">
+    <div class="infobox intro-second">
+      <div class="infobox-inner">By the time you get end to of this page, <br />you will have seen enough of these lightning bolts to represent how much energy<br />we use in the U.S. in <u>just one day</u>. <br /><br /></div>
+    </div>
+
+    <div class="infobox">
+      <div class="infobox-inner">
+        <p>To understand what this means, we have to first understand how much energy one kWh is worth!</p>
+        
+      </div>
+    </div>
+  <div class="infobox first">
+      <div class="infobox-inner">In 2023, the United States consumed approximately 4.18 trillion kilowatt-hours (kWh) of electricity.</div>
+    </div>
+
+    <!--<div class="infobox second">
       <div class="infobox-inner">This is enough electricity for 3 million people (i.e. the entire population of Los Angeles) to drive to the moon and back in an electric vehicle</div>
     </div>
     
@@ -45,177 +60,85 @@
       <div class="infobox-inner">This is enough electricity for every smartphone in the world (7 billion) to be charged daily for 500 years. </div>
     </div>
     
-    <div class="infobox fourth">
+    <div class="infobox fourth"
       <div class="infobox-inner">These are such big numbers it's hard to picture. Let's look at how much we electricity we use in 24 hours. But first, here's how much each state uses:</div>
-    </div>
+    </div>-->
 
-    <div id='per-one-hundred' class="infobox chart horizontal expandable">
-      <div id='per-one-hundred-inner' class="infobox-inner">
-        <h2>Amount of electricity used annually by state<sup>[<a class="citation" href="https://www.eia.gov/electricity/state/" target="_blank"></a>]</sup></h2>
-        <div class="bar highlighted right">USA (4.1T)</div>
-        <div style="width: 13.08%" class="bar"><span class="bar-inner">Texas (547 billion kWh)</span></div>
-        <div style="width: 6.21%" class="bar"><span class="bar-inner">Florida (259 billion kWh)</span></div>
-        <div style="width: 5.64%" class="bar"><span class="bar-inner">Pennsylvania (235 billion kWh)</span></div>
-        <div style="width: 5.18%" class="bar"><span class="bar-inner">California (216 billion kWh)</span></div>
-        <div style="width: 4.25%" class="bar"><span class="bar-inner">Illinois (177 billion kWh)</span></div>
-        <div style="width: 3.33%" class="bar"><span class="bar-inner">Alabama (139 billion kWh)</span></div>
-        <div style="width: 3.18%" class="bar"><span class="bar-inner">Ohio (133 billion kWh)</span></div>
-        <div style="width: 3.09%" class="bar"><span class="bar-inner">Georgia (129 billion kWh)</span></div>
-        <div style="width: 3.03%" class="bar"><span class="bar-inner">North Carolina (126 billion kWh)</span></div>
-        <div style="width: 2.97%" class="bar"><span class="bar-inner">New York (124 billion kWh)</span></div>
-        <div style="width: 2.88%" class="bar"><span class="bar-inner">Michigan (120 billion kWh)</span></div>
-        <div style="width: 2.67%" class="bar"><span class="bar-inner">Arizona (111 billion kWh)</span></div>
-        <div style="width: 2.46%" class="bar"><span class="bar-inner">Washington (102 billion kWh)</span></div>
-        <div style="width: 2.41%" class="bar"><span class="bar-inner">South Carolina (100 billion kWh)</span></div>
-        <div style="width: 2.34%" class="bar"><span class="bar-inner">Louisiana (97 billion kWh)</span></div>
-        <div style="width: 2.18%" class="bar"><span class="bar-inner">Virginia (91 billion kWh)</span></div>
-        <div style="width: 2.15%" class="bar"><span class="bar-inner">Indiana  (90 billion kWh)</span></div>
-        <div style="width: 2.13%" class="bar"><span class="bar-inner">Oklahoma (89 billion kWh)</span></div>
-        <div style="width: 1.86%" class="bar"><span class="bar-inner">Tennessee (77 billion kWh)</span></div>
-        <div style="width: 1.74%" class="bar"><span class="bar-inner">Mississippi (72 billion kWh)</span></div>
-        <div style="width: 1.67%" class="bar"><span class="bar-inner">Iowa (69 billion kWh)</span></div>
-        <div style="width: 1.59%" class="bar"><span class="bar-inner">Missouri (66 billion kWh)</span></div>
-        <div style="width: 1.54%" class="bar"><span class="bar-inner">New Jersey (64 billion kWh)</span></div>
-        <div style="width: 1.51%" class="bar"><span class="bar-inner">Kentucky (63 billion kWh)</span></div>
-        <div style="width: 1.51%" class="bar"><span class="bar-inner">Arkansas (63 billion kWh)</span></div>
-        <div style="width: 1.50%" class="bar"><span class="bar-inner">Wisconsin (62 billion kWh)</span></div>
-        <div style="width: 1.47%" class="bar"><span class="bar-inner">Oregon (61 billion kWh)</span></div>
-        <div style="width: 1.40%" class="bar"><span class="bar-inner">Kansas (58 billion kWh)</span></div>
-        <div style="width: 1.38%" class="bar"><span class="bar-inner">Colorado (57 billion kWh)</span></div>
-        <div style="width: 1.37%" class="bar"><span class="bar-inner">Minnesota (57 billion kWh)</span></div>
-        <div style="width: 1.25%" class="bar"><span class="bar-inner">West Virginia (52 billion kWh)</span></div>
-        <div style="width: 1.03%" class="bar"><span class="bar-inner">Wyoming (43 billion kWh)</span></div>
-        <div style="width: 1.01%" class="bar"><span class="bar-inner">Nevada (42 billion kWh)</span></div>
-        <div style="width: 1.01%" class="bar"><span class="bar-inner">North Dakota (42 billion kWh)</span></div>
-        <div style="width: 0.97%" class="bar"><span class="bar-inner">Connecticut (40 billion kWh)</span></div>
-        <div style="width: 0.94%" class="bar"><span class="bar-inner">Nebraska (39 billion kWh)</span></div>
-        <div style="width: 0.94%" class="bar"><span class="bar-inner">New Mexico (39 billion kWh)</span></div>
-        <div style="width: 0.86%" class="bar"><span class="bar-inner">Maryland (36 billion kWh)</span></div>
-        <div style="width: 0.80%" class="bar"><span class="bar-inner">Utah (33 billion kWh)</span></div>      
-        <div style="width: 0.64%" class="bar"><span class="bar-inner">Montana (26 billion kWh)</span></div>
-        <div style="width: 0.47%" class="bar"><span class="bar-inner">Massachusetts (19 billion kWh)</span></div>
-        <div style="width: 0.43%" class="bar"><span class="bar-inner">Idaho (17 billion kWh)</span></div>
-        <div style="width: 0.42%" class="bar"><span class="bar-inner">South Dakota (17 billion kWh)</span></div>
-        <div style="width: 0.40%" class="bar"><span class="bar-inner">New Hampshire (16 billion kWh)</span></div>
-        <div style="width: 0.30%" class="bar"><span class="bar-inner">Maine (12 billion kWh)</span></div>
-        <div style="width: 0.25%" class="bar"><span class="bar-inner">Rhode Island (10 billion kWh)</span></div>
-        <div style="width: 0.22%" class="bar"><span class="bar-inner">Hawaii (9 billion kWh)</span></div>
-        <div style="width: 0.16%" class="bar"><span class="bar-inner">Alaska (6.7 billion kWh)</span></div>
-        <div style="width: 0.11%" class="bar"><span class="bar-inner">Delaware (4.7 billion kWh)</span></div>
-        <div style="width: 0.06%" class="bar"><span class="bar-inner">Vermont (2.4 billion kWh)</span></div>
-        <div style="width: 0%" class="bar"><span class="bar-inner">District of Columbia (170 million kWh)</span></div>
-     <a class="expando" onclick="toggleExpand('per-one-hundred', 'per-one-hundred-inner')">Expand &#9660;</a>
-      </div>
-    </div>
+   
+   
 
     <div class="infobox">
       <div class="infobox-inner">
-        <p>There are more incarcerated people than members of almost any profession. There are more incarcerated people than military personnel. There are more incarcerated people than bus drivers, bar tenders, and hair dressers combined. [<a class="citation" target="_blank" href="https://github.com/MKorostoff/incarceration-in-real-numbers/blob/master/SOURCES.md#incarceration-compared-to-professions"></a>]</p>
-      </div>
-    </div>
-
-    <div class="infobox">
-      <div class="infobox-inner">
-        More Americans are incarcerated today than there have been Americans killed in all of the wars in all of history combined.
+        <p>1 kWh = watching YouTube on your laptop for 24 hours </p>
       </div>
     </div>
 
     <div id="casualties" class="infobox chart horizontal">
       <div class="infobox-inner">
-        <h2>Incarceration compared to casualties of war <sup>[<a class="citation" target="_blank" href="https://github.com/MKorostoff/incarceration-in-real-numbers/blob/master/SOURCES.md#american-war-dead"></a>]</sup></h2>
-        <div style="width: 100%" class="bar highlighted">Americans currently incarcerated (2.3M)</div>
-        <div style="width: 56%" class="bar black">American war dead, all of history combined (1.3M)</div>
-        <div style="width: 65%" class="bar black">American war wounded, all of history combined (1.5M)</div>
+       1 kWh = a 100-watt lightbulb left on for 10 hours
       </div>
     </div>
 
     <div class="infobox">
-      <div class="infobox-inner">While the incarcerated population is unfathomably large, it is just the tip of the iceberg.</div>
+      <div class="infobox-inner"><p>1 kWh = baking 3 separate batches of cookies in an electric oven</p></div>
     </div>
 
     <div id="correctional-population" class="infobox chart correctional-population infobox-near-near">
-      <div class="infobox-inner" style="height: 490px;">
-        <h2>The total correctional population <sup>[<a href="https://github.com/MKorostoff/incarceration-in-real-numbers/blob/master/SOURCES.md#total-correctional-population" target="_blank" class="citation"></a>]</sup></h2>
-        <div class="vertical-bars">
-
-          <div style="height: 345px;" class="bar first">
-            <div class="bar-label tool-tip right">Currently incarcerated (2.3M)</div>
-          </div>
-
-          <div style="height: 660px;" class="bar">
-            <div class="bar-label tool-tip right bar-label-320">Will be incarcerated this year (4.9M)</div>
-          </div>
-
-          <div style="height: 1635px;" class="bar">
-            <div class="bar-label tool-tip left bar-label-1000">Alive currently, will go to prison ever (10.9M)</div>
-          </div>
-
-          <div style="height: 11550px;" class="bar">
-            <div class="bar-label tool-tip left bar-label-2600">Has a criminal record (77M)</div>
-          </div>
-
-          <div style="height: 16950px;" class="bar last">
-            <div class="bar-label tool-tip left bar-label-11800">Ever had an immediate family member incarcerated (113M)</div>
-          </div>
-
-        </div>
+      <div class="infobox-inner">
+        <p>1 kWh = driving 3-4 miles in an electric vehicle</p>
       </div>
     </div>
 
     <div class="infobox">
-      <div id="pretrial" data-background="black" class="infobox-inner short">Almost no one gets a trial.</div>
+      <div id="pretrial" data-background="black" class="infobox-inner short">You can generate energy too! Here is how you can generate 1 kWh of energy:</div>
     </div>
 
     <div class="infobox blue infobox-near">
-      <div id="blue" data-background="blue" class="infobox-inner"><img class="side-icon" src="img/person/blue.svg" />Notice that the background icons have changed. The blue icons are the portion of incarcerated people who got trials, around 2%.</div>
+      <div id="blue" data-background="blue" class="infobox-inner">
+        1 kWh = pedaling fast on a stationary bike for 10 hours
+      </div>
     </div>
 
     <div class="infobox">
-      <div class="infobox-inner">Almost all accused people are extorted into taking plea bargains under the threat of a longer sentence, the ruinous cost of mounting a defense, and the wildly under-resourced public defender system. [<a href="https://github.com/MKorostoff/incarceration-in-real-numbers/blob/master/SOURCES.md#plea-bargains" target="_blank" class="citation"></a>]</div>
+      <div class="infobox-inner"><p>1 kWh = going up 250 flights of stairs... like climbing stairs to the top of the Empire State Building 3 times!</p></div>
     </div>
 
     <div class="infobox infobox-half">
-      <div class="infobox-inner">No other country on earth incarcerates so many people without trial. While many countries around the world have rushed to adopt American style plea bargaining in recent years, not a single one uses it for such a large portion of cases. [<a href="https://github.com/MKorostoff/incarceration-in-real-numbers/blob/master/SOURCES.md#plea-bargains" target="_blank" class="citation"></a>]</div>
+      <div class="infobox-inner">Another way to think about it... 1 kWh is the energy equivalent of about 860 calories, or the caloric content of...</div>
     </div>
 
     <div class="infobox infobox-half">
-      <div id="preconvicted" data-background="blue" class="infobox-inner">One quarter of incarcerated Americans have not even been convicted of a crime. Instead, they are mostly held in pre-trial detention, usually due to the high cost of cash bail. [<a href="https://github.com/MKorostoff/incarceration-in-real-numbers/blob/master/SOURCES.md#pre-trial-detainees" target="_blank" class="citation"></a>]</div>
+      <div id="preconvicted" data-background="blue" class="infobox-inner">1 large cheeseburger = 1 kWh</div>
     </div>
 
     <div class="infobox infobox-quarter red">
-      <div id="red" data-background="red" class="infobox-inner"><img class="side-icon" src="img/person/red.svg" />The red icons are the portion of incarcerated people who have not been convicted, mostly held in pre-trial detention.</div>
+      <div id="red" data-background="red" class="infobox-inner"><p>2 standard-sized cupcakes = 1 kWh</p></div>
     </div>
 
     <div class="infobox">
-      <div class="infobox-inner">Unconvicted Americans are the 4th largest incarcerated population in the world.</div>
+      <div class="infobox-inner">1 kWh = the energy your brain needs to think for 2 days!</div>
     </div>
 
     <div id="unconvicted" class="infobox chart horizontal infobox-near">
       <div data-background="red" class="infobox-inner">
-        <h2>Largest incarcerated populations</h2>
-        <div class="bar">1. USA (all)</div>
-        <div style="width: 74%" class="bar">2. China</div>
-        <div style="width: 32%" class="bar">3. Brazil</div>
-        <div class="without-conviction-label">Americans jailed without conviction (555 billion kWh)</div>
-        <div style="width: 24%" class="bar highlighted">&nbsp;</div>
-        <div style="width: 23%" class="bar">5. Russia</div>
-        <div style="width: 20%" class="bar">6. India</div>
+        <p>Now let's go a little bigger. 
+        </p>
       </div>
     </div>
 
     <div class="infobox">
-      <div data-background="black" class="infobox-inner">You've probably heard that mass incarceration disproportionately impacts people of color, and that's true. But let's get one thing straight: there is <em>no group</em> in America, of any race or gender, that is immune from the terror of mass incarceration.</div>
+      <div data-background="black" class="infobox-inner">The average U.S. household uses about 30 kWh per day</div>
     </div>
 
     <div id="subgroup" class="infobox chart infobox-near">
       <div id="subgroup-inner" class="relative infobox-inner">
-         <div class="funnel-item first">If we released...</div>
-         <div class="funnel-item second">all of the black Americans...</div>
-         <div class="funnel-item third">and all of the hispanic Americans...</div>
-         <div class="funnel-item fourth">and all of the women...</div>
+         <div class="funnel-item first">Here is a chart of energy use by category in the U.S.</div>
+         <div class="funnel-item second">all the homes...</div>
+         <div class="funnel-item third">all the schools...</div>
+         <div class="funnel-item fourth">all the factories...</div>
          <div class="funnel-neck">
-             <div class="funnel-item fifth">and all of the juveniles...</div>
-             <div class="funnel-item sixth">leaving only white men...</div>
+             <div class="funnel-item fifth">all the warehouses...</div>
+             <div class="funnel-item sixth">all the cars...</div>
              <div class="funnel-item seventh">America would still incarcerate more people than the entire European Union combined.</div>
              <div class="eu">
                 <div class="eu-country poland" style="width: 8.74%;"><div class="eu-country-inner">Poland</div></div>
