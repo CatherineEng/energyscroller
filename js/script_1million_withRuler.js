@@ -154,12 +154,12 @@ function setHeight() {
   ruler.style.top = '0';
   ruler.style.width = '50px';
   ruler.style.height = height + 'px';
-  ruler.style.borderRight = '0';
+  ruler.style.borderRight = '1px solid #999';
   ruler.style.fontSize = '10px';
   ruler.style.lineHeight = '1';
-  ruler.style.color = '#11619a';
+  ruler.style.color = '#666';
   ruler.style.pointerEvents = 'none';
-  ruler.style.background = '#ffca89';
+  ruler.style.background = 'transparent';
 
   for (var y = 0; y <= height; y += 10) {
     var tick = document.createElement('div');
@@ -168,7 +168,7 @@ function setHeight() {
     tick.style.left = '0';
     tick.style.width = (y % LABEL_INTERVAL_PX === 0) ? '10px' : '5px';
     tick.style.height = '1px';
-    tick.style.background = '#11619a';
+    tick.style.background = '#999';
     ruler.appendChild(tick);
 
     if (y % LABEL_INTERVAL_PX === 0) {
