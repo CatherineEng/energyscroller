@@ -147,7 +147,7 @@ html.black-sparse  body {
     top: 200px;
     padding: 10px;
     background-color: #ffffff;
-    box-shadow: 0;
+    box-shadow: None;
     max-width: 700px;
     position: sticky;
     z-index: 10;
@@ -156,7 +156,10 @@ html.black-sparse  body {
     border-radius: 20px;
     font-weight: 700;
     text-align: center;
-    text-wrap:pretty;
+    /* text-wrap: pretty; */
+    text-wrap: wrap;
+    /* text-wrap does not accept 'pretty': "Error in parsing value for ‘text-wrap’. Declaration dropped."
+    despite being documented as a valid keyword: https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
 }
 .expandable .infobox-inner {
   height: 380px;
@@ -279,7 +282,7 @@ html.black-sparse  body {
     margin: 10px 0;
     padding: 10px;
     color: white;
-    box-shadow: 0;
+    box-shadow: None;
     box-sizing: border-box;
     font-size: 12px;
     border-radius: 4px;
@@ -1601,7 +1604,7 @@ blockquote strong {
   max-width: min(90vw, 720px);
   background: #fffdf7;
   border: 2px solid #222;
-  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  box-shadow: 0px 6px 18px rgba(0,0,0,.25);
   border-radius: 14px;
   padding: 16px 18px;
   font-weight: 700;
