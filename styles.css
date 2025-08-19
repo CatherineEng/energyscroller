@@ -448,6 +448,14 @@ p:last-child {
   font-size: 18px;
   font-weight: bold;
 }
+.scrollpercent {
+  font-family: monospace;
+  position: absolute;
+  right: 75px;
+  top: 120px;
+  font-size: 18px;
+  font-weight: bold;
+}
 .stalin .vertical-bars .bar {
   background-color: #313131;
   color: white;

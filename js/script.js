@@ -1,6 +1,7 @@
 var kwh = document.getElementById('kwh');
 var thousand = document.getElementById('thousand');
 var counter = document.getElementById('counter');
+var scrollpercent = document.getElementById('scrollpercent');
 var title = document.getElementById('title');
 var html = document.getElementsByTagName('html');
 var curve_wrapper_outer = document.getElementById('curve-wrapper-outer');
@@ -104,26 +105,16 @@ if (!mute) {
   }
 }
 
-// ---- SHOW COUNTER AFTER ONE TICK (100,000 kWh) ----
-window.addEventListener('scroll', function(e) {
-  scroll_count = getScrollCount();
-  if (scroll_count > TICK_KWH) {
-    counter.innerHTML = scroll_count.toLocaleString();
-  } else {
-    counter.innerHTML = '';
-  }
-});
-
-function getScrollCount() {
+// update counters / progress on scroll
+window.addEventListener('scroll', function() {
   var body = document.documentElement || document.body;
   var total_height = kwh.clientHeight;
-  var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : body.scrollTop;
-  var scroll_percent = (scrollTop - kwh.offsetTop + window.innerHeight) / total_height;
-  if (scroll_percent < 0) scroll_percent = 0;
-  if (scroll_percent > 1) scroll_percent = 1;
-  var count = Math.floor(scroll_percent * TOTAL_KWH);
-  return count;
-}
+  var scrollTop = (window.scrollY !== undefined) ? window.scrollY : body.scrollTop;
+  var scroll_percent = ((scrollTop - kwh.offsetTop) * 100) / total_height;
+  scroll_count = Math.floor(window.scrollY * KWH_PER_PIXEL);
+  scrollpercent.innerText = scroll_percent.toFixed(6) + '% '
+  counter.innerHTML = scroll_count.toLocaleString() + '⚡kWh'; // unicode: U+26A1 'High Voltage Sign'
+});
 
 function setHeight() {
   var browser_width = window.innerWidth || document.body.clientWidth;
@@ -135,7 +126,9 @@ function setHeight() {
   var icons_per_row = icons_per_card * cards_per_row;
   var number_of_rows = TOTAL_KWH / icons_per_row;
 
-  var height = Math.ceil(TOTAL_KWH / KWH_PER_PIXEL); // ~1,115,069 px tall
+  //var height = Math.ceil(TOTAL_KWH / KWH_PER_PIXEL); // ~1,115,069 px tall
+  //var height = Math.ceil(pixel_height_per_card * number_of_rows); // page never loads???????
+  var height = 1115069; // TODO: actually calculate this value
   kwh.style.height = height + "px";
 
   if (!mute && thousand) {
@@ -145,7 +138,7 @@ function setHeight() {
 
   // ---- DRAW LEFT-SIDE RULER ----
   var existingRuler = document.getElementById('ruler');
-  if (existingRuler) existingRuler.remove();
+  if (existingRuler) return;
 
   var ruler = document.createElement('div');
   ruler.id = 'ruler';
@@ -161,6 +154,8 @@ function setHeight() {
   ruler.style.pointerEvents = 'none';
   ruler.style.background = '#ffca89';
 
+  // drawing left-side ruler
+  // very expensive for performance
   for (var y = 0; y <= height; y += 10) {
     var tick = document.createElement('div');
     tick.style.position = 'absolute';
