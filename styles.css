@@ -147,7 +147,7 @@ html.black-sparse  body {
     top: 200px;
     padding: 10px;
     background-color: #ffffff;
-    box-shadow: 0;
+    box-shadow: None;
     max-width: 700px;
     position: sticky;
     z-index: 10;
@@ -156,13 +156,43 @@ html.black-sparse  body {
     border-radius: 20px;
     font-weight: 700;
     text-align: center;
-    text-wrap:pretty;
+    /* text-wrap: pretty; */
+    text-wrap: wrap;
+    /* text-wrap does not accept 'pretty': "Error in parsing value for ‘text-wrap’. Declaration dropped."
+    despite being documented as a valid keyword: https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
 }
-.expandable .infobox-inner {
-  height: 380px;
+#state-rank-intro { height: auto; } /* no space before the chart */
+#state-rank.expandable {
+  position: sticky; /* keep chart in view until expanded */
+  margin-top: 1em; /* stick the chart immediately after the preceeding infobox */
+  top: 10em; /* keep the chart's title within view (preventing it from being scrolled under the page-title) */
+  height: auto;
 }
-.expandable .infobox-inner .bar {
-  padding: 4px;
+#state-rank.expandable.expanded {
+  position: relative; /* let it scroll out of view afterwards */
+  top: 0em; /* when position is reverted to 'relative', this offset is applied relative to previous infobox; not the top-of-screen - and is no longer necessary */
+}
+#state-rank-inner .bar { padding: 4px; }
+#state-rank-inner.expandable { height: 512px; }
+#state-rank-inner.expandable.expanded { height: auto; }
+.expando {
+    font-size: 10px;
+    position: sticky;
+    bottom: -20px; /* stick it to the bottom instead of top */
+    padding: 5px;
+    /* border: 1px solid #aaa; */
+    /* border-radius: 5px; */ /* rounds the corners (instead of square) */
+    /* background-color: white; */
+    /* background-color: #eee; */ /* light grey - contrasting the white backdrop */
+    /* specifying either background-color covers up the last element, instead of overlaying the text (transparently) */
+    cursor: pointer;
+    display: block;
+}
+#state-rank-inner.expandable.expanded .expando { display: none; } /* remove 'Expand' button after expanded */
+.expando:active:focus {
+  background-color: color(display-p3 0.176 0.376 0.588);
+  color:white;
+  transition:all .3s;
 }
 .sidenote {
   font-size: 14px;
@@ -194,43 +224,6 @@ html.black-sparse  body {
   color: black;
   text-decoration: none;
   font-size: 14px;
-}
-#per-one-hundred.expandable.expanded {
-  margin-bottom: 5880px;
-}
-#per-one-hundred.expandable.expanded .infobox-inner {
-  height: 1750px;
-}
-#country-rank.expandable.expanded {
-  margin-bottom: 5110px;
-}
-#country-rank.expandable.expanded .infobox-inner {
-  height: 5110px;
-}
-.expandable.expanded .expando {
-  display: none;
-}
-.expandable.expanded .infobox-inner {
-  position: relative;
-}
-.expando {
-    position: absolute;
-    right: 19px;
-    bottom: 19px;
-    font-size: 10px;
-    border-radius: 5px;
-    background-color: white;
-    padding: 5px;
-    /* box-shadow: 1px 1px 1px black; */
-    cursor: pointer;
-    display: block;
-    /* border: 1px solid #aaa; */
-    background-color: #eee;
-}
-.expando:active:focus {
-  background-color: color(display-p3 0.176 0.376 0.588);
-  color:white;
-  transition:all .3s;
 }
 .image {
   margin-top: 25px;
@@ -279,7 +272,7 @@ html.black-sparse  body {
     margin: 10px 0;
     padding: 10px;
     color: white;
-    box-shadow: 0;
+    box-shadow: None;
     box-sizing: border-box;
     font-size: 12px;
     border-radius: 4px;
@@ -445,6 +438,14 @@ p:last-child {
   position: absolute;
   right: 20px;
   top: 100px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.scrollpercent {
+  font-family: monospace;
+  position: absolute;
+  right: 75px;
+  top: 120px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -1561,12 +1562,6 @@ blockquote strong {
   position: static !important;
   box-shadow: none;
 }
-.unscroll .expando {
-  display: none;
-}
-.unscroll .expandable .infobox-inner {
-  height: auto;
-}
 .unscroll .stalin,
 .unscroll .repression,
 .unscroll .correctional-population {
@@ -1593,7 +1588,7 @@ blockquote strong {
   max-width: min(90vw, 720px);
   background: #fffdf7;
   border: 2px solid #222;
-  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  box-shadow: 0px 6px 18px rgba(0,0,0,.25);
   border-radius: 14px;
   padding: 16px 18px;
   font-weight: 700;
