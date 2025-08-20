@@ -259,50 +259,135 @@ a.pledge {
     <div class="infobox">
       <div data-background="blue" class="infobox-inner">And, it will only take you 30 minutes to scroll 11.1 billion kWh!</div>
     </div>
-
-    <div id="subgroup" class="infobox chart infobox-near">
-      <div id="subgroup-inner" class="relative infobox-inner">
-         <div class="funnel-item first">Here is a chart of energy use by category in the U.S.</div>
-         <div class="funnel-item second">all the homes...</div>
-         <div class="funnel-item third">all the schools...</div>
-         <div class="funnel-item fourth">all the factories...</div>
-         <div class="funnel-neck">
-             <div class="funnel-item fifth">all the warehouses...</div>
-             <div class="funnel-item sixth">all the cars...</div>
-             <div class="funnel-item seventh"></div>
-             <div class="eu">
-                <div class="eu-country poland" style="width: 8.74%;"><div class="eu-country-inner">Poland</div></div>
-                <div class="eu-country france" style="width: 8.35%;"><div class="eu-country-inner">France</div></div>
-                <div class="eu-country germany" style="width: 7.53%;"><div class="eu-country-inner">Germany</div></div>
-                <div class="eu-country italy" style="width: 7.17%;"><div class="eu-country-inner">Italy</div></div>
-                <div class="eu-country spain" style="width: 6.89%;"><div class="eu-country-inner">Spain</div></div>
-                <div class="eu-country czech" style="width: 2.48%;"><div class="eu-country-inner">Czech</div></div>
-                <div class="eu-country romania" style="width: 2.43%;"><div class="eu-country-inner">Romania</div></div>
-                <div class="eu-country hungary" style="width: 2.00%;"><div class="eu-country-inner">Hungary</div></div>
-                <div class="eu-country portugal" style="width: 1.51%;"><div class="eu-country-inner">Portugal</div></div>
-                <div class="eu-country belgium" style="width: 1.28%;"><div class="eu-country-inner">Belgium</div></div>
-                <div class="eu-country slovakia" style="width: 1.26%;"><div class="eu-country-inner">Slovakia</div></div>
-                <div class="eu-country netherlands" style="width: 1.23%;"><div class="eu-country-inner">Netherlands</div></div>
-                <div class="eu-country greece" style="width: 1.20%;"><div class="eu-country-inner">Greece</div></div>
-                <div class="eu-country bulgaria" style="width: 1.06%;"><div class="eu-country-inner">Bulgaria</div></div>
-                <div class="eu-country austria" style="width: 1.03%;"><div class="eu-country-inner">Austria</div></div>
-                <div class="eu-country sweden" style="width: 0.73%;"><div class="eu-country-inner">Sweden</div></div>
-                <div class="eu-country lithuania" style="width: 0.72%;"><div class="eu-country-inner">Lithuania</div></div>
-                <div class="eu-country ireland" style="width: 0.47%;"><div class="eu-country-inner">Ireland</div></div>
-                <div class="eu-country denmark" style="width: 0.43%;"><div class="eu-country-inner">Denmark</div></div>
-                <div class="eu-country latvia" style="width: 0.42%;"><div class="eu-country-inner">Latvia</div></div>
-                <div class="eu-country croatia" style="width: 0.38%;"><div class="eu-country-inner">Croatia</div></div>
-                <div class="eu-country finland" style="width: 0.34%;"><div class="eu-country-inner">Finland</div></div>
-                <div class="eu-country estonia" style="width: 0.29%;"><div class="eu-country-inner">Estonia</div></div>
-                <div class="eu-country slovenia" style="width: 0.17%;"><div class="eu-country-inner">Slovenia</div></div>
-                <div class="eu-country cyprus" style="width: 0.09%;"><div class="eu-country-inner">Cyprus</div></div>
-                <div class="eu-country malta" style="width: 0.08%;"><div class="eu-country-inner">Malta</div></div>
-                <div class="eu-country luxembourg" style="width: 0.08%;"><div class="eu-country-inner">Luxembourg</div></div>
-                <div class="eu-list"><div class="eu-list-inner">Czech Republic, Romania, Hungary, Portugal, Belgium, Slovakia, Netherlands, Greece, Bulgaria, Austria, Sweden, Lithuania, Ireland, Denmark, Latvia, Croatia, Finland, Estonia, Slovenia, Cyprus, Malta, and Luxembourg</div></div>
-             </div>
-         </div>
+    
+    <div class="spacer"></div>
+    <div class="padder"></div>
+    <!-- national energy stats -->
+    <h1 class="title">How much energy do we use as a nation? </h1>
+    <div class="infobox first">
+      <div class="infobox-inner">
+      In 2022, the United States consumed approximately 4.07 trillion kilowatt-hours (kWh) of electricity.<br>
+      This is the highest amount ever recorded and 14 times greater than electricity use in 1950.
       </div>
     </div>
+
+    <div class="infobox second">
+      <div class="infobox-inner">This is enough electricity for 3 million people (i.e. the entire population of Los Angeles) to drive to the moon and back in an electric vehicle</div>
+    </div>
+    
+    <div class="infobox third">
+      <div class="infobox-inner">This is enough electricity for every smartphone in the world (7 billion) to be charged daily for 500 years. </div>
+    </div>
+    
+    <div id='state-rank-intro' class="infobox fourth">
+      <div class="infobox-inner">These are such big numbers it's hard to picture.<br>Let's look at how much electricity we use in 24 hours.<br>But first, here's how much each state uses:</div>
+    </div>
+
+    <!-- per-state usage - copied from state_ranking_annual.html -->
+    <div id='state-rank' class="infobox chart horizontal expandable">
+      <div id='state-rank-inner' class="infobox-inner chart horizontal expandable">
+        <!-- <h2>Amount of electricity used annually by state<sup>[<a class="citation" href="https://www.eia.gov/electricity/state/" target="_blank"></a>]</sup></h2> -->
+        <h2>Amount of electricity used annually by state</h2>
+        <div class="bar highlighted right">USA national usage (4.1T)</div>
+        <div style="width: 13.08%" class="bar"><span class="bar-inner">Texas (547 billion kWh)</span></div>
+        <div style="width: 6.21%" class="bar"><span class="bar-inner">Florida (259 billion kWh)</span></div>
+        <div style="width: 5.64%" class="bar"><span class="bar-inner">Pennsylvania (235 billion kWh)</span></div>
+        <div style="width: 5.18%" class="bar"><span class="bar-inner">California (216 billion kWh)</span></div>
+        <div style="width: 4.25%" class="bar"><span class="bar-inner">Illinois (177 billion kWh)</span></div>
+        <div style="width: 3.33%" class="bar"><span class="bar-inner">Alabama (139 billion kWh)</span></div>
+        <div style="width: 3.18%" class="bar"><span class="bar-inner">Ohio (133 billion kWh)</span></div>
+        <div style="width: 3.09%" class="bar"><span class="bar-inner">Georgia (129 billion kWh)</span></div>
+        <div style="width: 3.03%" class="bar"><span class="bar-inner">North Carolina (126 billion kWh)</span></div>
+        <div style="width: 2.97%" class="bar"><span class="bar-inner">New York (124 billion kWh)</span></div>
+        <div style="width: 2.88%" class="bar"><span class="bar-inner">Michigan (120 billion kWh)</span></div>
+        <div style="width: 2.67%" class="bar"><span class="bar-inner">Arizona (111 billion kWh)</span></div>
+        <div style="width: 2.46%" class="bar"><span class="bar-inner">Washington (102 billion kWh)</span></div>
+        <div style="width: 2.41%" class="bar"><span class="bar-inner">South Carolina (100 billion kWh)</span></div>
+        <div style="width: 2.34%" class="bar"><span class="bar-inner">Louisiana (97 billion kWh)</span></div>
+        <div style="width: 2.18%" class="bar"><span class="bar-inner">Virginia (91 billion kWh)</span></div>
+        <div style="width: 2.15%" class="bar"><span class="bar-inner">Indiana  (90 billion kWh)</span></div>
+        <div style="width: 2.13%" class="bar"><span class="bar-inner">Oklahoma (89 billion kWh)</span></div>
+        <div style="width: 1.86%" class="bar"><span class="bar-inner">Tennessee (77 billion kWh)</span></div>
+        <div style="width: 1.74%" class="bar"><span class="bar-inner">Mississippi (72 billion kWh)</span></div>
+        <div style="width: 1.67%" class="bar"><span class="bar-inner">Iowa (69 billion kWh)</span></div>
+        <div style="width: 1.59%" class="bar"><span class="bar-inner">Missouri (66 billion kWh)</span></div>
+        <div style="width: 1.54%" class="bar"><span class="bar-inner">New Jersey (64 billion kWh)</span></div>
+        <div style="width: 1.51%" class="bar"><span class="bar-inner">Kentucky (63 billion kWh)</span></div>
+        <div style="width: 1.51%" class="bar"><span class="bar-inner">Arkansas (63 billion kWh)</span></div>
+        <div style="width: 1.50%" class="bar"><span class="bar-inner">Wisconsin (62 billion kWh)</span></div>
+        <div style="width: 1.47%" class="bar"><span class="bar-inner">Oregon (61 billion kWh)</span></div>
+        <div style="width: 1.40%" class="bar"><span class="bar-inner">Kansas (58 billion kWh)</span></div>
+        <div style="width: 1.38%" class="bar"><span class="bar-inner">Colorado (57 billion kWh)</span></div>
+        <div style="width: 1.37%" class="bar"><span class="bar-inner">Minnesota (57 billion kWh)</span></div>
+        <div style="width: 1.25%" class="bar"><span class="bar-inner">West Virginia (52 billion kWh)</span></div>
+        <div style="width: 1.03%" class="bar"><span class="bar-inner">Wyoming (43 billion kWh)</span></div>
+        <div style="width: 1.01%" class="bar"><span class="bar-inner">Nevada (42 billion kWh)</span></div>
+        <div style="width: 1.01%" class="bar"><span class="bar-inner">North Dakota (42 billion kWh)</span></div>
+        <div style="width: 0.97%" class="bar"><span class="bar-inner">Connecticut (40 billion kWh)</span></div>
+        <div style="width: 0.94%" class="bar"><span class="bar-inner">Nebraska (39 billion kWh)</span></div>
+        <div style="width: 0.94%" class="bar"><span class="bar-inner">New Mexico (39 billion kWh)</span></div>
+        <div style="width: 0.86%" class="bar"><span class="bar-inner">Maryland (36 billion kWh)</span></div>
+        <div style="width: 0.80%" class="bar"><span class="bar-inner">Utah (33 billion kWh)</span></div>      
+        <div style="width: 0.64%" class="bar"><span class="bar-inner">Montana (26 billion kWh)</span></div>
+        <div style="width: 0.47%" class="bar"><span class="bar-inner">Massachusetts (19 billion kWh)</span></div>
+        <div style="width: 0.43%" class="bar"><span class="bar-inner">Idaho (17 billion kWh)</span></div>
+        <div style="width: 0.42%" class="bar"><span class="bar-inner">South Dakota (17 billion kWh)</span></div>
+        <div style="width: 0.40%" class="bar"><span class="bar-inner">New Hampshire (16 billion kWh)</span></div>
+        <div style="width: 0.30%" class="bar"><span class="bar-inner">Maine (12 billion kWh)</span></div>
+        <div style="width: 0.25%" class="bar"><span class="bar-inner">Rhode Island (10 billion kWh)</span></div>
+        <div style="width: 0.22%" class="bar"><span class="bar-inner">Hawaii (9 billion kWh)</span></div>
+        <div style="width: 0.16%" class="bar"><span class="bar-inner">Alaska (6.7 billion kWh)</span></div>
+        <div style="width: 0.11%" class="bar"><span class="bar-inner">Delaware (4.7 billion kWh)</span></div>
+        <div style="width: 0.06%" class="bar"><span class="bar-inner">Vermont (2.4 billion kWh)</span></div>
+        <div style="width: 0.01%" class="bar"><span class="bar-inner">District of Columbia (170 million kWh)</span></div>
+        <a class="expando" onclick="toggleExpand('state-rank', 'state-rank-inner')">Expand &#9660;</a>
+        <!-- expando must be placed inside - moving it to the outer div puts it outside, above, and right of the entire infobox -->
+      </div>
+    </div>
+    
+    <div id="subgroup" class="infobox chart infobox-near">
+      <div id="subgroup-inner" class="relative infobox-inner">
+        <div class="funnel-item first">Here is a chart of energy use by category in the U.S.</div>
+        <div class="funnel-item second">all the homes...</div>
+        <div class="funnel-item third">all the schools...</div>
+        <div class="funnel-item fourth">all the factories...</div>
+        <div class="funnel-neck">
+          <div class="funnel-item fifth">all the warehouses...</div>
+          <div class="funnel-item sixth">all the cars...</div>
+          <div class="funnel-item seventh"></div>
+          <div class="eu">
+            <div class="eu-country poland" style="width: 8.74%;"><div class="eu-country-inner">Poland</div></div>
+            <div class="eu-country france" style="width: 8.35%;"><div class="eu-country-inner">France</div></div>
+            <div class="eu-country germany" style="width: 7.53%;"><div class="eu-country-inner">Germany</div></div>
+            <div class="eu-country italy" style="width: 7.17%;"><div class="eu-country-inner">Italy</div></div>
+            <div class="eu-country spain" style="width: 6.89%;"><div class="eu-country-inner">Spain</div></div>
+            <div class="eu-country czech" style="width: 2.48%;"><div class="eu-country-inner">Czech</div></div>
+            <div class="eu-country romania" style="width: 2.43%;"><div class="eu-country-inner">Romania</div></div>
+            <div class="eu-country hungary" style="width: 2.00%;"><div class="eu-country-inner">Hungary</div></div>
+            <div class="eu-country portugal" style="width: 1.51%;"><div class="eu-country-inner">Portugal</div></div>
+            <div class="eu-country belgium" style="width: 1.28%;"><div class="eu-country-inner">Belgium</div></div>
+            <div class="eu-country slovakia" style="width: 1.26%;"><div class="eu-country-inner">Slovakia</div></div>
+            <div class="eu-country netherlands" style="width: 1.23%;"><div class="eu-country-inner">Netherlands</div></div>
+            <div class="eu-country greece" style="width: 1.20%;"><div class="eu-country-inner">Greece</div></div>
+            <div class="eu-country bulgaria" style="width: 1.06%;"><div class="eu-country-inner">Bulgaria</div></div>
+            <div class="eu-country austria" style="width: 1.03%;"><div class="eu-country-inner">Austria</div></div>
+            <div class="eu-country sweden" style="width: 0.73%;"><div class="eu-country-inner">Sweden</div></div>
+            <div class="eu-country lithuania" style="width: 0.72%;"><div class="eu-country-inner">Lithuania</div></div>
+            <div class="eu-country ireland" style="width: 0.47%;"><div class="eu-country-inner">Ireland</div></div>
+            <div class="eu-country denmark" style="width: 0.43%;"><div class="eu-country-inner">Denmark</div></div>
+            <div class="eu-country latvia" style="width: 0.42%;"><div class="eu-country-inner">Latvia</div></div>
+            <div class="eu-country croatia" style="width: 0.38%;"><div class="eu-country-inner">Croatia</div></div>
+            <div class="eu-country finland" style="width: 0.34%;"><div class="eu-country-inner">Finland</div></div>
+            <div class="eu-country estonia" style="width: 0.29%;"><div class="eu-country-inner">Estonia</div></div>
+            <div class="eu-country slovenia" style="width: 0.17%;"><div class="eu-country-inner">Slovenia</div></div>
+            <div class="eu-country cyprus" style="width: 0.09%;"><div class="eu-country-inner">Cyprus</div></div>
+            <div class="eu-country malta" style="width: 0.08%;"><div class="eu-country-inner">Malta</div></div>
+            <div class="eu-country luxembourg" style="width: 0.08%;"><div class="eu-country-inner">Luxembourg</div></div>
+            <div class="eu-list"><div class="eu-list-inner">Czech Republic, Romania, Hungary, Portugal, Belgium, Slovakia, Netherlands, Greece, Bulgaria, Austria, Sweden, Lithuania, Ireland, Denmark, Latvia, Croatia, Finland, Estonia, Slovenia, Cyprus, Malta, and Luxembourg</div></div>
+          </div> <!-- eu -->
+        </div> <!-- funnel-neck -->
+      </div> <!-- subgroup-inner -->
+    </div> <!-- subgroup -->
 
     <div id="end-card" class="infobox infobox-yellow infobox-near">
       <div class="infobox-inner">

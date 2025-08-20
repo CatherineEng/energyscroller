@@ -19,6 +19,14 @@ var LABEL_INTERVAL_PX = 100;  // every 100 px = 1,000,000 kWh
 if (mute) html[0].classList.add('mute');
 if (unscroll) html[0].classList.add('unscroll');
 
+function toggleExpand(outer, inner) {
+  var outerEl = document.getElementById(outer);
+  var innerEl = document.getElementById(inner);
+  //var offset = Math.abs(outerEl.offsetTop - innerEl.offsetTop);
+  //innerEl.style.top = offset + 'px';
+  outerEl.classList.add('expanded');
+  innerEl.classList.add('expanded');
+}
 
 // update counters / progress on scroll
 window.addEventListener('scroll', function() {
