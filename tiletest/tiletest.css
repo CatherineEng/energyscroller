@@ -1,0 +1,24 @@
+.tiling {
+    height: 10000px;
+    background-color: transparent;
+    background-image: url('lightningbolt.jpg');
+    background-repeat: round round;
+    background-size: 10px;
+    background-attachment: scroll;
+}
+
+.resizeable_tiling {
+    width: 192px;
+    height: 108px;
+    resize: both;
+    overflow: scroll;
+    background-color: transparent;
+    background-image: url('lightningbolt.jpg');
+    background-repeat: round round;
+    background-size: 10px;
+    background-attachment: local;
+    
+    padding: 25px;
+    border: 1px solid #000000;
+    display: inline-block; /* padding doesn't apply without this */
+}

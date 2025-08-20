@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="tiletest.css"> -->
+    </head>
+    <body>
+        <!-- https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_backgrounds_and_borders/Scaling_of_SVG_backgrounds -->
+        <svg viewBox="0 0 1 1" preserveAspectRatio="none">
+            <title>test gradient</title>
+            <defs>
+              <linearGradient id="g" x1="0%" x2="100%" y1="0%" y2="0%">
+                <stop stop-color="blue" offset="0" />
+                <stop stop-color="red" offset="1" />
+              </linearGradient>
+            </defs>
+            <rect fill="url('#g')" width="100%" height="100%" />
+        </svg>
+    </body>
+</html>
