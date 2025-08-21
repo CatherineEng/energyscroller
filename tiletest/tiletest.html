@@ -2,14 +2,27 @@
 <html>
     <head>
         <link rel="stylesheet" href="tiletest.css">
+        <script type="text/javascript" src="tilecount.js"></script>
     </head>
+    
     <body>
+    <div id="topbar_info">
+        <div id="counter">0</div>
+        <ol id="threshold_list" display="table">
+            Thresholds:
+        </ol>
+    </div>
+    
     <div id="background">
-        <div class="resizeable_tiling"></div>
+        <div class="resizeable_tiling" id="countme">[resize me to update counter]</div>
+        <div class="testme" required_scrollcount="25">TESTME 25</div>
+        <div class="testme" required_scrollcount="50">TESTME 50</div>
+        <div class="testme" required_scrollcount="75">TESTME 75</div>
         <div class="tiling" id="nested">
             <div class="resizeable_tiling"></div>
         </div>
-        <div class="tiling">
+        <div class="testme" required_scrollcount="100">TESTME 100</div>
+        <div class="tiling"></div>
     </div>
     </body>
 </html>

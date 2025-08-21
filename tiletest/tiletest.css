@@ -2,10 +2,26 @@
     background-color: #101050;
 }
 
+/* setting default font properties for all body divs */
+#background > div:not(.testme) {
+    color: #00FFAA;
+    font-size: 3em;
+    
+    /* all this garbage just to center text vertically */
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    
+    /* setting any value for 'display' PERMANENTLY disables the 'hidden' attribute,
+    that's the reason 'testme' must be excluded from this rule. */
+    display: flex;
+}
+
 .tiling {
     height: 10000px;
     background-color: transparent;
-    background-image: url('lightningbolt.svg');
+    background-image: url(lightningbolt.svg);
     background-repeat: round round;
     background-size: 20px;
     background-attachment: scroll;
@@ -20,11 +36,11 @@
 .resizeable_tiling {
     /* scaled icons are 200px tall, and therefore 100px wide, so 1 row of 10 */
     width: 1000px;
-    height: 200px;
+    height: 400px;
     resize: both;
     overflow: hidden; /* resize handles don't appear unless overflow is specified*/
     background-color: transparent;
-    background-image: url('lightningbolt.svg');
+    background-image: url(lightningbolt.svg);
     background-repeat: round round;
     background-size: auto 200px; /* 1/10th scale of source: 1000x2000 */
     background-attachment: local;
@@ -32,3 +48,68 @@
     border: 1px solid #777777;
 }
 
+.testme {
+    color: cyan;
+    font-size: 5em;
+    border: 2px solid hotpink;
+    position: relative;
+}
+
+
+/* -------------------------------------------------- */
+/* Rules for info section at the top of the page */
+/* -------------------------------------------------- */
+
+#topbar_info {
+    top: 0px;
+    position: sticky;
+    /* border: 1px solid red; */
+}
+
+#counter {
+    color: yellow;
+    font-size: 4em;
+    font-weight: bold;
+    background-color: #555555;
+}
+
+#threshold_list {
+    font-size: 1.5em;
+    color: #FFFFFF;
+    background-color: #777777;
+    font-weight: bold;
+    padding: 0px 0px 0px 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#threshold_list > li {
+    font-size: 1em;
+    color: #00FF00;
+    background-color: #777777;
+    list-style: inside;
+}
+
+#threshold_list > li.good { color: cyan; background-color: #00FF0044; }
+#threshold_list > li.bad { color: #D0D0D088; background-color: #FF000033; }
+
+
+/* -------------------------------------------------- */
+
+/*
+  recoloring SVGs used to be possible, but not anymore;
+  loading the image for 'mask' always throws a CORS error,
+  which is an intentional '''security feature'''
+  
+  https://codepen.io/noahblon/post/coloring-svgs-in-css-background-images
+  https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors/CORSRequestNotHttp
+*/
+/* #recolorme {
+    height: 200px;
+    width: 100px;
+    background-size: 200px;
+    background-color: red;
+    background-image: url(lightningbolt.svg);
+    background-repeat: round round;
+    mask: url(lightningbolt.svg);
+} */
