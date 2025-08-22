@@ -2,12 +2,13 @@
 <html>
     <head>
         <link rel="stylesheet" href="tiletest.css">
+        <link rel="stylesheet" href="info_section.css">
         <script type="text/javascript" src="tilecount.js"></script>
     </head>
     
     <body>
     <div id="topbar_info">
-        <div id="counter">0</div>
+        <div id="counter">0 ⚡kWh</div> <!-- unicode: U+26A1 'High Voltage Sign' -->
         <ol id="threshold_list" display="table">
             Thresholds:
         </ol>
@@ -25,5 +26,7 @@
         <div class="tiling"></div>
     </div>
     </body>
+    <!-- must be imported AFTER all elements have been defined -->
+    <script type="text/javascript" src="callbacks.js"></script>
 </html>
 
