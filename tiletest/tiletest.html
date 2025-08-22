@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="tiletest.css">
+        <link rel="stylesheet" href="info_section.css">
+        <script type="text/javascript" src="tilecount.js"></script>
+    </head>
+    
+    <body>
+    <div id="topbar_info">
+        <div id="counter">0 ⚡kWh</div> <!-- unicode: U+26A1 'High Voltage Sign' -->
+        <ol id="threshold_list" display="table">
+            Thresholds:
+        </ol>
+    </div>
+    
+    <div id="background">
+        <div class="resizeable_tiling" id="countme">[resize me to update counter]</div>
+        <div class="testme" required_scrollcount="25">TESTME 25</div>
+        <div class="testme" required_scrollcount="50">TESTME 50</div>
+        <div class="testme" required_scrollcount="75">TESTME 75</div>
+        <div class="tiling" id="nested">
+            <div class="resizeable_tiling"></div>
+        </div>
+        <div class="testme" required_scrollcount="100">TESTME 100</div>
+        <div class="tiling"></div>
+    </div>
+    </body>
+    <!-- must be imported AFTER all elements have been defined -->
+    <script type="text/javascript" src="callbacks.js"></script>
+</html>
+

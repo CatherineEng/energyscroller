@@ -1,0 +1,55 @@
+#background {
+    background-color: #101050;
+}
+
+/* setting default font properties for all body divs */
+#background > div:not(.testme) {
+    color: #00FFAA;
+    font-size: 3em;
+    
+    /* all this garbage just to center text vertically */
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    /* setting any value for 'display' PERMANENTLY disables the 'hidden' attribute,
+    that's the reason 'testme' must be excluded from this rule. */
+}
+
+.tiling {
+    height: 10000px;
+    background-color: transparent;
+    background-image: url(lightningbolt.svg);
+    background-repeat: round round;
+    background-size: 20px;
+    background-attachment: scroll;
+}
+
+/* background-tiling that resizes to match containing element */
+#nested.tiling {
+    width: fit-content;
+    height: fit-content;
+}
+
+.resizeable_tiling {
+    /* scaled icons are 200px tall, and therefore 100px wide, so 1 row of 10 */
+    width: 1000px;
+    height: 400px;
+    resize: both;
+    overflow: hidden; /* resize handles don't appear unless overflow is specified*/
+    background-color: transparent;
+    background-image: url(lightningbolt.svg);
+    background-repeat: round round;
+    background-size: auto 200px; /* 1/10th scale of source: 1000x2000 */
+    background-attachment: local;
+    
+    border: 1px solid #777777;
+}
+
+.testme {
+    color: cyan;
+    font-size: 5em;
+    border: 2px solid hotpink;
+    position: relative;
+}
