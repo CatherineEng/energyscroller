@@ -1,5 +1,5 @@
 #background {
-    background-color: #101050;
+	background: linear-gradient(#101050 25%, #FFF52A); /* starts 25% down the page */
 }
 
 /* setting default font properties for all body divs */
@@ -17,8 +17,9 @@
     that's the reason 'testme' must be excluded from this rule. */
 }
 
+/* infinite background tiling */
 .tiling {
-    height: 10000px;
+    height: 5000px;
     background-color: transparent;
     background-image: url(lightningbolt.svg);
     background-repeat: round round;
@@ -26,30 +27,30 @@
     background-attachment: scroll;
 }
 
-/* background-tiling that resizes to match containing element */
-#nested.tiling {
-    width: fit-content;
-    height: fit-content;
-}
-
 .resizeable_tiling {
-    /* scaled icons are 200px tall, and therefore 100px wide, so 1 row of 10 */
-    width: 1000px;
-    height: 400px;
+    /* scaled icons are 100px tall, and therefore 50px wide, so 2 rows of 10 */
+    width:  500px;
+    height: 200px;
     resize: both;
     overflow: hidden; /* resize handles don't appear unless overflow is specified*/
     background-color: transparent;
     background-image: url(lightningbolt.svg);
     background-repeat: round round;
-    background-size: auto 200px; /* 1/10th scale of source: 1000x2000 */
+    background-size: auto 100px; /* 1/20th scale of source: 1000x2000 */
     background-attachment: local;
     
     border: 1px solid #777777;
+}
+
+/* any tiling nested inside resizeable_tiling will resize to fit */
+.resizeable_tiling *:not(.testme) {
+    width: inherit;
+    height: inherit;
 }
 
 .testme {
     color: cyan;
     font-size: 5em;
     border: 2px solid hotpink;
-    position: relative;
+    position: absolute;
 }

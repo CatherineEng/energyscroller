@@ -20,17 +20,11 @@ function CreateThresholdEntries() {
         assoc_entry = list_entries[I++];
         assoc_entry.textContent = element.getAttribute("required_scrollcount");
     }
-    
 }
+
 // setup theshold-list
 CreateThresholdEntries();
 UpdateThresholdList();
 
-// this flags prevents mousemove from spamming 'CounterUpdate' unless tile is actually being resized
-function SetTileGrab() { IS_TILE_GRABBED = true;  /* console.log("grabbed"); */ }
-function ReleaseTile() { IS_TILE_GRABBED = false; /* console.log("release"); */ }
-
-//window.addEventListener('resize', CounterUpdate);
-counted.addEventListener('mousedown', SetTileGrab);
+window.addEventListener('resize', CounterUpdate);
 counted.addEventListener('mousemove', CounterUpdate);
-counted.addEventListener('mouseup', ReleaseTile);
