@@ -18,13 +18,14 @@ function CreateThresholdEntries() {
     I = 0;
     for (element of target_elements) {
         assoc_entry = list_entries[I++];
-        assoc_entry.textContent = element.getAttribute("required_scrollcount");
+        threshold = element.getAttribute("required_scrollcount");
+        counterMap.set(element, new CounterEntry(threshold, assoc_entry));
     }
 }
 
-// setup theshold-list
 CreateThresholdEntries();
-UpdateThresholdList();
+console.log(counterMap);
+UpdateCounterMap();
 
-window.addEventListener('resize', CounterUpdate);
-counted.addEventListener('mousemove', CounterUpdate);
+window.addEventListener('resize', UpdateCounter);
+counted.addEventListener('mousemove', UpdateCounter);
