@@ -12,10 +12,11 @@
     vertical-align: middle;
     justify-content: center;
     align-items: center;
-    display: flex;
+    /* display: flex; */
     /* setting any value for 'display' PERMANENTLY disables the 'hidden' attribute,
     that's the reason 'testme' must be excluded from this rule. */
-}
+} /* when nesting the tiling divs, 'display: flex' needs to be commented out,
+otherwise it breaks the handles every time one of the 'testme' divs pops in */
 
 /* infinite background tiling */
 .tiling {
@@ -50,7 +51,7 @@
 
 .testme {
     color: cyan;
-    font-size: 5em;
+    font-size: 1em;
     border: 2px solid hotpink;
     position: absolute;
 }

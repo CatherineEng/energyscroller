@@ -3,6 +3,7 @@
 const counter = document.getElementById('counter');
 const counted = document.getElementById('countme');
 
+const tiling_things = document.getElementsByClassName("resizeable_tiling");
 const target_elements = document.getElementsByClassName("testme");
 const threshold_list = document.getElementById("threshold_list");
 const list_entries = threshold_list.getElementsByTagName("li");
@@ -16,10 +17,18 @@ function CreateThresholdEntries() {
     }
     
     let I = 0;
-    for (element of target_elements) {
+    for (const element of target_elements) {
         let assoc_entry = list_entries[I++];
         let threshold = element.getAttribute("required_scrollcount");
         counterMap.set(element, new CounterEntry(threshold, assoc_entry));
+    }
+    
+    // setting background-size if specified in HTML attribute
+    for (const thing of tiling_things) {
+        if (thing.getAttribute("tilesize")) {
+            console.log(`tilesize: ${thing.getAttribute("tilesize")}`);
+            thing.style.backgroundSize = thing.getAttribute("tilesize");
+        }
     }
 }
 
