@@ -9,22 +9,28 @@
     <body>
     <div id="topbar_info">
         <div id="counter">0 ⚡kWh</div> <!-- unicode: U+26A1 'High Voltage Sign' -->
-        <ol id="threshold_list" display="table">
-            Thresholds:
-        </ol>
+        <div id="table_container">
+            <!-- threshold-tables are dynamically constructed and inserted here -->
+            <!-- initializer function 'ConstructCounterTables()' [callbacks.js] -->
+            
+            <!--         example table structure         -->
+            <!-- <table class="threshold_table"> <tbody><th>
+                <a class="table_counter">0⚡</a> Table_1</th></tbody>
+                <li class="good">TESTME_25</li> ... </table> -->
+        </div>
     </div>
     
     <div id="background">
-        <div class="resizeable_tiling" id="countme">[resize me to update counter]
+        <div class="resizeable_tiling">[resize me to update counter]
             <div class="testme" required_scrollcount="25">TESTME 25</div>
             <div class="testme" required_scrollcount="50">TESTME 50</div>
             <div class="testme" required_scrollcount="75">TESTME 75</div>
         </div>
         <div class="resizeable_tiling" tilesize="auto 200px">
             <div class="tiling">
-                <div class="testme" required_scrollcount="100">TESTME 100</div>
-                <div class="testme" required_scrollcount="200">TESTME 200</div>
-                <div class="testme" required_scrollcount="400">TESTME 400</div>
+                <div name="tile2_testme1" class="testme" required_scrollcount="10">TESTME 10</div>
+                <div name="tile2_testme2" class="testme" required_scrollcount="20">TESTME 20</div>
+                <div name="tile2_testme3" class="testme" required_scrollcount="40">TESTME 40</div>
             </div>
         </div>
         <div class="tiling"></div>
