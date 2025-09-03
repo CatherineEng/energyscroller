@@ -91,7 +91,11 @@ function CalculateTileValue(tile_element)
     let num_per_row = Math.round(bounds.width / tile_width);
     let row_count = Math.round(bounds.height / tile_height);
     let icon_count = row_count * num_per_row;
-    tile_val = icon_count * VALUE_PER_ICON;
+    let icon_value = VALUE_PER_ICON;
+    if (tile_element.hasAttribute('iconvalue')) {
+        icon_value = tile_element.getAttribute('iconvalue');
+    }
+    tile_val = icon_count * icon_value;
     
     //if (tile_val == prev_val) return tile_val;
     TileValues.set(tile_element, tile_val);

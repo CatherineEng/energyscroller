@@ -44,6 +44,8 @@ function ConstructCounterTables()
         let table_name = `Table_${table_counter++}`;
         const header = document.createElement("th");
         header.innerHTML = `<a class="table_counter">0\u26A1</a> ${table_name}`; // inline table-counter
+        if (tile_source.hasAttribute('iconvalue'))
+            header.innerHTML = `<a class="table_counter">0\u26A1</a> ${table_name} (x${tile_source.getAttribute('iconvalue')})`;
         // the counter MUST come before the name for proper layout
         // escaped sequence is unicode: U+26A1 'High Voltage Sign'
         

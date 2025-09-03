@@ -1,5 +1,13 @@
+body { margin: 0px; }
+
+#svg_holder {
+    /* somehow the default is 180deg? */
+	background: linear-gradient(0deg, #FFF52A, #2AFFF4, #F42AFF, #FFF42A);
+}
+
 #background {
-	background: linear-gradient(#101050 25%, #FFF52A); /* starts 25% down the page */
+	/* background: linear-gradient(#101050 25%, #FFF52A); */ /* starts 25% down the page */
+    background: linear-gradient(-90deg, #101050, #FFF52A 4%, #2AFFF4, #F42AFF/* , #FFF42A  */96%, #101050);
 }
 
 /* setting default font properties for all body divs */
@@ -20,7 +28,7 @@ otherwise it breaks the handles every time one of the 'testme' divs pops in */
 
 /* infinite background tiling */
 .tiling {
-    height: 5000px;
+    height: 100000px;
     background-color: transparent;
     background-image: url(lightningbolt.svg);
     background-repeat: round round;

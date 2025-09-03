@@ -363,11 +363,18 @@ const SVG_LIST = [
   "359_lightningbolt_FFF12A.svg",
   "360_lightningbolt_FFF42A.svg",
 ];
-
+const SVG_PRELOADS = [];
 const tile_sources = [];
 function InitSources() {
     for (const T of document.getElementsByClassName("tiling")) tile_sources.push(T);
     for (const T of document.getElementsByClassName("resizeable_tiling")) tile_sources.push(T);
+    // even adding them to the page doesn't seem to preload them for the background.
+    for (const path of SVG_LIST) {
+        let img = document.createElement('img');
+        img.src = `../lightningbolt_rgb/SVG/${path}`;
+        img.width = "10"; img.height = "20";
+        document.getElementById("svg_holder").appendChild(img);
+    }
 }
 
 function CycleColors() {
@@ -381,4 +388,4 @@ function CycleColors() {
 InitSources();
 window.addEventListener("scroll", CycleColors);
 //for (let I=0; I < 360; ++I) { CycleColors(); } // preloading all images (doesn't seem to work)
-//window.addEventListener("mousemove", CycleColors); // lol
+window.addEventListener("mousemove", CycleColors); // lol
