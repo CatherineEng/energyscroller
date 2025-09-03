@@ -35,6 +35,7 @@
     margin-top: 0px;
     margin-bottom: 0px;
     /*display: inline-block;*/
+    width: 100%; /* expand horizontally to fill window */
 }
 
 .threshold_table th {

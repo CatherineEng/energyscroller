@@ -363,7 +363,6 @@ const SVG_LIST = [
   "359_lightningbolt_FFF12A.svg",
   "360_lightningbolt_FFF42A.svg",
 ];
-const SVG_PRELOADS = [];
 const tile_sources = [];
 function InitSources() {
     for (const T of document.getElementsByClassName("tiling")) tile_sources.push(T);
@@ -379,18 +378,19 @@ function InitSources() {
 }
 
 function CycleColors() {
-    let next_idx = (COLOR_INDEX++ % 360)
-    let next_svg = SVG_LIST[next_idx]
-    let next_out = SVG_LIST[((next_idx + 120) % 360)]
+    let next_svg = SVG_LIST[COLOR_INDEX];
+    let next_out = SVG_LIST[((COLOR_INDEX + 120) % 360)];
     for (const tile_source of tile_sources) {
         tile_source.style.backgroundImage = `
         url(../lightningbolt_rgb/SVG_outline_16px/${next_out}),
         url(../lightningbolt_rgb/SVG/${next_svg})`;
     }
     //console.log(next_svg);
+    COLOR_INDEX = (++COLOR_INDEX % 360);
 }
 
+
 InitSources();
-window.addEventListener("scroll", CycleColors);
 //for (let I=0; I < 360; ++I) { CycleColors(); } // preloading all images (doesn't seem to work)
+window.addEventListener("scroll", CycleColors);
 window.addEventListener("mousemove", CycleColors); // lol
