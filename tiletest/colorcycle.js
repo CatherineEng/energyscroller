@@ -368,12 +368,15 @@ function InitSources() {
     for (const T of document.getElementsByClassName("tiling")) tile_sources.push(T);
     for (const T of document.getElementsByClassName("resizeable_tiling")) tile_sources.push(T);
     // even adding them to the page doesn't seem to preload them for the background.
-    for (const path of SVG_LIST) {
+    for (const name of SVG_LIST) {
         let img = document.createElement('img');
-        img.src = `../lightningbolt_rgb/SVG/${path}`;
-        //img.src = `../lightningbolt_rgb/SVG_outline_16px/${path}`;
+        let out = document.createElement('img');
+        img.src = `../lightningbolt_rgb/SVG/${name}`;
+        out.src = `../lightningbolt_rgb/SVG_outline_16px/${name}`;
         img.width = "10"; img.height = "20";
-        document.getElementById("svg_holder").appendChild(img);
+        out.width = "10"; out.height = "20";
+        document.getElementById("svg_display").appendChild(img);
+        document.getElementById("out_display").appendChild(out);
     }
 }
 

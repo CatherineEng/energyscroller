@@ -1,6 +1,6 @@
 body { margin: 0px; }
 
-#svg_holder {
+#svg_display, #out_display {
     /* somehow the default is 180deg? */
 	background: linear-gradient(0deg, #FFF52A, #2AFFF4, #F42AFF, #FFF42A);
 }
