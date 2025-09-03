@@ -372,15 +372,20 @@ function InitSources() {
     for (const path of SVG_LIST) {
         let img = document.createElement('img');
         img.src = `../lightningbolt_rgb/SVG/${path}`;
+        //img.src = `../lightningbolt_rgb/SVG_outline_16px/${path}`;
         img.width = "10"; img.height = "20";
         document.getElementById("svg_holder").appendChild(img);
     }
 }
 
 function CycleColors() {
-    let next_svg = SVG_LIST[COLOR_INDEX++ % 360];
+    let next_idx = (COLOR_INDEX++ % 360)
+    let next_svg = SVG_LIST[next_idx]
+    let next_out = SVG_LIST[((next_idx + 120) % 360)]
     for (const tile_source of tile_sources) {
-        tile_source.style.backgroundImage = `url(../lightningbolt_rgb/SVG/${next_svg})`;
+        tile_source.style.backgroundImage = `
+        url(../lightningbolt_rgb/SVG_outline_16px/${next_out}),
+        url(../lightningbolt_rgb/SVG/${next_svg})`;
     }
     //console.log(next_svg);
 }
