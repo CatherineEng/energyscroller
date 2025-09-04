@@ -21,6 +21,10 @@
                 <a class="table_counter">0⚡</a> Table_1</th></tbody>
                 <li class="good">TESTME_25</li> ... </table> -->
         </div>
+        <div id="jump_container"> Jump To:
+            <!-- buttons that jump the scroll position to page elements -->
+            <!-- see: 'CreateElementButtons()' [callbacks.js] -->
+        </div>
     </div>
     <div id="background">
         <div class="resizeable_tiling">[resize me to update counter]
@@ -33,14 +37,18 @@
             <div class="testme" required_scrollcount=10>BIG 10</div>
             <div class="testme" required_scrollcount=15>BIG 15</div>
         </div>
-        <div class="resizeable_tiling" tilesize="auto 200px">
+        <div name="testname" class="resizeable_tiling" tilesize="auto 200px">
             <div class="tiling">
                 <div name="tile2_testme1" class="testme" required_scrollcount=10>TESTME 10</div>
                 <div name="tile2_testme2" class="testme" required_scrollcount=20>TESTME 20</div>
                 <div name="tile2_testme3" class="testme" required_scrollcount=40>TESTME 40</div>
             </div>
         </div>
-        <div class="tiling"></div>
+        <div class="target" name="Scroll Test">click the "Scroll Test" button</div>
+        <div class="tiling">
+            <div class="target" style="top: 1500px; position: relative;">inside tiling</div>
+        </div>
+        <div class="target" name="Page End">bottom of the page</div>
     </div>
     </body>
     <!-- must be imported AFTER all elements have been defined -->

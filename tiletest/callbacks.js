@@ -60,8 +60,34 @@ function ConstructCounterTables()
     }
 }
 
+function ScrollButtonCallback(target) {
+    let bounds = target.getBoundingClientRect();
+    /* modifying the Y-offset to be absolute instead of relative; 'scrollTo' interprets it as an absolute position.
+    without this adjustment, buttons for onscreen elements would scroll to the top of the page (bounds.Y < scrollY) */
+    bounds.y += window.scrollY - (bounds.height/2); // (height/2) offset keeps the entire element onscreen
+    console.log(`scrolling: ${bounds.y}`);
+    window.scrollTo(bounds);
+}
+
+function CreateElementButtons()
+{
+    const link_container = document.getElementById("jump_container");
+    const targetElements = document.getElementsByClassName("target");
+    
+    let target_count = 1;
+    for (const target of targetElements) {
+        let button = document.createElement("button");
+        button.textContent = `Element_${target_count}`;
+        if (target.hasAttribute("name")) button.textContent = target.getAttribute("name");
+        button.onclick = ScrollButtonCallback.bind(null, target);
+        link_container.appendChild(button);
+        target_count += 1;
+    }
+}
+
 
 InitializeElementMap();
+CreateElementButtons();
 ConstructCounterTables();
 console.log("ElementMap:", ElementMap);
 console.log("CounterMap:", CounterMap);
