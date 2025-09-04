@@ -9,12 +9,15 @@
     background-color: #555555;
 }
 
-#counter {
+#counter, #scroll_counter {
     color: yellow;
     font-size: 2.5em;
     font-weight: bold;
     background-color: #555555;
+    display: inline; /* horizontal layout */
 }
+
+#scroll_counter { color: orange; }
 
 .table_counter {
     color: yellow;

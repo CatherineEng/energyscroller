@@ -9,6 +9,7 @@ console.log(`strict-mode: ${(isStrictMode? 'enabled':'disabled')}`);
 
 let VALUE_PER_ICON = 1; // TODO: custom HTML attribute
 const TileValues = new Map(); // tile --> stored value
+const ScrollVals = new Map(); // tile --> scroll count
 const ElementMap = new Map(); // tile --> nested elements (class="testme")
 const CounterMap = new Map(); // tile --> CounterTable
 
@@ -73,7 +74,13 @@ function UpdateCounterTotal() {
     for (const val of TileValues.values()){ total_value += val; }
     const primary_counter = document.getElementById('counter');
     primary_counter.innerText = `${total_value}\u26A1kWh`; // unicode: U+26A1 'High Voltage Sign'
-    return total_value;
+}
+
+function UpdateScrollCounter() {
+    let scroll_total = 0;
+    for (const val of ScrollVals.values()){ scroll_total += val; }
+    const primary_counter = document.getElementById('scroll_counter');
+    primary_counter.innerText = `[${scroll_total}\u26A1 scrolled]`;
 }
 
 function CalculateTileValue(tile_element)
@@ -119,10 +126,15 @@ function CalculateTileValue(tile_element)
         } else { target.setAttribute("hidden", true); }
     }
     
-    return tile_val;
+    // returning scrolled amount
+    if (bounds.top >= 0) return 0; // not scrolled offscreen
+    if (bounds.bottom <= 0) return tile_val; // fully offscreen
+    return Math.min( tile_val, // clamped because scrolling is glitchy
+        Math.round(((-bounds.top)/tile_height))*num_per_row*icon_value
+    );
 }
 
 function UpdateAll() {
-    for (const tile of TileValues.keys()) { CalculateTileValue(tile); }
-    // return UpdateCounterTotal();
+    for (const tile of TileValues.keys()) { ScrollVals.set(tile, CalculateTileValue(tile)); }
+    UpdateScrollCounter();
 }
