@@ -91,9 +91,16 @@ function CalculateTileValue(tile_element)
     // DOMRect { x: 8, y: 386, width: 502, height: 202, top: 386, right: 510, bottom: 588, left: 8 }
     let bounds = tile_element.getBoundingClientRect();
     let tile_size = tile_element.style.backgroundSize; // "auto 200px"
-    let tile_height = tile_size.split(" ")[1].replace('px','');
-    //let tile_width = 1000*(tile_height/2000) // assuming that height is 200px, this will be 100px (scaled from 1000x2000)
-    let tile_width = tile_height/2; // aspect ratio (1:2) should be preserved
+    let tile_sizes = tile_size.split(" ");
+    let tile_height = 2000;
+    let tile_width = tile_sizes[0].replace('px', '');
+    if (tile_sizes.length == 2) {
+        tile_height = tile_sizes[1].replace('px','');
+    } else { tile_height = 2000*(tile_width/1000); }
+    if (tile_width == "auto") {
+        tile_width = tile_height/2; // aspect ratio (1:2) should be preserved
+        //let tile_width = 1000*(tile_height/2000) // assuming that height is 200px, this will be 100px (scaled from 1000x2000)
+    }
     
     let num_per_row = Math.round(bounds.width / tile_width);
     let row_count = Math.round(bounds.height / tile_height);
@@ -122,7 +129,7 @@ function CalculateTileValue(tile_element)
     let elements = ElementMap.get(tile_element);
     for (const [target, threshold] of elements) {
         if (tile_val >= threshold) { target.removeAttribute("hidden");
-            target.style.top = `${vertOffset+((tile_height*threshold)/num_per_row)}px`
+            target.style.top = `${vertOffset+((tile_height*threshold)/(num_per_row*icon_value))}px`
         } else { target.setAttribute("hidden", true); }
     }
     

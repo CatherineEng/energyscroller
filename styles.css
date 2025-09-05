@@ -115,7 +115,7 @@ html.black-sparse  body {
 }
 .infobox {
   font-family: "Figtree", sans-serif;
-  display: flex;
+  /*display: flex;*/
   justify-content: center;
   align-items: flex-start;
 }

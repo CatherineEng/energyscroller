@@ -23,6 +23,7 @@ otherwise it breaks the handles every time one of the 'testme' divs pops in */
 /* infinite background tiling */
 .tiling {
     height: 100000px;
+    /*height: 8000000px;*/ /* browser does not support sizes above ~8.5M; layout glitches after that */
     background-color: transparent;
     background-image: url(lightningbolt.svg);
     background-repeat: round round;
