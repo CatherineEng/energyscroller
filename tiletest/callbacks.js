@@ -79,6 +79,7 @@ function CreateElementButtons()
         let button = document.createElement("button");
         button.textContent = `Element_${target_count}`;
         if (target.hasAttribute("name")) button.textContent = target.getAttribute("name");
+        else if (target.hasAttribute("id")) button.textContent = target.getAttribute("id");
         button.onclick = ScrollButtonCallback.bind(null, target);
         link_container.appendChild(button);
         target_count += 1;
