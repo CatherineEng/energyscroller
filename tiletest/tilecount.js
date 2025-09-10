@@ -114,7 +114,6 @@ function CalculateTileValue(tile_element)
     
     //if (tile_val == prev_val) return tile_val;
     TileValues.set(tile_element, tile_val);
-    CounterMap.get(tile_element).Update(tile_val);
     UpdateCounterTotal();
     
     // adjusting for vertical scaling of the icons. (row_count+1) places it at the row instead of below
@@ -143,6 +142,10 @@ function CalculateTileValue(tile_element)
 }
 
 function UpdateAll() {
-    for (const tile of TileValues.keys()) { ScrollVals.set(tile, CalculateTileValue(tile)); }
+    for (const tile of TileValues.keys()) {
+        let scrollval = CalculateTileValue(tile);
+        ScrollVals.set(tile, scrollval);
+        CounterMap.get(tile).Update(scrollval);
+    }
     UpdateScrollCounter();
 }
