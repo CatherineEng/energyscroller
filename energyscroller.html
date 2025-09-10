@@ -27,12 +27,18 @@
         </div>
     </div>
     <div id="background">
-        <div class="resizeable_tiling" iconcolor=120>[resize me to update counter]
-            <div class="testme" required_scrollcount=175>TESTME 175</div>
+        <div class="resizeable_tiling" energy=15000 tilesize="auto 25px">
+            <div class="testme target" name="energy_15K">This section contains 15000 kWh</div>
         </div>
-        <div class="tiling" iconcolor=69>
-            <div class="target" name="Scroll Test">click the "Scroll Test" button</div>
+        
+        <div class="resizeable_tiling" name="Energy_50K" energy=50000 iconvalue=5 iconcolor=40>
+            <div class="testme target" name="energy_50K">This section contains 50000 kWh (icons = 5 kWh)</div>
         </div>
+        
+        <div class="resizeable_tiling" name="Energy_100K" energy=100000 tilesize="20px" iconcolor=120>
+            <div class="testme target" name="energy_100K">This section contains 100000 kWh</div>
+        </div>
+        
         <div class="target" name="bottom">bottom of the page</div>
     </div>
     </body>

@@ -1,6 +1,35 @@
 "use strict";
 // import this script at the end of the HTML (after all elements are defined)
 
+// calculates the necessary height for sections with 'energy' attribute
+function SetSectionHeight(tile_element, energy_count)
+{
+    let bounds = tile_element.getBoundingClientRect();
+    let icon_size = tile_element.style.backgroundSize; // "auto 200px"
+    let icon_sizes = icon_size.split(" ");
+    let icon_height = 2000;
+    let icon_width = icon_sizes[0].replace('px', '');
+    if (icon_sizes.length == 2) {
+        icon_height = icon_sizes[1].replace('px','');
+    } else { icon_height = 2000*(icon_width/1000); }
+    if (icon_width == "auto") {
+        icon_width = icon_height/2; // aspect ratio (1:2) should be preserved
+        //let icon_width = 1000*(icon_height/2000) // assuming that height is 200px, this will be 100px (scaled from 1000x2000)
+    }
+    
+    let icon_value = VALUE_PER_ICON;
+    if (tile_element.hasAttribute('iconvalue')) {
+        icon_value = tile_element.getAttribute('iconvalue');
+    }
+    
+    let num_per_row = Math.round(bounds.width / icon_width);
+    let val_per_row = (icon_value*num_per_row);
+    let row_count = (energy_count/val_per_row);
+    let new_height = Math.round(row_count * icon_height);
+    let current_style = tile_element.getAttribute("style");
+    tile_element.setAttribute("style", `${current_style} height: ${new_height}px;`); // later values override earlier ones
+}
+
 function InitializeElementMap()
 {
     const tile_sources = document.getElementsByClassName("resizeable_tiling");
@@ -16,10 +45,18 @@ function InitializeElementMap()
             tile_source.style.backgroundSize = getComputedStyle(tile_source).getPropertyValue('background-size');
             console.log(`default tilesize: ${tile_source.style.backgroundSize}`);
         }
+        if (tile_source.hasAttribute("energy")) {
+            SetSectionHeight(tile_source, tile_source.getAttribute("energy"));
+            window.addEventListener("resize", SetSectionHeight.bind(null, tile_source, tile_source.getAttribute("energy")));
+            // updating section-height on window-resize is necessary to maintain correct energy total
+            // TODO: find something more efficient than spamming new 'height' values into element style
+        }
         
         let tuplelist = [];
         let targetlist = tile_source.getElementsByClassName("testme");
         for (const target of targetlist) {
+            if(!target.hasAttribute("required_scrollcount"))
+                target.setAttribute("required_scrollcount", 0);
             let threshold = target.getAttribute("required_scrollcount");
             tuplelist.push([target, threshold]);
         }
@@ -41,7 +78,10 @@ function ConstructCounterTables()
         const table = document.createElement("table");
         table.setAttribute("class","threshold_table");
         
-        let table_name = `Table_${table_counter++}`;
+        let table_name = `Section_${table_counter++}`;
+        if (tile_source.hasAttribute("name"))
+            table_name = tile_source.getAttribute("name");
+        
         const header = document.createElement("th");
         header.innerHTML = `<a class="table_counter">0\u26A1</a> ${table_name}`; // inline table-counter
         if (tile_source.hasAttribute('iconvalue'))
@@ -60,6 +100,7 @@ function ConstructCounterTables()
     }
 }
 
+// TODO: cannot jump to 'resizeable_tiling' elements, and can only jump to nested elements with class 'testme'!?
 function ScrollButtonCallback(target) {
     let bounds = target.getBoundingClientRect();
     /* modifying the Y-offset to be absolute instead of relative; 'scrollTo' interprets it as an absolute position.
