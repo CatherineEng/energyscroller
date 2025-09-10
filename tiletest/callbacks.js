@@ -35,7 +35,16 @@ function InitializeElementMap()
     const tile_sources = document.getElementsByClassName("resizeable_tiling");
     console.log("tile sources: ", tile_sources);
     
-    for (const tile_source of tile_sources) {
+    let section_count = 0;
+    for (const tile_source of tile_sources)
+    { // auto-assigning name from 'name'/'id' attribute; fallback to sequential
+        let section_name = `Section_${section_count++}`;
+        if (tile_source.hasAttribute("name"))
+            section_name = tile_source.getAttribute("name");
+        else if (tile_source.hasAttribute("id"))
+            { section_name = tile_source.getAttribute("id"); }
+        else tile_source.setAttribute("name", section_name);
+        
         // setting background-size if specified in HTML attribute
         if (tile_source.hasAttribute("tilesize")) {
             let tilesize = tile_source.getAttribute("tilesize");
@@ -45,11 +54,37 @@ function InitializeElementMap()
             tile_source.style.backgroundSize = getComputedStyle(tile_source).getPropertyValue('background-size');
             console.log(`default tilesize: ${tile_source.style.backgroundSize}`);
         }
+        
         if (tile_source.hasAttribute("energy")) {
-            SetSectionHeight(tile_source, tile_source.getAttribute("energy"));
-            window.addEventListener("resize", SetSectionHeight.bind(null, tile_source, tile_source.getAttribute("energy")));
+            let energy_val = tile_source.getAttribute("energy");
+            if (energy_val.endsWith('K')) energy_val = energy_val.replace('K','') * 1000; else
+            if (energy_val.endsWith('M')) energy_val = energy_val.replace('M','') * 1000000;
+            
+            // inserting a jump-target before section if it doesn't contain one already
+            // TODO: this wouldn't be necessary if it was possible to jump to 'tiling' elements (for some reason it's not)
+            if (tile_source.getElementsByClassName("target").length == 0) {
+                let jumpTarget = document.createElement("div");
+                jumpTarget.setAttribute("name", section_name);
+                jumpTarget.className = "testme target";
+                //tile_source.insertBefore(jumpTarget); // insertBefore never works??
+                jumpTarget.setAttribute("required_scrollcount", 1000000/2); // quick hack to place after text
+                
+                let section_text = `${section_name}
+                This section contains ${energy_val} kWh`
+                if (tile_source.hasAttribute('iconvalue')) {
+                    let icon_value = tile_source.getAttribute('iconvalue');
+                    section_text = `${section_text}
+                    ${energy_val/icon_value} icons (x${icon_value} kWh per icon)`
+                }
+                
+                jumpTarget.innerText = section_text;
+                tile_source.appendChild(jumpTarget);
+            }
+            
+            window.addEventListener("resize", SetSectionHeight.bind(null, tile_source, energy_val));
             // updating section-height on window-resize is necessary to maintain correct energy total
             // TODO: find something more efficient than spamming new 'height' values into element style
+            SetSectionHeight(tile_source, energy_val);
         }
         
         let tuplelist = [];
@@ -64,6 +99,7 @@ function InitializeElementMap()
         ElementMap.set(tile_source, tuplelist);
         TileValues.set(tile_source, 0);
         
+        // somehow removing this doesn't affect performance at all!??
         tile_source.addEventListener('mousemove', CalculateTileValue.bind(null, tile_source));
     }
 }
@@ -78,7 +114,7 @@ function ConstructCounterTables()
         const table = document.createElement("table");
         table.setAttribute("class","threshold_table");
         
-        let table_name = `Section_${table_counter++}`;
+        let table_name = `Table_${table_counter++}`;
         if (tile_source.hasAttribute("name"))
             table_name = tile_source.getAttribute("name");
         
