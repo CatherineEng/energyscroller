@@ -92,11 +92,12 @@ function CalculateTileValue(tile_element)
     let bounds = tile_element.getBoundingClientRect();
     let tile_size = tile_element.style.backgroundSize; // "auto 200px"
     let tile_sizes = tile_size.split(" ");
-    let tile_height = 2000;
+    let tile_height = "auto";
     let tile_width = tile_sizes[0].replace('px', '');
     if (tile_sizes.length == 2) {
         tile_height = tile_sizes[1].replace('px','');
-    } else { tile_height = 2000*(tile_width/1000); }
+    }
+    if (tile_height == "auto") { tile_height = 2000*(tile_width/1000); }
     if (tile_width == "auto") {
         tile_width = tile_height/2; // aspect ratio (1:2) should be preserved
         //let tile_width = 1000*(tile_height/2000) // assuming that height is 200px, this will be 100px (scaled from 1000x2000)
@@ -107,7 +108,7 @@ function CalculateTileValue(tile_element)
     let icon_count = row_count * num_per_row;
     let icon_value = VALUE_PER_ICON;
     if (tile_element.hasAttribute('iconvalue')) {
-        icon_value = tile_element.getAttribute('iconvalue');
+        icon_value = tile_element.getAttribute('iconvalue') * VALUE_PER_ICON;
     }
     tile_val = icon_count * icon_value;
     

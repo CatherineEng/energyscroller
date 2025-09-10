@@ -19,7 +19,7 @@ function SetSectionHeight(tile_element, energy_count)
     
     let icon_value = VALUE_PER_ICON;
     if (tile_element.hasAttribute('iconvalue')) {
-        icon_value = tile_element.getAttribute('iconvalue');
+        icon_value = tile_element.getAttribute('iconvalue') * icon_value;
     }
     
     let num_per_row = Math.round(bounds.width / icon_width);
@@ -58,16 +58,15 @@ function InitializeElementMap()
         if (tile_source.hasAttribute("energy")) {
             let energy_val = tile_source.getAttribute("energy");
             if (energy_val.endsWith('K')) energy_val = energy_val.replace('K','') * 1000; else
-            if (energy_val.endsWith('M')) energy_val = energy_val.replace('M','') * 1000000;
+            if (energy_val.endsWith('M')) energy_val = energy_val.replace('M','') * 1000000; else
+            if (energy_val.endsWith('B')) energy_val = energy_val.replace('B','') * 1000000000;
             
             // inserting a jump-target before section if it doesn't contain one already
             // TODO: this wouldn't be necessary if it was possible to jump to 'tiling' elements (for some reason it's not)
             if (tile_source.getElementsByClassName("target").length == 0) {
                 let jumpTarget = document.createElement("div");
                 jumpTarget.setAttribute("name", section_name);
-                jumpTarget.className = "testme target";
-                //tile_source.insertBefore(jumpTarget); // insertBefore never works??
-                jumpTarget.setAttribute("required_scrollcount", 1000000/2); // quick hack to place after text
+                jumpTarget.className = "target";
                 
                 let section_text = `${section_name}
                 This section contains ${energy_val} kWh`
@@ -78,7 +77,7 @@ function InitializeElementMap()
                 }
                 
                 jumpTarget.innerText = section_text;
-                tile_source.appendChild(jumpTarget);
+                tile_source.parentNode.insertBefore(jumpTarget, tile_source);
             }
             
             window.addEventListener("resize", SetSectionHeight.bind(null, tile_source, energy_val));
