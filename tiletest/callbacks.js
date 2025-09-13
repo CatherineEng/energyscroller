@@ -196,13 +196,40 @@ function InitStickyDurations() {
 }
 //sticky ends
 
+// begin sticky scrollthresholds 
+function InitScrollThresholds() {
+  // Any element anywhere can declare a global scroll threshold in ⚡
+  const gated = document.querySelectorAll('[data-scrollthreshold]');
+  gated.forEach(el => {
+    // start hidden if threshold not met
+    el.hidden = true;
+  });
+
+  // Hook into the existing UpdateAll flow:
+  const origUpdateAll = UpdateAll;
+  window.UpdateAll = function() {
+    origUpdateAll();
+
+    // compute global scrolled ⚡ (already shown in #scroll_counter)
+    let scroll_total = 0;
+    for (const val of ScrollVals.values()) scroll_total += val;
+
+    gated.forEach(el => {
+      const need = parseFloat(el.getAttribute('data-scrollthreshold')) || 0;
+      el.hidden = (scroll_total < need);
+    });
+  };
+}
+
+// end sticky scrollthresholds
 
 
 InitializeElementMap();
 CreateElementButtons();
 ConstructCounterTables();
-// NEW: wrap sticky elements before counters/layout compute
-InitStickyDurations();
+InitStickyDurations();      // wraps sticky items
+InitScrollThresholds();     // enables data-scrollthreshold
+
 
 console.log("ElementMap:", ElementMap);
 console.log("CounterMap:", CounterMap);
