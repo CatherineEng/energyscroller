@@ -162,13 +162,54 @@ function CreateElementButtons()
     }
 }
 
+// sticky begins
+function InitStickyDurations() {
+    const nodes = document.querySelectorAll('[data-stickvp]');
+    nodes.forEach(el => {
+        // Skip if already wrapped
+        if (el.parentElement && el.parentElement.classList.contains('sticky-wrap')) return;
+
+        // Read attributes
+        const vp = parseFloat(el.getAttribute('data-stickvp')) || 1;
+        const topPx = (el.getAttribute('data-sticktop') || '120').replace('px','');
+
+        // Build wrapper
+        const wrap = document.createElement('div');
+        wrap.className = 'sticky-wrap';
+        wrap.style.setProperty('--vp', vp);
+
+        // Insert before and move el inside
+        el.parentElement.insertBefore(wrap, el);
+        wrap.appendChild(el);
+
+        // Mark inner
+        el.classList.add('sticky-inner');
+        el.style.setProperty('--sticky-top', `${topPx}px`);
+
+        // Optional: a lightweight "stuck" flag for styling
+        const computeTop = () => parseFloat(getComputedStyle(el).top) || 0;
+        window.addEventListener('scroll', () => {
+            const rect = el.getBoundingClientRect();
+            el.classList.toggle('is-stuck', rect.top <= computeTop());
+        }, { passive: true });
+    });
+}
+//sticky ends
+
+
 
 InitializeElementMap();
 CreateElementButtons();
 ConstructCounterTables();
+// NEW: wrap sticky elements before counters/layout compute
+InitStickyDurations();
+
 console.log("ElementMap:", ElementMap);
 console.log("CounterMap:", CounterMap);
+
 
 window.addEventListener('resize', UpdateAll);
 window.addEventListener('scroll', UpdateAll);
 UpdateAll();
+
+

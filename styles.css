@@ -1,8 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
 html, body {
   margin: 0;
   scroll-behavior: smooth;
   font-family: "Figtree", sans-serif;
 }
+
+.figtree-bold {
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.figtree-normal {
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
 .spacer {
   height: 1px;
 }
@@ -1446,4 +1463,22 @@ blockquote strong {
   pointer-events: none;
 }
 
+/* do not delete... these are the "sticky" styles */
+
+/* Generic "stick for X viewports" system */
+.sticky-wrap {
+  position: relative;
+  /* duration: set by JS from data-stickvp (defaults to 1) */
+  min-height: calc(var(--vp, 1) * 100vh);
+}
+
+.sticky-inner {
+  position: sticky;
+  top: var(--sticky-top, 120px); /* default matches your general UI */
+  z-index: 10002; /* under #topbar_info (z:1) + the infobox z if needed */
+}
+
+.sticky-inner.is-stuck { /* optional visual affordance while stuck */ }
+
+/* end sticky styles */
 

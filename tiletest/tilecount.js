@@ -130,6 +130,27 @@ function CalculateTileValue(tile_element)
     for (const [target, threshold] of elements) {
         if (tile_val >= threshold) { target.removeAttribute("hidden");
             target.style.top = `${vertOffset+((tile_height*threshold)/(num_per_row*icon_value))}px`
+            // ce edits: placing / not absolutely positioning: 
+            // adjusting position of each child element
+            let elements = ElementMap.get(tile_element);
+            for (const [target, threshold] of elements) {
+            
+                // --- NEW: let the sticky system manage items marked data-stickvp ---
+                if (target.hasAttribute('data-stickvp')) {
+                    if (tile_val >= threshold) target.removeAttribute('hidden');
+                    else target.setAttribute('hidden', true);
+                    continue; // do not set absolute top; sticky will handle layout
+                }
+                // --------------------------------------------------------------------
+            
+                if (tile_val >= threshold) {
+                    target.removeAttribute("hidden");
+                    target.style.top = `${vertOffset+((tile_height*threshold)/(num_per_row*icon_value))}px`
+                } else {
+                    target.setAttribute("hidden", true);
+                }
+            }
+            // end ce edits 
         } else { target.setAttribute("hidden", true); }
     }
     

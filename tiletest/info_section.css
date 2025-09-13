@@ -6,7 +6,7 @@
     top: 0px;
     position: sticky;
     /* border: 1px solid red; */
-    background-color: #555555;
+    background-color: #196ca9;
     z-index: 1; /* keep above other elements */
 }
 
@@ -14,7 +14,7 @@
     color: yellow;
     font-size: 2.5em;
     font-weight: bold;
-    background-color: #555555;
+   /* background-color: #555555;*/
     display: inline; /* horizontal layout */
 }
 

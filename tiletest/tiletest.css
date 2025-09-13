@@ -64,3 +64,10 @@ otherwise it breaks the handles every time one of the 'testme' divs pops in */
     border: 2px solid red;
     background: radial-gradient(#101050FF, #10105020);
 }
+
+/* sticky styles - do not delete */
+/* Let selected .testme participate in sticky without absolute layout */
+.testme.sticky-optout {
+  position: static;
+}
+/* end sticky styles */
