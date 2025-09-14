@@ -85,88 +85,123 @@ function UpdateScrollCounter() {
 
 function CalculateTileValue(tile_element)
 {
-    //let prev_val = TileValues.get(tile_element);
     let tile_val = 0;
-    
-    // DOMRect { x: 8, y: 386, width: 502, height: 202, top: 386, right: 510, bottom: 588, left: 8 }
-    let bounds = tile_element.getBoundingClientRect();
-    let tile_size = tile_element.style.backgroundSize; // "auto 200px"
-    let tile_sizes = tile_size.split(" ");
-    let tile_height = "auto";
-    let tile_width = tile_sizes[0].replace('px', '');
-    if (tile_sizes.length == 2) {
-        tile_height = tile_sizes[1].replace('px','');
-    }
-    if (tile_height == "auto") { tile_height = 2000*(tile_width/1000); }
-    if (tile_width == "auto") {
-        tile_width = tile_height/2; // aspect ratio (1:2) should be preserved
-        //let tile_width = 1000*(tile_height/2000) // assuming that height is 200px, this will be 100px (scaled from 1000x2000)
-    }
-    
-    let num_per_row = Math.round(bounds.width / tile_width);
-    let row_count = Math.round(bounds.height / tile_height);
-    let icon_count = row_count * num_per_row;
+
+    const bounds = tile_element.getBoundingClientRect();
+
+    // Read background-size ("auto 200px", "100px 200px", etc.)
+    let tile_size = tile_element.style.backgroundSize || getComputedStyle(tile_element).getPropertyValue('background-size');
+    const parts = tile_size.split(/\s+/);
+    let tw = parts[0]?.replace('px','') || 'auto';
+    let th = (parts[1]?.replace('px','')) ?? 'auto';
+
+    // Derive missing dimension using 1:2 aspect ratio (w:h)
+    if (th === 'auto' && tw !== 'auto') th = 2000 * (parseFloat(tw)/1000);
+    if (tw === 'auto' && th !== 'auto') tw = parseFloat(th)/2;
+
+    const tile_width  = Math.max(1, parseFloat(tw) || 1);
+    const tile_height = Math.max(1, parseFloat(th) || 1);
+
+    const num_per_row = Math.max(1, Math.round(bounds.width  / tile_width));
+    const row_count   = Math.max(1, Math.round(bounds.height / tile_height));
+    const icon_count  = row_count * num_per_row;
+
     let icon_value = VALUE_PER_ICON;
     if (tile_element.hasAttribute('iconvalue')) {
-        icon_value = tile_element.getAttribute('iconvalue') * VALUE_PER_ICON;
+        icon_value = parseFloat(tile_element.getAttribute('iconvalue')) * VALUE_PER_ICON;
     }
     tile_val = icon_count * icon_value;
-    
-    //if (tile_val == prev_val) return tile_val;
+
+    // Store + update totals and per-tile table (table expects tile total, not scrolled)
     TileValues.set(tile_element, tile_val);
     UpdateCounterTotal();
+    CounterMap.get(tile_element)?.Update(tile_val);
+
+    //////////// Adjust for rounding so label placement aligns to drawn rows
+// Adjust for rounding so label placement aligns to drawn rows
+    const height_ratio = bounds.height / ((row_count + 1) * tile_height);
+    const row_height   = tile_height * height_ratio;
     
-    // adjusting for vertical scaling of the icons. (row_count+1) places it at the row instead of below
-    let height_ratio = (bounds.height/((row_count+1)*tile_height));
-    //console.log(`tile_height: ${tile_height} : ${height_ratio}`);
-    //console.log(`new_height: ${tile_height*height_ratio}`);
-    tile_height *= height_ratio;
+    const vertOffset   = bounds.top + window.scrollY;
     
-    // TODO: still can't use relative positioning because they want to be relative to the text
-    let vertOffset = bounds.top + window.scrollY;
+// --- progressive progress within THIS tile (in ⚡) ---
+    const tileStartY       = vertOffset;           // page Y where this tile begins
+    const currentY         = window.scrollY;       // viewport top
+    const scrolledPxWithin = Math.min(Math.max(currentY - tileStartY, 0), bounds.height);
+    const rowsScrolled     = Math.round(scrolledPxWithin / row_height);
+    const scrolledKwh      = rowsScrolled * num_per_row * icon_value;  // tile-local progress    // ----------------------------------------------------------
     
-    // adjusting position of each child element
-    let elements = ElementMap.get(tile_element);
-    for (const [target, threshold] of elements) {
-        if (tile_val >= threshold) { target.removeAttribute("hidden");
-            target.style.top = `${vertOffset+((tile_height*threshold)/(num_per_row*icon_value))}px`
-            // ce edits: placing / not absolutely positioning: 
-            // adjusting position of each child element
-            let elements = ElementMap.get(tile_element);
-            for (const [target, threshold] of elements) {
-            
-                // --- NEW: let the sticky system manage items marked data-stickvp ---
-                if (target.hasAttribute('data-stickvp')) {
-                    if (tile_val >= threshold) target.removeAttribute('hidden');
-                    else target.setAttribute('hidden', true);
-                    continue; // do not set absolute top; sticky will handle layout
-                }
-                // --------------------------------------------------------------------
-            
-                if (tile_val >= threshold) {
-                    target.removeAttribute("hidden");
-                    target.style.top = `${vertOffset+((tile_height*threshold)/(num_per_row*icon_value))}px`
-                } else {
-                    target.setAttribute("hidden", true);
-                }
-            }
-            // end ce edits 
-        } else { target.setAttribute("hidden", true); }
+    // adjusting position / visibility of each child element
+    const elements = ElementMap.get(tile_element) || [];
+    for (const [target, thresholdRaw] of elements) {
+      // Skip things that use global thresholds; they’re handled elsewhere
+      if (target.hasAttribute('data-scrollthreshold')) continue;
+    
+      const t = parseFloat(thresholdRaw) || 0;
+    
+      // Sticky items: gate by tile-local progress, don't absolute-position
+      if (target.hasAttribute('data-stickvp')) {
+        target.hidden = scrolledKwh < t;
+        continue;
+      }
+    
+      // Non-sticky legacy behavior: gate by tile capacity and place absolutely
+      const meets = tile_val >= t;
+      if (meets) {
+        target.hidden = false;
+        const rowsNeeded = t / (num_per_row * icon_value);
+        target.style.top = `${vertOffset + (row_height * rowsNeeded)}px`;
+      } else {
+        target.hidden = true;
+      }
     }
     
-    // returning scrolled amount
-    if (bounds.top >= 0) return 0; // not scrolled offscreen
-    if (bounds.bottom <= 0) return tile_val; // fully offscreen
-    return Math.min( tile_val, // clamped because scrolling is glitchy
-        Math.round(((-bounds.top)/tile_height))*num_per_row*icon_value
-    );
+    // --- FINAL RETURN: report scrolled amount for this tile ---
+    return Math.min(tile_val, scrolledKwh);
+
+}
+
+
+// --- GLOBAL SCROLL THRESHOLDS ---
+function InitScrollThresholds() {
+  // Start gated elements hidden
+  const gated = document.querySelectorAll('[data-scrollthreshold]');
+  gated.forEach(el => { el.hidden = true; });
+
+  // Monkey-patch UpdateAll to also toggle global gates
+  const origUpdateAll = window.UpdateAll;
+  window.UpdateAll = function() {
+    origUpdateAll && origUpdateAll();
+
+    // Sum scrolled ⚡ across tiles
+    let scroll_total = 0;
+    for (const v of ScrollVals.values()) scroll_total += v;
+
+    gated.forEach(el => {
+      const need = parseFloat(el.getAttribute('data-scrollthreshold')) || 0;
+      el.hidden = (scroll_total < need);
+    });
+  };
 }
 
 function UpdateAll() {
     for (const tile of TileValues.keys()) {
-        let scrollval = CalculateTileValue(tile);
-        ScrollVals.set(tile, scrollval);
-        CounterMap.get(tile).Update(scrollval);
+        const scrolled = CalculateTileValue(tile);
+        ScrollVals.set(tile, scrolled);
+        // DO NOT call CounterMap.Update() here; it’s already called with tile total in CalculateTileValue.
     }
     UpdateScrollCounter();
 }
+
+
+
+InitializeElementMap();
+CreateElementButtons();
+ConstructCounterTables();
+
+InitStickyDurations && InitStickyDurations(); // if defined elsewhere
+InitScrollThresholds();                        // <-- add this line
+
+window.addEventListener('resize', UpdateAll);
+window.addEventListener('scroll', UpdateAll);
+UpdateAll();

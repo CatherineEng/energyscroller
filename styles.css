@@ -248,7 +248,7 @@ html.black-sparse  body {
   width: 100%;
 }
 .chart.horizontal .infobox-inner {
-  overflow: hidden;
+ /* overflow: hidden;*/
 }
 .chart.expandable .bar {
   padding-left: 0;
@@ -1481,4 +1481,23 @@ blockquote strong {
 .sticky-inner.is-stuck { /* optional visual affordance while stuck */ }
 
 /* end sticky styles */
+
+/* Example “fixed” variants */
+.tall-5vh { height: calc(5 * 100vh); }
+.tall-10vh { height: calc(10 * 100vh); }
+.tall-15vh { height: calc(15 * 100vh); }
+
+.tall-5000 { height: 5000px; }
+
+.resizeable_tiling.fixed-10vp {
+  width: 100%;
+  height:calc(10 * 100vh);
+  resize: none;        /* optional: disable drag handles */
+  /*overflow: hidden;    /* keep consistent with current pattern */
+  background-size: auto 120px; /* pick your bolt scale here or via tilesize=... */
+}
+
+/* IMPORTANT: do NOT globally force sticky items to static  */
+/* Only cancel absolute-positioning for old .testme stickies */
+.testme.sticky-optout { position: static !important; }
 

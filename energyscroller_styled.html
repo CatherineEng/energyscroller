@@ -29,10 +29,16 @@
         </div>
     </div>
     <div id="background">
-        <div class="resizeable_tiling"  tilesize="auto 30px" iconvalue=500>[resize me to update counter]
-            <div class="testme" required_scrollcount=25>TESTME 25</div>
-            <div class="testme" required_scrollcount=50>TESTME 50</div>
-            <div class="testme" required_scrollcount=75>TESTME 75</div>
+
+       <div class="resizeable_tiling fixed-10vp"  tilesize="auto 30px" iconvalue=500>fixed 10 vp
+            <div class="sticky-optout thisone" style="padding:30px;border-radius:30px;"
+                   
+                   required_scrollcount=5000000
+                   data-stickvp="2"
+                   data-sticktop="140">
+                   <div class="card" style="background-color:white;border-radius:10px;padding:30px;text-align:center;">
+               <h1 style="color:#000000;font-size:5em"> Threshold 1</h1></div>
+              </div>
         </div>
         <div class="resizeable_tiling"  tilesize="auto 250px" iconvalue=500>[resize me to update counter]
             <div class="testme" required_scrollcount=25>TESTME 25</div>
@@ -47,70 +53,57 @@
         </div>
 
 
-        <div class="resizeable_tiling"  tilesize="auto 250px" iconvalue=500>[resize me to update counter]
-            <div class="testme" required_scrollcount=25>TESTME 25</div>
-            <div class="testme" required_scrollcount=50>TESTME 50</div>
-            <div class="testme" required_scrollcount=75>TESTME 75</div>
+        <!--the tiles-->
+        <div class="infobox intro target tall-5000 " name="intro">
+          <div class="infobox-inner"
+               data-stickvp="2"
+               data-sticktop="140"
+               data-scrollthreshold="2000000">
+            threshold 2
+          </div>
         </div>
         
-
-        <div class="resizeable_tiling"  tilesize="auto 250px" iconvalue=500>[resize me to update counter]
-            <div class="testme" required_scrollcount=25>TESTME 25</div>
-            <div class="testme" required_scrollcount=50>TESTME 50</div>
-            <div class="testme" required_scrollcount=75>TESTME 75</div>
-        </div>
         
-
-        <div class="resizeable_tiling"  tilesize="auto 250px" iconvalue=500>[resize me to update counter]
-            <div class="testme" required_scrollcount=25>TESTME 25</div>
-            <div class="testme" required_scrollcount=50>TESTME 50</div>
-            <div class="testme" required_scrollcount=75>TESTME 75</div>
-        </div>
-        
-
-        <div class="resizeable_tiling infobox intro target"  tilesize="auto 250px" name="intro" iconvalue=500>[resize me to update counter]
-            <div class="testme" required_scrollcount=25>TESTME 25</div>
-            <div class="testme" required_scrollcount=50>TESTME 50</div>
-            <div class="testme" required_scrollcount=75>TESTME 75</div>
-        </div>
+        <!--end the tiles>
         
 
         <!--<div class="target" name="Scroll Test">click the "Scroll Test" button</div>-->
         <div class="tiling">
-            <div class="infobox intro target" name="intro">
+            <div class="infobox intro target tall-5000" name="intro">
                 <div class="infobox-inner" data-stickvp="2" data-sticktop="140">Energy is measured in kilowatt hours, or kWh.
                   1 kWh = 1000 watts used in one hour. sticky
               </div>
             </div>
             
-            <div class="resizeable_tiling" tilesize="auto 250px" iconvalue=500>
-                <div class="testme" required_scrollcount=50 >BIG 50</div>
-                <div class="testme" required_scrollcount=100>BIG 100</div>
-                <div class="testme" required_scrollcount=150>BIG 150</div>
+            <div class="tiling tall-5000" tilesize="auto 250px" iconvalue=500>
+                <div class="sticky-optout thisone" style="padding:30px;border-radius:30px;"
+                     data-scrollthreshold="5000000"
+                     data-stickvp="2"
+                     data-sticktop="140">
+                     <div class="card" style="background-color:white;border-radius:10px;padding:30px;text-align:center;">
+                 <h1 style="color:#000000;font-size:5em"> Threshold 1</h1></div>
+                </div>
             </div>
-            <div name="testname" class="resizeable_tiling" tilesize="auto 200px">
+            <div name="testname" class="resizeable_tiling fixed-2k" tilesize="auto 200px">
                 <div class="tiling">
-                    <div name="tile2_testme1" class="testme" required_scrollcount=10>TESTME 10</div>
+                    <div name="tile2_testme1" class="testme" required_scrollcount=10>fixed 2k</div>
                     <div name="tile2_testme2" class="testme" required_scrollcount=20>TESTME 20</div>
                     <div name="tile2_testme3" class="testme" required_scrollcount=40>TESTME 40</div>
                 </div>
             </div>
+ 
+ <div class="tiling tall-5000">this should be 5000 px tall</div>
+ 
+                      
             
-            <!--<div id="state-rank" class="infobox chart horizontal expandable target">
-              <div id="state-rank-inner" class="infobox-inner chart horizontal expandable" data-stickvp="3" data-sticktop="100">
-                <div style="display:block;width:100%;height:4000px;background-color:#ff00cc;"
-              </div>
-            </div>-->
-            
-            
- <div class="infobox intro target" name="intro">
-   <div class="infobox-inner"
-        data-stickvp="2"
-        data-sticktop="120"
-        data-scrollthreshold="12500">
-     should appear at 12,500⚡ and then stays stuck for 2 viewports.
-   </div>
- </div>
+            <div class="infobox intro target" name="intro">
+               <div class="infobox-inner"
+                  data-stickvp="2"
+                  data-sticktop="120"
+                  data-scrollthreshold="120500">
+               should appear at 12,500⚡ and then stays stuck for 2 viewports.
+               </div>
+            </div>
 
             
             <!-- per-state usage - copied from state_ranking_annual.html -->

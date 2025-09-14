@@ -240,3 +240,20 @@ window.addEventListener('scroll', UpdateAll);
 UpdateAll();
 
 
+//log
+console.log('[tile]', {
+  name: tile_element.getAttribute('name') || tile_element.id,
+  tile_val, num_per_row, icon_value, row_height
+});
+
+elements.forEach(([target, thr]) => {
+  const t = parseFloat(thr) || 0;
+  if (target.hasAttribute('data-stickvp')) {
+    console.log('  [sticky testme]', { required_scrollcount: t, scrolledKwh, visible: scrolledKwh >= t, text: target.textContent.trim() });
+  }
+  if (target.hasAttribute('data-scrollthreshold')) {
+    console.log('  [global gate present]', target);
+  }
+});
+
+
