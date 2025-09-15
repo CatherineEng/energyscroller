@@ -1,0 +1,59 @@
+
+
+h4 {
+  font-size:.6em;
+  margin-block-start:0;
+  margin-block-end:.8em;
+}
+
+.card {
+  margin:0 auto;
+  width:50% !important;
+  padding:40px 40px 25px 40px;
+  border-radius:30px;
+  color:#000000;
+  background-color:#ffffff;
+  text-align: left;
+}
+
+/* do not delete... these are the "sticky" styles */
+
+/* Generic "stick for X viewports" system */
+.sticky-wrap {
+  position: relative;
+  /* duration: set by JS from data-stickvp (defaults to 1) */
+  min-height: calc(var(--vp, 1) * 100vh);
+}
+
+.sticky-inner {
+  position: sticky;
+  top: var(--sticky-top, 120px); /* default matches your general UI */
+  z-index: 10002; /* under #topbar_info (z:1) + the infobox z if needed */
+}
+
+.sticky-inner.is-stuck { /* optional visual affordance while stuck */ }
+
+/* end sticky styles */
+
+
+[hidden] { display: none !important; }
+
+/* Example “fixed” variants */
+.tall-5vh { height: calc(5 * 100vh); }
+.tall-10vh { height: calc(10 * 100vh); }
+.tall-15vh { height: calc(15 * 100vh); }
+
+.tall-5000 { height: 5000px; }
+
+.resizeable_tiling.fixed-10vp {
+  width: 100%;
+  height:calc(10 * 100vh);
+  resize: none;        /* optional: disable drag handles */
+  /*overflow: hidden;    /* keep consistent with current pattern */
+  background-size: auto 120px; /* pick your bolt scale here or via tilesize=... */
+}
+
+/* IMPORTANT: do NOT globally force sticky items to static  */
+/* Only cancel absolute-positioning for old .testme stickies */
+.testme.sticky-optout { position: static !important; }
+

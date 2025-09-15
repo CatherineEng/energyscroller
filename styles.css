@@ -1482,6 +1482,9 @@ blockquote strong {
 
 /* end sticky styles */
 
+
+[hidden] { display: none !important; }
+
 /* Example “fixed” variants */
 .tall-5vh { height: calc(5 * 100vh); }
 .tall-10vh { height: calc(10 * 100vh); }

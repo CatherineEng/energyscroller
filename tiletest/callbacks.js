@@ -1,259 +1,228 @@
 "use strict";
 // import this script at the end of the HTML (after all elements are defined)
 
-// calculates the necessary height for sections with 'energy' attribute
-function SetSectionHeight(tile_element, energy_count)
-{
-    let bounds = tile_element.getBoundingClientRect();
-    let icon_size = tile_element.style.backgroundSize; // "auto 200px"
-    let icon_sizes = icon_size.split(" ");
-    let icon_height = 2000;
-    let icon_width = icon_sizes[0].replace('px', '');
-    if (icon_sizes.length == 2) {
-        icon_height = icon_sizes[1].replace('px','');
-    } else { icon_height = 2000*(icon_width/1000); }
-    if (icon_width == "auto") {
-        icon_width = icon_height/2; // aspect ratio (1:2) should be preserved
-        //let icon_width = 1000*(icon_height/2000) // assuming that height is 200px, this will be 100px (scaled from 1000x2000)
-    }
-    
-    let icon_value = VALUE_PER_ICON;
-    if (tile_element.hasAttribute('iconvalue')) {
-        icon_value = tile_element.getAttribute('iconvalue') * icon_value;
-    }
-    
-    let num_per_row = Math.round(bounds.width / icon_width);
-    let val_per_row = (icon_value*num_per_row);
-    let row_count = (energy_count/val_per_row);
-    let new_height = Math.round(row_count * icon_height);
-    let current_style = tile_element.getAttribute("style");
-    tile_element.setAttribute("style", `${current_style} height: ${new_height}px;`); // later values override earlier ones
+// ---------------------- Helpers: energy→height for sections ----------------------
+function SetSectionHeight(tile_element, energy_count) {
+  const bounds = tile_element.getBoundingClientRect();
+  const icon_size = tile_element.style.backgroundSize; // "auto 200px"
+  const icon_sizes = icon_size.split(" ");
+  let icon_h = 2000;
+  let icon_w = icon_sizes[0].replace("px", "");
+  if (icon_sizes.length === 2) {
+    icon_h = icon_sizes[1].replace("px", "");
+  } else {
+    icon_h = 2000 * (icon_w / 1000);
+  }
+  if (icon_w === "auto") icon_w = icon_h / 2; // preserve 1:2
+
+  let icon_value = VALUE_PER_ICON;
+  if (tile_element.hasAttribute("iconvalue")) {
+    icon_value = tile_element.getAttribute("iconvalue") * icon_value;
+  }
+
+  const num_per_row = Math.round(bounds.width / icon_w);
+  const val_per_row = icon_value * num_per_row;
+  const rows = energy_count / val_per_row;
+  const new_h = Math.round(rows * icon_h);
+
+  const prev = tile_element.getAttribute("style") || "";
+  tile_element.setAttribute("style", `${prev}; height:${new_h}px;`);
 }
 
-function InitializeElementMap()
-{
-    const tile_sources = document.getElementsByClassName("resizeable_tiling");
-    console.log("tile sources: ", tile_sources);
-    
-    let section_count = 0;
-    for (const tile_source of tile_sources)
-    { // auto-assigning name from 'name'/'id' attribute; fallback to sequential
-        let section_name = `Section_${section_count++}`;
-        if (tile_source.hasAttribute("name"))
-            section_name = tile_source.getAttribute("name");
-        else if (tile_source.hasAttribute("id"))
-            { section_name = tile_source.getAttribute("id"); }
-        else tile_source.setAttribute("name", section_name);
-        
-        // setting background-size if specified in HTML attribute
-        if (tile_source.hasAttribute("tilesize")) {
-            let tilesize = tile_source.getAttribute("tilesize");
-            tile_source.style.backgroundSize = tilesize;
-            console.log(`specified tilesize: ${tilesize}`);
-        } else {
-            tile_source.style.backgroundSize = getComputedStyle(tile_source).getPropertyValue('background-size');
-            console.log(`default tilesize: ${tile_source.style.backgroundSize}`);
-        }
-        
-        if (tile_source.hasAttribute("energy")) {
-            let energy_val = tile_source.getAttribute("energy");
-            if (energy_val.endsWith('K')) energy_val = energy_val.replace('K','') * 1000; else
-            if (energy_val.endsWith('M')) energy_val = energy_val.replace('M','') * 1000000; else
-            if (energy_val.endsWith('B')) energy_val = energy_val.replace('B','') * 1000000000;
-            
-            // inserting a jump-target before section if it doesn't contain one already
-            // TODO: this wouldn't be necessary if it was possible to jump to 'tiling' elements (for some reason it's not)
-            if (tile_source.getElementsByClassName("target").length == 0) {
-                let jumpTarget = document.createElement("div");
-                jumpTarget.setAttribute("name", section_name);
-                jumpTarget.className = "target";
-                
-                let section_text = `${section_name}
-                This section contains ${energy_val} kWh`
-                if (tile_source.hasAttribute('iconvalue')) {
-                    let icon_value = tile_source.getAttribute('iconvalue');
-                    section_text = `${section_text}
-                    ${energy_val/icon_value} icons (x${icon_value} kWh per icon)`
-                }
-                
-                jumpTarget.innerText = section_text;
-                tile_source.parentNode.insertBefore(jumpTarget, tile_source);
-            }
-            
-            window.addEventListener("resize", SetSectionHeight.bind(null, tile_source, energy_val));
-            // updating section-height on window-resize is necessary to maintain correct energy total
-            // TODO: find something more efficient than spamming new 'height' values into element style
-            SetSectionHeight(tile_source, energy_val);
-        }
-        
-        let tuplelist = [];
-        let targetlist = tile_source.getElementsByClassName("testme");
-        for (const target of targetlist) {
-            if(!target.hasAttribute("required_scrollcount"))
-                target.setAttribute("required_scrollcount", 0);
-            let threshold = target.getAttribute("required_scrollcount");
-            tuplelist.push([target, threshold]);
-        }
-        console.log("tuple_list: ", tuplelist);
-        ElementMap.set(tile_source, tuplelist);
-        TileValues.set(tile_source, 0);
-        
-        // somehow removing this doesn't affect performance at all!??
-        tile_source.addEventListener('mousemove', CalculateTileValue.bind(null, tile_source));
+// ---------------------- Build maps from .resizeable_tiling ----------------------
+function InitializeElementMap() {
+  const tiles = document.getElementsByClassName("resizeable_tiling");
+  let section_count = 0;
+
+  for (const tile of tiles) {
+    // Name / id
+    let section_name = `Section_${section_count++}`;
+    if (tile.hasAttribute("name")) section_name = tile.getAttribute("name");
+    else if (tile.hasAttribute("id")) section_name = tile.getAttribute("id");
+    else tile.setAttribute("name", section_name);
+
+    // background-size from attribute or computed
+    if (tile.hasAttribute("tilesize")) {
+      tile.style.backgroundSize = tile.getAttribute("tilesize");
+    } else {
+      tile.style.backgroundSize = getComputedStyle(tile).getPropertyValue("background-size");
     }
+
+    // Optional energy → auto-height
+    if (tile.hasAttribute("energy")) {
+      let e = tile.getAttribute("energy");
+      if (e.endsWith("K")) e = e.replace("K", "") * 1_000;
+      else if (e.endsWith("M")) e = e.replace("M", "") * 1_000_000;
+      else if (e.endsWith("B")) e = e.replace("B", "") * 1_000_000_000;
+
+      // Insert a jump target before the section if none exists
+      if (tile.getElementsByClassName("target").length === 0) {
+        const jump = document.createElement("div");
+        jump.setAttribute("name", section_name);
+        jump.className = "target";
+        let txt = `${section_name}\nThis section contains ${e} kWh`;
+        if (tile.hasAttribute("iconvalue")) {
+          const iv = tile.getAttribute("iconvalue");
+          txt += `\n${e / iv} icons (x${iv} kWh per icon)`;
+        }
+        jump.innerText = txt;
+        tile.parentNode.insertBefore(jump, tile);
+      }
+
+      window.addEventListener("resize", SetSectionHeight.bind(null, tile, e));
+      SetSectionHeight(tile, e);
+    }
+
+    // Collect .testme
+    const tuplelist = [];
+    const targets = tile.getElementsByClassName("testme");
+    for (const t of targets) {
+      if (!t.hasAttribute("required_scrollcount")) t.setAttribute("required_scrollcount", 0);
+      tuplelist.push([t, t.getAttribute("required_scrollcount")]);
+    }
+
+    ElementMap.set(tile, tuplelist);
+    TileValues.set(tile, 0);
+
+    // Optional: keeps the old behavior (harmless)
+    tile.addEventListener("mousemove", CalculateTileValue.bind(null, tile));
+  }
 }
 
-function ConstructCounterTables()
-{
-    const table_container = document.getElementById("table_container");
-    const tile_sources = document.getElementsByClassName("resizeable_tiling");
-    
-    let table_counter = 1;
-    for (const tile_source of tile_sources) {
-        const table = document.createElement("table");
-        table.setAttribute("class","threshold_table");
-        
-        let table_name = `Table_${table_counter++}`;
-        if (tile_source.hasAttribute("name"))
-            table_name = tile_source.getAttribute("name");
-        
-        const header = document.createElement("th");
-        header.innerHTML = `<a class="table_counter">0\u26A1</a> ${table_name}`; // inline table-counter
-        if (tile_source.hasAttribute('iconvalue'))
-            header.innerHTML = `<a class="table_counter">0\u26A1</a> ${table_name} (x${tile_source.getAttribute('iconvalue')})`;
-        // the counter MUST come before the name for proper layout
-        // escaped sequence is unicode: U+26A1 'High Voltage Sign'
-        
-        // for proper layout, the header must be nested inside a 'tbody' element,
-        // then 'li' elements (rows) inserted afterward (outside closing <tbody>)
-        const table_body = document.createElement("tbody");
-        table.appendChild(table_body);
-        table_body.appendChild(header);
-        table_container.appendChild(table);
-        
-        CounterMap.set(tile_source, new CounterTable(table, tile_source));
+// ---------------------- Sidebar counters per tile ----------------------
+function ConstructCounterTables() {
+  const table_container = document.getElementById("table_container");
+  const tiles = document.getElementsByClassName("resizeable_tiling");
+  let i = 1;
+
+  for (const tile of tiles) {
+    const table = document.createElement("table");
+    table.setAttribute("class", "threshold_table");
+
+    let table_name = `Table_${i++}`;
+    if (tile.hasAttribute("name")) table_name = tile.getAttribute("name");
+
+    const thead = document.createElement("tbody");
+    const th = document.createElement("th");
+    th.innerHTML = `<a class="table_counter">0\u26A1</a> ${table_name}`;
+    if (tile.hasAttribute("iconvalue")) {
+      th.innerHTML = `<a class="table_counter">0\u26A1</a> ${table_name} (x${tile.getAttribute("iconvalue")})`;
     }
+    thead.appendChild(th);
+    table.appendChild(thead);
+    table_container.appendChild(table);
+
+    CounterMap.set(tile, new CounterTable(table, tile));
+  }
 }
 
-// TODO: cannot jump to 'resizeable_tiling' elements, and can only jump to nested elements with class 'testme'!?
+// ---------------------- Jump buttons ----------------------
 function ScrollButtonCallback(target) {
-    let bounds = target.getBoundingClientRect();
-    /* modifying the Y-offset to be absolute instead of relative; 'scrollTo' interprets it as an absolute position.
-    without this adjustment, buttons for onscreen elements would scroll to the top of the page (bounds.Y < scrollY) */
-    bounds.y += window.scrollY - (bounds.height/2); // (height/2) offset keeps the entire element onscreen
-    console.log(`scrolling: ${bounds.y}`);
-    window.scrollTo(bounds);
+  const r = target.getBoundingClientRect();
+  r.y += window.scrollY - r.height / 2;
+  window.scrollTo(r);
+}
+function CreateElementButtons() {
+  const wrap = document.getElementById("jump_container");
+  const targets = document.getElementsByClassName("target");
+  let n = 1;
+  for (const t of targets) {
+    const btn = document.createElement("button");
+    btn.textContent = t.getAttribute("name") || t.getAttribute("id") || `Element_${n}`;
+    btn.onclick = ScrollButtonCallback.bind(null, t);
+    wrap.appendChild(btn);
+    n += 1;
+  }
 }
 
-function CreateElementButtons()
-{
-    const link_container = document.getElementById("jump_container");
-    const targetElements = document.getElementsByClassName("target");
-    
-    let target_count = 1;
-    for (const target of targetElements) {
-        let button = document.createElement("button");
-        button.textContent = `Element_${target_count}`;
-        if (target.hasAttribute("name")) button.textContent = target.getAttribute("name");
-        else if (target.hasAttribute("id")) button.textContent = target.getAttribute("id");
-        button.onclick = ScrollButtonCallback.bind(null, target);
-        link_container.appendChild(button);
-        target_count += 1;
-    }
-}
-
-// sticky begins
+// ---------------------- Sticky durations ----------------------
 function InitStickyDurations() {
-    const nodes = document.querySelectorAll('[data-stickvp]');
-    nodes.forEach(el => {
-        // Skip if already wrapped
-        if (el.parentElement && el.parentElement.classList.contains('sticky-wrap')) return;
+  const nodes = document.querySelectorAll("[data-stickvp]");
+  nodes.forEach((el) => {
+    // Skip if already wrapped
+    if (el.parentElement && el.parentElement.classList.contains("sticky-wrap")) return;
 
-        // Read attributes
-        const vp = parseFloat(el.getAttribute('data-stickvp')) || 1;
-        const topPx = (el.getAttribute('data-sticktop') || '120').replace('px','');
+    const vp = parseFloat(el.getAttribute("data-stickvp")) || 1;
+    const topPx = (el.getAttribute("data-sticktop") || "120").replace("px", "");
 
-        // Build wrapper
-        const wrap = document.createElement('div');
-        wrap.className = 'sticky-wrap';
-        wrap.style.setProperty('--vp', vp);
+    // Wrapper
+    const wrap = document.createElement("div");
+    wrap.className = "sticky-wrap";
+    wrap.style.setProperty("--vp", vp);
 
-        // Insert before and move el inside
-        el.parentElement.insertBefore(wrap, el);
-        wrap.appendChild(el);
+    // **Critical**: neutralize inherited width/height from ".resizeable_tiling * { width/height: inherit }"
+    wrap.style.width = "auto";
+    wrap.style.height = `calc(${vp} * 100vh)`;
+    wrap.style.position = "relative";
+    wrap.style.display = "flex";
+    wrap.style.justifyContent = "center";
+    wrap.style.alignItems = "flex-start";
+    wrap.style.pointerEvents = "none"; // pass-through except for inner
 
-        // Mark inner
-        el.classList.add('sticky-inner');
-        el.style.setProperty('--sticky-top', `${topPx}px`);
+    // Move el inside
+    el.parentElement.insertBefore(wrap, el);
+    wrap.appendChild(el);
 
-        // Optional: a lightweight "stuck" flag for styling
-        const computeTop = () => parseFloat(getComputedStyle(el).top) || 0;
-        window.addEventListener('scroll', () => {
-            const rect = el.getBoundingClientRect();
-            el.classList.toggle('is-stuck', rect.top <= computeTop());
-        }, { passive: true });
-    });
+    // Inner
+    el.classList.add("sticky-inner");
+    el.style.position = "sticky";
+    el.style.top = `${topPx}px`;
+    el.style.pointerEvents = "auto";
+    el.style.zIndex = "10002";
+    // Also neutralize possible inherited width/height on the element itself
+    el.style.width = "auto";
+    el.style.height = "auto";
+
+    // Stuck flag (optional)
+    const computeTop = () => parseFloat(getComputedStyle(el).top) || 0;
+    window.addEventListener(
+      "scroll",
+      () => {
+        const rect = el.getBoundingClientRect();
+        el.classList.toggle("is-stuck", rect.top <= computeTop());
+      },
+      { passive: true }
+    );
+  });
 }
-//sticky ends
 
-// begin sticky scrollthresholds 
-function InitScrollThresholds() {
-  // Any element anywhere can declare a global scroll threshold in ⚡
-  const gated = document.querySelectorAll('[data-scrollthreshold]');
-  gated.forEach(el => {
-    // start hidden if threshold not met
+// ---------------------- Global scroll thresholds (⚡) ----------------------
+// Independent gating: do NOT monkey-patch UpdateAll.
+(function initGlobalScrollThresholds() {
+  const gated = Array.from(document.querySelectorAll("[data-scrollthreshold]"));
+  // Start hidden
+  gated.forEach((el) => {
     el.hidden = true;
   });
 
-  // Hook into the existing UpdateAll flow:
-  const origUpdateAll = UpdateAll;
-  window.UpdateAll = function() {
-    origUpdateAll();
-
-    // compute global scrolled ⚡ (already shown in #scroll_counter)
+  function applyGlobalScrollThresholds() {
+    // Sum scrolled ⚡ across all tiles (ScrollVals is maintained by tilecount.js → UpdateAll)
     let scroll_total = 0;
-    for (const val of ScrollVals.values()) scroll_total += val;
+    for (const v of ScrollVals.values()) scroll_total += v;
 
-    gated.forEach(el => {
-      const need = parseFloat(el.getAttribute('data-scrollthreshold')) || 0;
-      el.hidden = (scroll_total < need);
-    });
-  };
-}
+    for (const el of gated) {
+      const need = parseFloat(el.getAttribute("data-scrollthreshold")) || 0;
+      el.hidden = scroll_total < need;
+    }
+  }
 
-// end sticky scrollthresholds
+  // Run on scroll/resize independent of UpdateAll's timing
+  window.addEventListener("scroll", applyGlobalScrollThresholds, { passive: true });
+  window.addEventListener("resize", applyGlobalScrollThresholds);
+  // First pass
+  requestAnimationFrame(applyGlobalScrollThresholds);
+})();
 
-
+// ---------------------- Boot ----------------------
 InitializeElementMap();
 CreateElementButtons();
 ConstructCounterTables();
-InitStickyDurations();      // wraps sticky items
-InitScrollThresholds();     // enables data-scrollthreshold
-
+InitStickyDurations();
 
 console.log("ElementMap:", ElementMap);
 console.log("CounterMap:", CounterMap);
 
-
-window.addEventListener('resize', UpdateAll);
-window.addEventListener('scroll', UpdateAll);
+// Let tilecount.js drive ScrollVals; we just listen.
+window.addEventListener("resize", UpdateAll);
+window.addEventListener("scroll", UpdateAll);
 UpdateAll();
-
-
-//log
-console.log('[tile]', {
-  name: tile_element.getAttribute('name') || tile_element.id,
-  tile_val, num_per_row, icon_value, row_height
-});
-
-elements.forEach(([target, thr]) => {
-  const t = parseFloat(thr) || 0;
-  if (target.hasAttribute('data-stickvp')) {
-    console.log('  [sticky testme]', { required_scrollcount: t, scrolledKwh, visible: scrolledKwh >= t, text: target.textContent.trim() });
-  }
-  if (target.hasAttribute('data-scrollthreshold')) {
-    console.log('  [global gate present]', target);
-  }
-});
-
-
