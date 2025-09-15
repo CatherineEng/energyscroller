@@ -1,59 +1,56 @@
-
-
+/* Card look */
 h4 {
-  font-size:.6em;
-  margin-block-start:0;
-  margin-block-end:.8em;
+  font-size: 0.6em;
+  margin-block-start: 0;
+  margin-block-end: 0.8em;
 }
 
 .card {
-  margin:0 auto;
-  width:50% !important;
-  padding:40px 40px 25px 40px;
-  border-radius:30px;
-  color:#000000;
-  background-color:#ffffff;
+  margin: 0 auto;
+  width: min(720px, 90%);
+  padding: 40px 40px 25px 40px;
+  border-radius: 30px;
+  color: #000;
+  background: #fff;
   text-align: left;
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
 }
-
-/* do not delete... these are the "sticky" styles */
 
 /* Generic "stick for X viewports" system */
 .sticky-wrap {
+  width: 100%;
   position: relative;
-  /* duration: set by JS from data-stickvp (defaults to 1) */
-  min-height: calc(var(--vp, 1) * 100vh);
+  /* duration set via JS: --vp */
+  height: calc(var(--vp, 1) * 100vh);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none; /* pass-through except inner */
 }
 
 .sticky-inner {
   position: sticky;
-  top: var(--sticky-top, 120px); /* default matches your general UI */
-  z-index: 10002; /* under #topbar_info (z:1) + the infobox z if needed */
+  top: var(--sticky-top, 140px);
+  z-index: 10002;
+  pointer-events: auto; /* clickable */
 }
 
-.sticky-inner.is-stuck { /* optional visual affordance while stuck */ }
+.sticky-inner.is-stuck {}
 
-/* end sticky styles */
-
+/* Only cancel absolute positioning for legacy .testme items */
+.testme.sticky-optout { position: static !important; }
 
 [hidden] { display: none !important; }
 
-/* Example “fixed” variants */
-.tall-5vh { height: calc(5 * 100vh); }
+/* Optional fixed-height helpers */
+.tall-5vh  { height: calc(5 * 100vh); }
 .tall-10vh { height: calc(10 * 100vh); }
 .tall-15vh { height: calc(15 * 100vh); }
-
 .tall-5000 { height: 5000px; }
 
 .resizeable_tiling.fixed-10vp {
   width: 100%;
-  height:calc(10 * 100vh);
-  resize: none;        /* optional: disable drag handles */
-  /*overflow: hidden;    /* keep consistent with current pattern */
-  background-size: auto 120px; /* pick your bolt scale here or via tilesize=... */
+  height: calc(10 * 100vh);
+  resize: none;
+  background-size: auto 120px;
 }
-
-/* IMPORTANT: do NOT globally force sticky items to static  */
-/* Only cancel absolute-positioning for old .testme stickies */
-.testme.sticky-optout { position: static !important; }
-

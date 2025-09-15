@@ -1,131 +1,148 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="tiletest/info_section.css">
-        <link rel="stylesheet" href="energyscroller.css"> <!-- overrides -->
-        <link rel="stylesheet" href="styles_sticky.css"> <!-- overrides -->
-        <script type="text/javascript" src="tiletest/tilecount.js"></script>
-    </head>
-    
-    <body>
-    <div id="topbar_info">
-        <div>
-        <div id="counter">0 ⚡kWh</div> <!-- unicode: U+26A1 'High Voltage Sign' -->
-        <div id="scroll_counter">[0⚡ scrolled]</div>
-        </div>
-        <div id="table_container" class="hide">
-            <!-- threshold-tables are dynamically constructed and inserted here -->
-            <!-- initializer function 'ConstructCounterTables()' [callbacks.js] -->
-            
-            <!--         example table structure         -->
-            <!-- <table class="threshold_table"> <tbody><th>
-                <a class="table_counter">0⚡</a> Table_1</th></tbody>
-                <li class="good">TESTME_25</li> ... </table> -->
-        </div>
-        <div id="jump_container" class=""> Jump To:
-            <!-- buttons that jump the scroll position to page elements -->
-            <!-- see: 'CreateElementButtons()' [callbacks.js] -->
-        </div>
-    </div>
-    <div id="background">
-        <div name="Transportation: all Electric Vehicles" energy=20M iconvalue=1000 class="resizeable_tiling"> 
-            <div class="card sticky-optout thisone" data-stickvp="6"
-             data-sticktop="140"><h4> Electric vehicles and transit systems already use 20 million kilowatt-hours every day. 
-            As more buses, trains, and cars go electric, this number will grow. </h4> <h4>
-            Choosing clean transportation today helps shape a future where travel is both efficient and powered by renewable energy.</h4>        </div>
-        </div>
-        <div name="Universities & Colleges" energy=110M iconvalue=1000 iconcolor=97 class="resizeable_tiling">
-            <div class="card"><h4> America's colleges and universities are giant energy users, with labs, dorms, and classrooms running day and night.</h4><h4>
-            Students have power beyond the classroom: small actions like switching off unused projectors, lights, and devices adds up to massive energy savings campus-wide.</h4></div>
-        </div>
-        <div name="Hospitals & Healthcare" energy=150M iconvalue=1000 iconcolor=177 class="resizeable_tiling">
-            <div class="card"><h4> Hospitals never sleep, and their lifesaving work depends on steady electricity for lights, machines, and cooling. 
-            Healthcare uses about 150 million kilowatt-hours a day.</h4><h4>
-            Smarter systems and greener buildings can help cut waste without ever risking patient care.</h4></div>
-        </div>
-        <div name="AI data centers" energy=200M iconvalue=1000 iconcolor=25 class="resizeable_tiling">
-            <div class="card"><h4> Artificial intelligence now uses about 200 million kilowatt-hours every day - roughly 1/3 of all data center power.</h4><h4>
-            Training big models is energy-hungry, but smarter chips and renewable power can shrink AI's growing footprint.</h4></div>
-        </div>
-        <div name="All data centers (aside from AI)" energy=400M iconvalue=1000 iconcolor=306 class="resizeable_tiling">
-            <div class="card"><h4> Every email, video, and search runs through a data center.
-            Together, they use 400 million kilowatt-hours daily, in addition to the 200 million kilowatt-hours used by AI datacenters. </h4><h4>
-            Cleaner energy and efficiency upgrades are key to powering our digital lives responsibly.</h4></div>
-        </div>
-        <div name="K-12 schools" energy=210M iconvalue=1000 iconcolor=325 class="resizeable_tiling">
-            <div class="card"><h4> Schools use over 210 million kilowatt-hours daily. Hallway lights, computers, and heating all add up.</h4><h4>
-            Students can take the lead - turning off classroom lights, unpluggign chargers, and inspiring whole schools to save energy.</h4></div>
-        </div>
-        <div name="Government & Military" energy=250M iconvalue=1000 iconcolor=128 class="resizeable_tiling">
-            <div class="card"><h4> From courthouses to military bases, governement facilities use a quarter-billion kilowatt-hours every day.</h4><h4>
-            Federal and state agencies have the chance to set an example by cutting waste and switching to clean energy first.</h4></div>
-        </div>
-        <div name="Malls & Shopping Centers" energy=300M iconvalue=1000 iconcolor=185 class="resizeable_tiling">
-            <div class="card"><h4> Shopping centers are bright, cool, and open long hours - using 300 million kilowatt-hours daily.</h4><h4>
-            Smarter lighting, efficient cooling, and mindful shoppers all help reduce the hidden cost of keeping stores running.</h4></div>
-        </div>
-        <div name="Warehouses & Distribution" energy=350M iconvalue=1000 iconcolor=72 class="resizeable_tiling">
-            <div class="card"><h4> Warehouses and distribution hubs keep America's goods moving, but all that lighting, refigeration, and conveyor power uses 350 million kilowatt-hours daily.</h4><h4>
-            Energy-efficient systems can deliver savings while keeping shelves stocked.</h4></div>
-        </div>
-        <div name="Big box Retail" energy=550M iconvalue=1000 iconcolor=337 class="resizeable_tiling">
-            <div class="card"><h4> 
-            Big-box stores, grocery chains, and corner shops together use 550 million kilowatt-hours daily.
-            Every cooler light and checkout scanner adds up. </h4><h4>
-            Better equipment and greener buildings help retailers save energy and money.</h4></div>
-        </div>
-        <div name="Office Buildings" energy=620M iconvalue=1000 iconcolor=104 class="resizeable_tiling">
-            <div class="card"><h4> Offices account for 620 million kilowatt-hours daily.
-            Computers, lights, and cooling systems run all day, often for empty rooms.</h4><h4>
-            Smarter building controls and employee choices can shrink this huge footprint.</h4></div>
-        </div>
-        <div name="Hotels and restaurants" energy=650M iconvalue=1000 iconcolor=280 class="resizeable_tiling">
-            <div class="card"><h4> Hotels and restaurants use 650 million kilowatt-hours daily.
-            Kitchens, laundry, and round-the-clock operations drive big consumption.</h4><h4>
-            Green equipment and small changes - like efficient lighting and waste reduction - can make hospitality more sustainable.</h4></div>
-        </div>
-        <div name="Services & misc" energy=990M iconvalue=1000 iconcolor=329 class="resizeable_tiling">
-            <div class="card"><h4> Churches, laundromats, gyms, banks, barper shops, libraries, and more fall into this group.
-            Together, they use nearly a billion kilowatt-hours daily.</h4><h4>
-            Though each may seem small, millions of service spaces make a big difference.</h4></div>
-        </div>
-        <div name="Industry / Factories" energy=2.87B iconvalue=1000 iconcolor=25 class="resizeable_tiling">
-            <div class="card"><h4> Factories and industry use about 2.87 billion kilowatt-hours of energy every day in the United States.
-            Surprisingly, this number has stayed about the same for decades.
-            That's because machines are more efficient now, and some manufacturing moved overseas.</h4><h4>
-            Even so, industry remains one of our nation's biggest energy users.</h4></div>
-        </div>
-        <!-- if this one uses iconvalue=1000, the browser gets stuck at the bottom and can't scroll up (with iconsize height="auto 100px") -->
-        <div name="Residential" energy=4.13B iconvalue=1000 iconcolor=185 class="resizeable_tiling">
-            <div class="card"><h4> Homes use more energy than any other sector.
-            The good news? Small choices - like switching off lights - add up.</h4><h4>
-            Join the 1 Million Energy Action Challenge and help power real change!</h4></div>
-        </div>
-        
-        <div class="target" name="bottom">bottom of the page<br /><br />
-    <p class="caption"><span style="padding-bottom:0;font-weight: 700;display:block;">Sources:</span><br /> 
-   <sup>1</sup>	<b>Electric Vehicles</b> EIA, Electric Power Monthly (2023): Transportation electricity sales = 6.864 TWh/year ≈ 19M kWh/day. Accessed August 2025, at <a href="https://www.eia.gov/electricity/monthly/">https://www.eia.gov/electricity/monthly/</a>	<br />
-    <sup>2</sup>     <b>Universities</b>	DOE CBECS 2018: Education total ≈ 0.35 B/day, ~30% universities. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>3</sup>     <b>Hospitals & Healthcare</b>	DOE CBECS 2018: Healthcare subsector ~150M kWh/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>4</sup>     <b>AI (subset of data centers)</b>	EIA/DOE reports: Data centers ≈ 176 TWh in 2023; ~8% of commercial electricity 2024. AI subset estimated ~0.20 B/day. Accessed August 2025, at <a href="https://www.energy.gov/">https://www.energy.gov/</a>	<br />
-   <sup>5</sup>     <b>Other Data Centers</b>	DOE/LBNL/EIA: Total U.S. data centers ~0.48 B/day; non-AI remainder ~0.40 B/day. Accessed August 2025, at <a href="https://eta.lbl.gov/publications/united-states-data-center-energy">https://eta.lbl.gov/publications/united-states-data-center-energy</a>	<br />
-    <sup>6</sup>     <b>K-12 Schools</b>	DOE CBECS 2018: Education total ≈ 0.35 B/day, ~60% K-12. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>7</sup>     <b>Government & Military</b>	DOE CBECS 2018: Government & public order ~0.25 B/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/	</a><br />
-   <sup>8</sup>     <b>Malls & Shopping Centers</b>	DOE CBECS 2018: Enclosed & strip malls ≈ 0.30 B/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>9</sup>     <b>Warehouses & Distribution</b>	DOE CBECS 2018: Warehouses/distribution centers ≈ 0.35 B/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-    <sup>10</sup>     <b>Retail (non-mall)</b>	DOE CBECS 2018: Retail subsector (non-mall) ≈ 0.55 B/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>11</sup>     <b>Office Buildings</b>	DOE CBECS 2018: Office electricity = 775 TBtu ≈ 0.62 B/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>12</sup>     <b>Hotels & Restaurants</b>	DOE CBECS 2018: Lodging + food service ≈ 0.65 B/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>13</sup>     <b>Services & Miscellaneous</b>	DOE CBECS 2018: Remainder of commercial subsectors (religious, gyms, labs, theaters, etc.) ≈ 0.99 B/day. Accessed August 2025, at <a href="https://www.eia.gov/consumption/commercial/">https://www.eia.gov/consumption/commercial/</a>	<br />
-   <sup>14</sup>     <b>Industry / Factories</b>	EIA Electric Power Annual 2024: Industrial sales ~1047 TWh/year ≈ 2.87 B/day. Accessed August 2025, at <a href="https://www.eia.gov/electricity/annual">https://www.eia.gov/electricity/annual/</a>	<br />
-   <sup>15</sup>     <b>Residential</b>	EIA Electric Power Annual 2024: Residential sales ~1506 TWh/year ≈ 4.13 B/day. Accessed August 2025, at <a href="https://www.eia.gov/electricity/annual/">https://www.eia.gov/electricity/annual/</a>	<br /> </p>
-        
-    </div>
-        
-    </div>
-    </body>
-    <!-- must be imported AFTER all elements have been defined -->
-    <script type="text/javascript" src="js/SVG_colors.js"></script>
-    <script type="text/javascript" src="tiletest/callbacks.js"></script>
-</html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Energy Scroller</title>
 
+    <!-- Base styles -->
+    <link rel="stylesheet" href="tiletest/info_section.css" />
+    <link rel="stylesheet" href="energyscroller.css" />
+
+    <!-- Sticky overrides -->
+    <link rel="stylesheet" href="styles_sticky.css" />
+
+  </head>
+
+  <body>
+    <div id="topbar_info">
+      <div>
+        <div id="counter">0 ⚡kWh</div>
+        <div id="scroll_counter">[0⚡ scrolled]</div>
+      </div>
+
+      <div id="table_container"></div>
+
+      <div id="jump_container">Jump To:</div>
+    </div>
+
+    <div id="background">
+      <div name="Transportation: all Electric Vehicles" energy="20M" iconvalue="1000" class="resizeable_tiling">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="140">
+          <h4>Electric vehicles and transit systems already use 20 million kilowatt-hours every day. As more buses, trains, and cars go electric, this number will grow.</h4>
+          <h4>Choosing clean transportation today helps shape a future where travel is both efficient and powered by renewable energy.</h4>
+        </div>
+      </div>
+
+      <div name="Universities & Colleges" energy="110M" iconvalue="1000" iconcolor="97" class="resizeable_tiling">
+        <!-- Example: stick for 3 viewports -->
+        <div class="card" >
+          <h4>America's colleges and universities are giant energy users, with labs, dorms, and classrooms running day and night.</h4>
+          <h4>Students have power beyond the classroom: small actions like switching off unused projectors, lights, and devices adds up to massive energy savings campus-wide.</h4>
+        </div>
+      </div>
+
+      <div name="Hospitals & Healthcare" energy="150M" iconvalue="1000" iconcolor="177" class="resizeable_tiling">
+        <div class="card">
+          <h4>Hospitals never sleep, and their lifesaving work depends on steady electricity for lights, machines, and cooling. Healthcare uses about 150 million kilowatt-hours a day.</h4>
+          <h4>Smarter systems and greener buildings can help cut waste without ever risking patient care.</h4>
+        </div>
+      </div>
+
+      <div name="AI data centers" energy="200M" iconvalue="1000" iconcolor="25" class="resizeable_tiling">
+        <div class="card">
+          <h4>Artificial intelligence now uses about 200 million kilowatt-hours every day - roughly 1/3 of all data center power.</h4>
+          <h4>Training big models is energy-hungry, but smarter chips and renewable power can shrink AI's growing footprint.</h4>
+        </div>
+      </div>
+
+      <div name="All data centers (including AI)" energy="400M" iconvalue="1000" iconcolor="306" class="resizeable_tiling">
+        <div class="card" data-stickvp="4" data-sticktop="140">
+          <h4>Every email, video, and search runs through a data center. Together, they use 400 million kilowatt-hours daily, in addition to the 200 million kilowatt-hours used by AI datacenters.</h4>
+          <h4>Cleaner energy and efficiency upgrades are key to powering our digital lives responsibly.</h4>
+        </div>
+      </div>
+
+      <div name="K-12 schools" energy="210M" iconvalue="1000" iconcolor="325" class="resizeable_tiling">
+        <div class="card" data-stickvp="2.5" data-sticktop="140">
+          <h4>Schools use over 210 million kilowatt-hours daily. Hallway lights, computers, and heating all add up.</h4>
+          <h4>Students can take the lead - turning off classroom lights, unplugging chargers, and inspiring whole schools to save energy.</h4>
+        </div>
+      </div>
+
+      <div name="Government & Military" energy="250M" iconvalue="1000" iconcolor="128" class="resizeable_tiling">
+        <div class="card">
+          <h4>From courthouses to military bases, government facilities use a quarter-billion kilowatt-hours every day.</h4>
+          <h4>Federal and state agencies can set an example by cutting waste and switching to clean energy first.</h4>
+        </div>
+      </div>
+
+      <div name="Malls & Shopping Centers" energy="300M" iconvalue="1000" iconcolor="185" class="resizeable_tiling">
+        <div class="card">
+          <h4>Shopping centers are bright, cool, and open long hours—using 300 million kilowatt-hours daily.</h4>
+          <h4>Smarter lighting, efficient cooling, and mindful shoppers all help reduce the hidden cost of keeping stores running.</h4>
+        </div>
+      </div>
+
+      <div name="Warehouses & Distribution" energy="350M" iconvalue="1000" iconcolor="72" class="resizeable_tiling">
+        <div class="card">
+          <h4>Warehouses keep America's goods moving, but all that lighting, refrigeration, and conveyor power uses 350 million kilowatt-hours daily.</h4>
+          <h4>Energy-efficient systems can deliver savings while keeping shelves stocked.</h4>
+        </div>
+      </div>
+
+      <div name="Big box Retail" energy="550M" iconvalue="1000" iconcolor="337" class="resizeable_tiling">
+        <div class="card">
+          <h4>Big-box stores, grocery chains, and corner shops together use 550 million kilowatt-hours daily.</h4>
+          <h4>Better equipment and greener buildings help retailers save energy and money.</h4>
+        </div>
+      </div>
+
+      <div name="Office Buildings" energy="620M" iconvalue="1000" iconcolor="104" class="resizeable_tiling">
+        <div class="card">
+          <h4>Offices account for 620 million kilowatt-hours daily—often with empty rooms running HVAC and lights.</h4>
+          <h4>Smarter building controls and employee choices can shrink this huge footprint.</h4>
+        </div>
+      </div>
+
+      <div name="Hotels and restaurants" energy="650M" iconvalue="1000" iconcolor="280" class="resizeable_tiling">
+        <div class="card">
+          <h4>Hotels and restaurants use 650 million kilowatt-hours daily.</h4>
+          <h4>Green equipment and small changes—like efficient lighting—can make hospitality more sustainable.</h4>
+        </div>
+      </div>
+
+      <div name="Services & misc" energy="990M" iconvalue="1000" iconcolor="329" class="resizeable_tiling">
+        <div class="card">
+          <h4>Churches, laundromats, gyms, banks, barbershops, libraries, and more fall into this group—nearly a billion kilowatt-hours daily.</h4>
+          <h4>Millions of small service spaces add up.</h4>
+        </div>
+      </div>
+
+      <div name="Industry / Factories" energy="2.87B" iconvalue="1000" iconcolor="25" class="resizeable_tiling">
+        <div class="card" data-stickvp="4" data-sticktop="140">
+          <h4>Factories and industry use ~2.87 billion kilowatt-hours every day in the U.S. Efficiency gains and offshoring kept this stable.</h4>
+          <h4>Industry remains one of our biggest energy users.</h4>
+        </div>
+      </div>
+
+      <div name="Residential" energy="4.13B" iconvalue="1000" iconcolor="185" class="resizeable_tiling">
+        <div class="card" data-stickvp="5" data-sticktop="140">
+          <h4>Homes use more energy than any other sector. The good news? Small choices—like switching off lights—add up.</h4>
+          <h4>Join the 1 Million Energy Action Challenge and help power real change!</h4>
+        </div>
+      </div>
+
+      <div class="target" name="bottom">bottom of the page</div>
+    </div>
+  </body>
+
+  <!-- Color palette / other helpers (if needed) -->
+  <script src="js/SVG_colors.js"></script>
+  <!-- Counters/tiling engine -->
+  <script src="tiletest/tilecount.js" defer></script>
+  
+  <!-- Sticky + helpers (wraps cards, builds tables, jump buttons, etc.) -->
+  <script src="tiletest/callbacks.js" defer></script>
+
+</html>

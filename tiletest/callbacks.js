@@ -1,26 +1,26 @@
 "use strict";
-// import this script at the end of the HTML (after all elements are defined)
 
-// ---------------------- Helpers: energy→height for sections ----------------------
+/* ---------------------- Helpers: energy→height for sections ---------------------- */
 function SetSectionHeight(tile_element, energy_count) {
   const bounds = tile_element.getBoundingClientRect();
-  const icon_size = tile_element.style.backgroundSize; // "auto 200px"
-  const icon_sizes = icon_size.split(" ");
+  const icon_size = tile_element.style.backgroundSize || getComputedStyle(tile_element).getPropertyValue("background-size");
+  const icon_sizes = (icon_size || "").split(/\s+/);
   let icon_h = 2000;
-  let icon_w = icon_sizes[0].replace("px", "");
-  if (icon_sizes.length === 2) {
-    icon_h = icon_sizes[1].replace("px", "");
+  let icon_w = icon_sizes[0] ? icon_sizes[0].replace("px", "") : "auto";
+  if (icon_sizes.length >= 2) {
+    icon_h = parseFloat(icon_sizes[1].replace("px", "")) || 2000;
   } else {
-    icon_h = 2000 * (icon_w / 1000);
+    const wnum = parseFloat(icon_w);
+    icon_h = isNaN(wnum) ? 2000 : 2000 * (wnum / 1000);
   }
   if (icon_w === "auto") icon_w = icon_h / 2; // preserve 1:2
 
   let icon_value = VALUE_PER_ICON;
   if (tile_element.hasAttribute("iconvalue")) {
-    icon_value = tile_element.getAttribute("iconvalue") * icon_value;
+    icon_value = parseFloat(tile_element.getAttribute("iconvalue")) * icon_value;
   }
 
-  const num_per_row = Math.round(bounds.width / icon_w);
+  const num_per_row = Math.max(1, Math.round(bounds.width / parseFloat(icon_w)));
   const val_per_row = icon_value * num_per_row;
   const rows = energy_count / val_per_row;
   const new_h = Math.round(rows * icon_h);
@@ -29,7 +29,7 @@ function SetSectionHeight(tile_element, energy_count) {
   tile_element.setAttribute("style", `${prev}; height:${new_h}px;`);
 }
 
-// ---------------------- Build maps from .resizeable_tiling ----------------------
+/* ---------------------- Build maps from .resizeable_tiling ---------------------- */
 function InitializeElementMap() {
   const tiles = document.getElementsByClassName("resizeable_tiling");
   let section_count = 0;
@@ -51,19 +51,20 @@ function InitializeElementMap() {
     // Optional energy → auto-height
     if (tile.hasAttribute("energy")) {
       let e = tile.getAttribute("energy");
-      if (e.endsWith("K")) e = e.replace("K", "") * 1_000;
-      else if (e.endsWith("M")) e = e.replace("M", "") * 1_000_000;
-      else if (e.endsWith("B")) e = e.replace("B", "") * 1_000_000_000;
+      if (e.endsWith("K")) e = parseFloat(e) * 1_000;
+      else if (e.endsWith("M")) e = parseFloat(e) * 1_000_000;
+      else if (e.endsWith("B")) e = parseFloat(e) * 1_000_000_000;
+      e = Number(e) || 0;
 
       // Insert a jump target before the section if none exists
       if (tile.getElementsByClassName("target").length === 0) {
         const jump = document.createElement("div");
         jump.setAttribute("name", section_name);
         jump.className = "target";
-        let txt = `${section_name}\nThis section contains ${e} kWh`;
+        let txt = `${section_name}\nThis section contains ${e.toLocaleString()} kWh`;
         if (tile.hasAttribute("iconvalue")) {
-          const iv = tile.getAttribute("iconvalue");
-          txt += `\n${e / iv} icons (x${iv} kWh per icon)`;
+          const iv = Number(tile.getAttribute("iconvalue")) || 1;
+          txt += `\n${Math.round(e / iv).toLocaleString()} icons (x${iv} kWh per icon)`;
         }
         jump.innerText = txt;
         tile.parentNode.insertBefore(jump, tile);
@@ -73,7 +74,7 @@ function InitializeElementMap() {
       SetSectionHeight(tile, e);
     }
 
-    // Collect .testme
+    // Collect ONLY .testme (legacy callouts); .card is NOT included here
     const tuplelist = [];
     const targets = tile.getElementsByClassName("testme");
     for (const t of targets) {
@@ -89,7 +90,7 @@ function InitializeElementMap() {
   }
 }
 
-// ---------------------- Sidebar counters per tile ----------------------
+/* ---------------------- Sidebar counters per tile ---------------------- */
 function ConstructCounterTables() {
   const table_container = document.getElementById("table_container");
   const tiles = document.getElementsByClassName("resizeable_tiling");
@@ -116,12 +117,28 @@ function ConstructCounterTables() {
   }
 }
 
-// ---------------------- Jump buttons ----------------------
-function ScrollButtonCallback(target) {
+/* ---------------------- Jump buttons ---------------------- */
+/*function ScrollButtonCallback(target) {
   const r = target.getBoundingClientRect();
   r.y += window.scrollY - r.height / 2;
   window.scrollTo(r);
+}*/
+
+function ScrollButtonCallback(target) {
+  const rect = target.getBoundingClientRect();
+  const header = document.getElementById('topbar_info');
+  const offset = header ? header.offsetHeight : 0;
+
+  const top = rect.top + window.scrollY - rect.height / 2 - offset;
+
+  // modern, smooth
+  window.scrollTo({ top, behavior: 'smooth' });
+
+  // fallback (uncomment if you need it)
+  // window.scrollTo(0, top);
 }
+
+
 function CreateElementButtons() {
   const wrap = document.getElementById("jump_container");
   const targets = document.getElementsByClassName("target");
@@ -135,68 +152,73 @@ function CreateElementButtons() {
   }
 }
 
-// ---------------------- Sticky durations ----------------------
+/* ---------------------- Sticky durations ---------------------- */
 function InitStickyDurations() {
-  const nodes = document.querySelectorAll("[data-stickvp]");
-  nodes.forEach((el) => {
+  const nodes = document.querySelectorAll(".card[data-stickvp]");
+
+  const findOverflowBlocker = (el) => {
+    let cur = el.parentElement;
+    while (cur && cur !== document.body) {
+      const cs = getComputedStyle(cur);
+      // Any of these turns the ancestor into a scroll container
+      const ov = cs.overflow + cs.overflowX + cs.overflowY;
+      if (/(auto|scroll|hidden|clip)/.test(ov)) return cur;
+      cur = cur.parentElement;
+    }
+    return null;
+  };
+
+  nodes.forEach((card) => {
     // Skip if already wrapped
-    if (el.parentElement && el.parentElement.classList.contains("sticky-wrap")) return;
+    if (card.parentElement && card.parentElement.classList.contains("sticky-wrap")) return;
 
-    const vp = parseFloat(el.getAttribute("data-stickvp")) || 1;
-    const topPx = (el.getAttribute("data-sticktop") || "120").replace("px", "");
+    const vp = Math.max(0.25, parseFloat(card.getAttribute("data-stickvp")) || 1);
+    const topPx = String(card.getAttribute("data-sticktop") || "140").replace("px", "");
 
-    // Wrapper
+    // Build wrapper + inner styles
     const wrap = document.createElement("div");
     wrap.className = "sticky-wrap";
     wrap.style.setProperty("--vp", vp);
+    wrap.style.width = "100%";
 
-    // **Critical**: neutralize inherited width/height from ".resizeable_tiling * { width/height: inherit }"
-    wrap.style.width = "auto";
-    wrap.style.height = `calc(${vp} * 100vh)`;
-    wrap.style.position = "relative";
-    wrap.style.display = "flex";
-    wrap.style.justifyContent = "center";
-    wrap.style.alignItems = "flex-start";
-    wrap.style.pointerEvents = "none"; // pass-through except for inner
+    card.classList.add("sticky-inner");
+    card.style.position = "sticky";
+    card.style.top = `${topPx}px`;
+    card.style.zIndex = "10002";
+    card.style.width = "auto";
+    card.style.height = "auto";
 
-    // Move el inside
-    el.parentElement.insertBefore(wrap, el);
-    wrap.appendChild(el);
+    // If an overflow-blocking ancestor exists, hoist wrapper BEFORE it
+    const blocker = findOverflowBlocker(card);
+    if (blocker) {
+      blocker.parentElement.insertBefore(wrap, blocker);
+    } else {
+      // Else, keep it where it is (as a sibling just before the card)
+      card.parentElement.insertBefore(wrap, card);
+    }
 
-    // Inner
-    el.classList.add("sticky-inner");
-    el.style.position = "sticky";
-    el.style.top = `${topPx}px`;
-    el.style.pointerEvents = "auto";
-    el.style.zIndex = "10002";
-    // Also neutralize possible inherited width/height on the element itself
-    el.style.width = "auto";
-    el.style.height = "auto";
+    // Move the card into the wrapper
+    wrap.appendChild(card);
 
-    // Stuck flag (optional)
-    const computeTop = () => parseFloat(getComputedStyle(el).top) || 0;
+    // Optional visual state toggle
+    const computeTop = () => parseFloat(getComputedStyle(card).top) || 0;
     window.addEventListener(
       "scroll",
       () => {
-        const rect = el.getBoundingClientRect();
-        el.classList.toggle("is-stuck", rect.top <= computeTop());
+        const rect = card.getBoundingClientRect();
+        card.classList.toggle("is-stuck", rect.top <= computeTop());
       },
       { passive: true }
     );
   });
 }
 
-// ---------------------- Global scroll thresholds (⚡) ----------------------
-// Independent gating: do NOT monkey-patch UpdateAll.
+/* ---------------------- Global scroll thresholds (⚡) ---------------------- */
 (function initGlobalScrollThresholds() {
   const gated = Array.from(document.querySelectorAll("[data-scrollthreshold]"));
-  // Start hidden
-  gated.forEach((el) => {
-    el.hidden = true;
-  });
+  gated.forEach((el) => { el.hidden = true; });
 
   function applyGlobalScrollThresholds() {
-    // Sum scrolled ⚡ across all tiles (ScrollVals is maintained by tilecount.js → UpdateAll)
     let scroll_total = 0;
     for (const v of ScrollVals.values()) scroll_total += v;
 
@@ -206,23 +228,22 @@ function InitStickyDurations() {
     }
   }
 
-  // Run on scroll/resize independent of UpdateAll's timing
   window.addEventListener("scroll", applyGlobalScrollThresholds, { passive: true });
   window.addEventListener("resize", applyGlobalScrollThresholds);
-  // First pass
   requestAnimationFrame(applyGlobalScrollThresholds);
 })();
 
-// ---------------------- Boot ----------------------
-InitializeElementMap();
-CreateElementButtons();
-ConstructCounterTables();
-InitStickyDurations();
+/* ---------------------- Boot (guard against double-init) ---------------------- */
+(function bootOnce() {
+  if (window.__ENERGY_BOOTED__) return;
+  window.__ENERGY_BOOTED__ = true;
 
-console.log("ElementMap:", ElementMap);
-console.log("CounterMap:", CounterMap);
+  InitializeElementMap();
+  CreateElementButtons();
+  ConstructCounterTables();
+  InitStickyDurations();
 
-// Let tilecount.js drive ScrollVals; we just listen.
-window.addEventListener("resize", UpdateAll);
-window.addEventListener("scroll", UpdateAll);
-UpdateAll();
+  window.addEventListener("resize", UpdateAll);
+  window.addEventListener("scroll", UpdateAll);
+  UpdateAll();
+})();

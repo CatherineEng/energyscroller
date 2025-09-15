@@ -37,7 +37,7 @@ otherwise it breaks the handles every time one of the 'testme' divs pops in */
     width:  500px;
     height: 200px;
     resize: both;
-    overflow: hidden; /* resize handles don't appear unless overflow is specified*/
+   // overflow: hidden; /* resize handles don't appear unless overflow is specified*/
     background-color: transparent;
     background-image: url(lightningbolt.svg);
     background-repeat: round round;

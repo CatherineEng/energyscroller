@@ -79,7 +79,7 @@ otherwise it breaks the handles every time one of the 'testme' divs pops in */
     height: 1000px;
     color: #FFFFFF;
     resize: both;
-    overflow: hidden; /* resize handles don't appear unless overflow is specified*/
+   // overflow: hidden; /* resize handles don't appear unless overflow is specified*/
     background-color: transparent;
     background-image: url(img/lightningbolt.svg);
     background-repeat: round round;
