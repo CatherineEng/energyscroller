@@ -1,6 +1,8 @@
 /* -------------------------------------------------- */
 /* Rules for info section at the top of the page */
 /* -------------------------------------------------- */
+@import "../assets/fonts/fonts.css";
+
 
 #topbar_info {
     top: 0px;
@@ -10,10 +12,13 @@
     z-index: 1; /* keep above other elements */
 }
 
+#topbar_info > * { font-family: "Cascadia"; }
+
 #counter, #scroll_counter {
     color: yellow;
     font-size: 2.5em;
     font-weight: bold;
+    font-family: "Cascadia";
     background-color: #555555;
     display: inline; /* horizontal layout */
 }

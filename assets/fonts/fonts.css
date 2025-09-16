@@ -1,0 +1,13 @@
+@font-face {
+    /* src: url("assets/fonts/CascadiaCode.ttf"); */
+    src: url("CascadiaMono.ttf");
+    font-family: "Cascadia";
+}
+
+/*
+apply this font by specifying:
+    font-family: "Cascadia";
+    
+and import this into other CSS files:
+    @import "assets/fonts/fonts.css";
+*/
