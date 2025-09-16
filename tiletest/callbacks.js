@@ -160,59 +160,83 @@ function InitStickyDurations() {
     let cur = el.parentElement;
     while (cur && cur !== document.body) {
       const cs = getComputedStyle(cur);
-      // Any of these turns the ancestor into a scroll container
       const ov = cs.overflow + cs.overflowX + cs.overflowY;
-      if (/(auto|scroll|hidden|clip)/.test(ov)) return cur;
+      if (/(auto|scroll|hidden|clip)/.test(ov)) return cur; // scroll container blocks sticky
       cur = cur.parentElement;
     }
     return null;
   };
 
   nodes.forEach((card) => {
-    // Skip if already wrapped
     if (card.parentElement && card.parentElement.classList.contains("sticky-wrap")) return;
 
     const vp = Math.max(0.25, parseFloat(card.getAttribute("data-stickvp")) || 1);
-    const topPx = String(card.getAttribute("data-sticktop") || "140").replace("px", "");
+    const topPx = parseFloat(String(card.getAttribute("data-sticktop") || "140").replace("px", "")) || 140;
 
-    // Build wrapper + inner styles
+    // Build wrapper
     const wrap = document.createElement("div");
     wrap.className = "sticky-wrap";
     wrap.style.setProperty("--vp", vp);
     wrap.style.width = "100%";
+    wrap.style.height = `calc(${vp} * 100vh)`;
+    wrap.style.position = "relative";
+    wrap.style.display = "flex";
+    wrap.style.justifyContent = "center";
+    wrap.style.alignItems = "flex-start";
+    wrap.style.pointerEvents = "none"; // pass through to page; card remains interactive
 
+    // If the card carries a global threshold, move it to the wrapper
+    if (card.hasAttribute("data-scrollthreshold")) {
+      wrap.setAttribute("data-scrollthreshold", card.getAttribute("data-scrollthreshold"));
+      card.removeAttribute("data-scrollthreshold");
+      // Note: your existing global threshold code (InitScrollThresholds/initGlobalScrollThresholds)
+      // will now hide/show the WRAPPER; that’s what we want.
+    }
+
+    // Hoist wrapper above any overflow-blocking ancestor
+    const blocker = findOverflowBlocker(card);
+    if (blocker) blocker.parentElement.insertBefore(wrap, blocker);
+    else card.parentElement.insertBefore(wrap, card);
+
+    // Move card into wrapper and make sticky
+    wrap.appendChild(card);
     card.classList.add("sticky-inner");
     card.style.position = "sticky";
     card.style.top = `${topPx}px`;
     card.style.zIndex = "10002";
-    card.style.width = "auto";
-    card.style.height = "auto";
+    card.style.pointerEvents = "auto";
 
-    // If an overflow-blocking ancestor exists, hoist wrapper BEFORE it
-    const blocker = findOverflowBlocker(card);
-    if (blocker) {
-      blocker.parentElement.insertBefore(wrap, blocker);
-    } else {
-      // Else, keep it where it is (as a sibling just before the card)
-      card.parentElement.insertBefore(wrap, card);
-    }
+    // --- Motion states relative to wrapper & sticky top ---
+    const updateMotion = () => {
+      if (wrap.hidden) {
+        // If wrapper is hidden by threshold, ensure card is reset
+        card.classList.remove("is-engaged", "is-sticking", "is-releasing");
+        return;
+      }
+      const w = wrap.getBoundingClientRect();
+      // Enter when wrapper top crosses the sticky top line
+      const enters = w.top <= topPx;
+      // Release when wrapper bottom passes above the sticky top line
+      const releases = w.bottom <= topPx + 1;
 
-    // Move the card into the wrapper
-    wrap.appendChild(card);
+      if (!enters) {
+        card.classList.remove("is-engaged", "is-sticking", "is-releasing");
+        return;
+      }
+      if (enters && !releases) {
+        card.classList.add("is-engaged", "is-sticking");
+        card.classList.remove("is-releasing");
+      } else if (releases) {
+        card.classList.add("is-releasing");
+        card.classList.remove("is-sticking");
+      }
+    };
 
-    // Optional visual state toggle
-    const computeTop = () => parseFloat(getComputedStyle(card).top) || 0;
-    window.addEventListener(
-      "scroll",
-      () => {
-        const rect = card.getBoundingClientRect();
-        card.classList.toggle("is-stuck", rect.top <= computeTop());
-      },
-      { passive: true }
-    );
+    window.addEventListener("scroll", updateMotion, { passive: true });
+    window.addEventListener("resize", updateMotion);
+    requestAnimationFrame(updateMotion);
   });
 }
-
 /* ---------------------- Global scroll thresholds (⚡) ---------------------- */
 (function initGlobalScrollThresholds() {
   const gated = Array.from(document.querySelectorAll("[data-scrollthreshold]"));
