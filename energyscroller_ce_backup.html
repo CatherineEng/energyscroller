@@ -7,11 +7,9 @@
     <!-- Base styles -->
     <link rel="stylesheet" href="tiletest/info_section.css" />
     <link rel="stylesheet" href="energyscroller.css" />
-    <link rel="stylesheet" href="homepage_sticky.css" />
-
-    <!-- Sticky overrides -->
     <link rel="stylesheet" href="styles_sticky.css" />
-
+    <link rel="stylesheet" href="homepage_sticky.css" />
+    <script src="homepage_sticky.js" defer></script>
   </head>
 
   <body>
@@ -26,33 +24,31 @@
       <div id="jump_container">Jump To:</div>
     </div>
 
+...
+    <section class="dual-pane hero">
+  <!-- Left column: sticks for X viewports (data-stickvp) -->
+  <div class="static" data-stickvp="6" data-sticktop="100">
+    <img src="img/ACTIONS-Learning_Shape-the-Futurewhite.png"
+         alt="energy scroller" />
+  </div>
+
+  <!-- Right column: scrolls normally (make this tall as needed) -->
+  <div class="flow">
+    <h1>One Nation, One Day of Energy</h1>
+    <h4>See what 24 hours of energy usage looks like in the U.S.!</h4>
+
+    <!-- filler to demonstrate scrolling; replace with your content -->
+    <div class="spacer">
+      <p>Scroll to read more…</p>
+    </div>
+  </div>
+</section>
+...
     <div id="background">
-<!--<div style="height:500vh;width:100vw;background-color:#11619A;display:flex;align-items: flex-start;">
-  <div data-stickvp="6" style="flex: 1 auto;width:50%"><img style="max-width:50%;height:auto;" src="img/ACTIONS-Learning_Shape-the-Futurewhite.png" alt="energy scroller" /></div>
+<div style="height:500vh;width:100vw;background-color:#11619A;display:flex;align-items: flex-start;">
+  <div class="static" data-stickvp="6" style="flex: 1 auto;width:50%"><img style="max-width:50%;height:auto;" src="img/ACTIONS-Learning_Shape-the-Futurewhite.png" alt="energy scroller" /></div>
   <div style="flex: 1 auto;width:50%;text-align: left;"><h1 style="color:white;">One Nation, One Day of Energy</h1><h4 style="color:white;">See what 24 hours of energy usage looks like in the U.S.!</h4></div>
-  
-  
-</div>-->
-
-      <section class="dual-pane hero">
-        <!-- Left column: sticks for X viewports (data-stickvp) -->
-        <div class="static" data-stickvp="6" data-sticktop="100">
-          <img src="img/ACTIONS-Learning_Shape-the-Futurewhite.png"
-              alt="energy scroller" />
-        </div>
-      
-        <!-- Right column: scrolls normally (make this tall as needed) -->
-        <div class="flow">
-          <h1>One Nation, One Day of Energy</h1>
-          <h4>See what 24 hours of energy usage looks like in the U.S.!</h4>
-      
-          <!-- filler to demonstrate scrolling; replace with your content -->
-          <div class="spacer">
-            <p>Scroll to read more…</p>
-          </div>
-        </div>
-      </section>
-
+</div>
 
 
       <div name="Transportation: all Electric Vehicles" energy="20M" iconvalue="1000" class="resizeable_tiling">
@@ -173,7 +169,5 @@
   
   <!-- Sticky + helpers (wraps cards, builds tables, jump buttons, etc.) -->
   <script src="tiletest/callbacks.js" defer></script>
-  <script src="homepage_sticky.js" defer></script>
-
 
 </html>

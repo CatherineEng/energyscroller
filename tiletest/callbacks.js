@@ -67,7 +67,7 @@ function InitializeElementMap() {
           txt += `\n${Math.round(e / iv).toLocaleString()} icons (x${iv} kWh per icon)`;
         }
         jump.innerText = txt;
-        tile.parentNode.insertBefore(jump, tile);
+     //  tile.parentNode.insertBefore(jump, tile); //commemt out to hide
       }
 
       window.addEventListener("resize", SetSectionHeight.bind(null, tile, e));
