@@ -73,14 +73,15 @@ function UpdateCounterTotal() {
     let total_value = 0;
     for (const val of TileValues.values()){ total_value += val; }
     const primary_counter = document.getElementById('counter');
-    primary_counter.innerText = `${total_value}\u26A1kWh`; // unicode: U+26A1 'High Voltage Sign'
+    primary_counter.innerHTML = `${total_value}<span class="bolt-label">kWh</span>`; // unicode: U+26A1 'High Voltage Sign'
 }
 
 function UpdateScrollCounter() {
     let scroll_total = 0;
     for (const val of ScrollVals.values()){ scroll_total += val; }
     const primary_counter = document.getElementById('scroll_counter');
-    primary_counter.innerText = `[${scroll_total}\u26A1 scrolled]`;
+    //primary_counter.innerText = `[${scroll_total}\u26A1 scrolled]`;
+    primary_counter.innerHTML = `[${scroll_total}<span class="bolt-label">scrolled</span>]`;
 }
 
 function CalculateTileValue(tile_element)

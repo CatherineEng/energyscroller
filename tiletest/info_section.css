@@ -31,7 +31,7 @@
   font-weight: bold;
 }
 
-#table_container { display: flex; gap: 8px; }
+#table_container { display: none; gap: 8px; } /* change back to display:flex to show tables */
 
 #table_container > table {
   font-size: 1em;
@@ -55,7 +55,28 @@
   border: 1px solid #FFFFFF20;
 }
 
+/* put this in your CSS (e.g., info_section.css) */
+#scroll_counter .bolt-label,
+#counter .bolt-label {
+  position: relative;
+  padding-left: 1em; /* space for the bolt */
+}
+
+/* SVG masked so it can inherit color */
+#scroll_counter .bolt-label::before,
+#counter .bolt-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.1em;             /* nudge vertically */
+  width: 1em;
+  height: 1em;
+  background-color: currentColor; /* bolt color */
+  -webkit-mask: url("../img/lightningbolt.svg") no-repeat center / contain;
+          mask: url("../img/lightningbolt.svg") no-repeat center / contain;
+}
+
 .threshold_table > li.good { color: cyan; background-color: #00FF0044; }
 .threshold_table > li.bad  { color: #D0D0D088; background-color: #FF000033; }
 
-#jump_container { color: lightgrey; padding: 2px; }
+#jump_container { display:none; color: lightgrey; padding: 2px; } /* remove display:none to add jump back */
