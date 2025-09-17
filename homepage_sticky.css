@@ -1,0 +1,62 @@
+/* Layout baseline */
+
+/* html, body { margin: 0; height: 100%; } */ /* this breaks the infobar */
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+/* Two-column hero section */
+.dual-pane.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: #11619A;
+  color: white;
+}
+
+/* Sticky system
+   The JS wraps .static in .static-wrap with height = vp * 100vh.
+   The .static element itself is sticky at data-sticktop (default 100px). */
+.static-wrap {
+  position: relative;
+  height: calc(var(--vp, 1) * 100vh);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.static {
+  position: sticky;
+  top: var(--stick-top, 100px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+}
+.static img {
+  max-width: 65%;
+  height: auto;
+}
+
+/* Right column content flows normally and can be taller than the left */
+.flow {
+  padding: 64px 6vw 96px;
+}
+.flow h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 56px); }
+.flow h4 { margin: 0 0 32px; font-weight: 500; font-size: clamp(16px, 2.1vw, 24px); }
+
+/* Demo spacer to force scrolling; replace with your content */
+.spacer {
+  height: 400vh;
+  display: grid;
+  place-items: center;
+  color: #fff9;
+  border-left: 1px solid #ffffff22;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+  .dual-pane.hero {
+	grid-template-columns: 1fr;
+  }
+  .static img { max-width: 80%; }
+}
+
