@@ -1,7 +1,3 @@
-/* Layout baseline */
-html, body { margin: 0; height: 100%; }
-body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-
 /* Two-column hero section */
 .dual-pane.hero {
   display: grid;
@@ -48,8 +44,46 @@ body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
   display: grid;
   place-items: center;
   color: #fff9;
-  border-left: 1px solid #ffffff22;
 }
+
+
+/*mini sticky inside flow */
+
+/* --- flow-sticky system --- */
+.flow-sticky-wrap {
+  position: relative;
+  height: calc(var(--vp, 1) * 100vh);
+  display: flex;
+  align-items: flex-start;
+}
+
+/* the element itself becomes sticky */
+.flow-sticky {
+  position: sticky;
+  top: var(--stick-top, 100px);
+  z-index: 1;
+}
+
+/* optional motion (same feel as hero card) */
+.flow-sticky {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+	opacity 360ms ease,
+	transform 360ms ease,
+	box-shadow 240ms ease;
+  will-change: transform, opacity;
+}
+.flow-sticky.is-engaged {
+  opacity: 1;
+  transform: translateY(0);
+}
+.flow-sticky.is-releasing {
+  opacity: 0;
+  transform: translateY(-40px);
+  box-shadow: none;
+}
+/*end mini sticky ***/
 
 /* Responsive: stack on small screens */
 @media (max-width: 900px) {

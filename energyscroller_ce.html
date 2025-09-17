@@ -36,7 +36,7 @@
 
       <section class="dual-pane hero">
         <!-- Left column: sticks for X viewports (data-stickvp) -->
-        <div class="static" data-stickvp="6" data-sticktop="100">
+        <div class="static" data-stickvp="9" data-sticktop="100">
           <img src="img/ACTIONS-Learning_Shape-the-Futurewhite.png"
               alt="energy scroller" />
         </div>
@@ -44,12 +44,49 @@
         <!-- Right column: scrolls normally (make this tall as needed) -->
         <div class="flow">
           <h1>One Nation, One Day of Energy</h1>
-          <h4>See what 24 hours of energy usage looks like in the U.S.!</h4>
+          <h4>Have you ever stopped to wonder how much energy we use as a nation, in one day?</h4>
       
-          <!-- filler to demonstrate scrolling; replace with your content -->
-          <div class="spacer">
-            <p>Scroll to read more…</p>
+          <!-- filler to demonstrate scrolling; replace with your content
+          <div class="static" style="height:300vh">
+            <h4>To understand this, we first have to know how we measure energy.</h4>
           </div>
+
+          <div class="spacer" data-stickvp="2" data-sticktop="100">
+            <h4>Energy is measured in kilowatt hours, or kWh. <br />1 kWh = 1000 watts used in one hour. </h4>
+          
+          </div>
+
+          <div class="spacer" style="height:300vh">
+            <h4>Let's say this lightning bolt represented 1 kWH</h4>
+          </div>
+ 
+         <div class="spacer" data-stickvp="2" data-sticktop="100">
+            <h4>Let's say this lightning bolt represented 1 kWh</h4>
+          </div>-->
+          
+          <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
+          <aside class="flow-sticky" data-flowstickvp="3" data-sticktop="320">
+            <h4>To understand this, we first have to know how we measure energy.</h4>
+          </aside>
+
+          <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
+          <aside class="flow-sticky" data-flowstickvp="3" data-sticktop="320">
+            <h4>Energy is measured in kilowatt hours, or kWh. <br />1 kWh = 1000 watts used in one hour. </h4>
+          </aside>
+          
+          <!-- More normal content to demonstrate scrolling -->
+          <div style="height:200vh"></div>
+          
+          <!-- Another sticky inside the same flow column -->
+          <figure class="flow-sticky" data-flowstickvp="2.5" data-sticktop="320">
+            <img src="img/lightningbolt.svg" alt="teaser" style="max-width:35px; height:auto;">
+            <figcaption>Let's say this lightning bolt represented 1 kWH. </figcaption>
+          </figure>
+          
+          <div style="height:200vh"></div>
+
+
+
         </div>
       </section>
 
