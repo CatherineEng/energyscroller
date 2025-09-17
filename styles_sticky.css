@@ -8,12 +8,12 @@ h4 {
 .card {
   margin: 0 auto;
   width: min(720px, 90%);
-  padding: 40px 40px 25px 40px;
+  padding: 0;
   border-radius: 30px;
   color: #000;
   background: #fff;
   text-align: left;
-  box-shadow: 0 8px 30px rgba(0,0,0,.12);
+/*  box-shadow: 0 8px 30px rgba(0,0,0,.12);*/
 }
 
 /* Generic "stick for X viewports" system */
@@ -73,10 +73,10 @@ h4 {
   transform: translateY(0);
 }
 
-/* optional “while sticking” look */
+/* optional “while sticking” look
 .sticky-inner.is-sticking {
   box-shadow: 0 8px 30px rgba(0,0,0,.12);
-}
+} */
 
 /* when wrapper’s duration ends: exit upward */
 .sticky-inner.is-releasing {

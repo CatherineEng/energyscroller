@@ -36,66 +36,56 @@
 
       <section class="dual-pane hero">
         <!-- Left column: sticks for X viewports (data-stickvp) -->
-        <div class="static" data-stickvp="9" data-sticktop="100">
+        <div class="static" data-stickvp="23" style="top:25vh !important;">
           <img src="img/ACTIONS-Learning_Shape-the-Futurewhite.png"
               alt="energy scroller" />
         </div>
       
         <!-- Right column: scrolls normally (make this tall as needed) -->
         <div class="flow">
+          <div class="landing" style="height:100vh;">
           <h1>One Nation, One Day of Energy</h1>
-          <h4>Have you ever stopped to wonder how much energy we use as a nation, in one day?</h4>
+          <h4>Start scrolling and learn how we consume energy every day!</h4>
+          </div>
       
-          <!-- filler to demonstrate scrolling; replace with your content
-          <div class="static" style="height:300vh">
-            <h4>To understand this, we first have to know how we measure energy.</h4>
-          </div>
-
-          <div class="spacer" data-stickvp="2" data-sticktop="100">
-            <h4>Energy is measured in kilowatt hours, or kWh. <br />1 kWh = 1000 watts used in one hour. </h4>
-          
-          </div>
-
-          <div class="spacer" style="height:300vh">
-            <h4>Let's say this lightning bolt represented 1 kWH</h4>
-          </div>
- 
-         <div class="spacer" data-stickvp="2" data-sticktop="100">
-            <h4>Let's say this lightning bolt represented 1 kWh</h4>
-          </div>-->
-          
           <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-          <aside class="flow-sticky" data-flowstickvp="3" data-sticktop="320">
-            <h4>The answer is... </h4>
+          <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
+            <h3>Have you ever stopped to wonder how much energy we use as a nation, in one day?</h3>
+          </aside>
+
+
+          <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
+            <h3>Take a wild guess.</h3>
           </aside>
 
           <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-          <aside class="flow-sticky" data-flowstickvp="3" data-sticktop="320">
-            <h4>11.4 BILLION kWh</h4>
-            <h5>11,400,000,000
+          <aside class="flow-sticky text" data-flowstickvp="5" data-sticktop="320">
+            <h1>11,400,000,000</h1>
+            <h3>kilowatt hours</h3>
+            <h5>That's 11.4 billion kWh!</h5>
           </aside>
 
 
           <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-          <aside class="flow-sticky" data-flowstickvp="3" data-sticktop="320">
-            <h4>To understand how big this is, we first have to know how we measure energy.</h4>
+          <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
+            <h4>To understand how much this is, we first have to know something about kilowatt hours.</h4>
           </aside>
 
           <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-          <aside class="flow-sticky" data-flowstickvp="3" data-sticktop="320">
+          <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
             <h4>Energy is measured in kilowatt hours, or kWh. <br />1 kWh = 1000 watts used in one hour. </h4>
           </aside>
           
-          <!-- More normal content to demonstrate scrolling -->
-          <div style="height:200vh"></div>
+          <!-- More normal content to demonstrate scrolling - very cool - try it 
+          <div style="height:200vh;background-color:#ff5500;width:20vw;"></div>-->
           
           <!-- Another sticky inside the same flow column -->
-          <figure class="flow-sticky" data-flowstickvp="2.5" data-sticktop="320">
-            <img src="img/lightningbolt.svg" alt="teaser" style="max-width:35px; height:auto;">
-            <figcaption>Let's say this lightning bolt represented 1 kWH. </figcaption>
+          <figure class="flow-sticky text" data-flowstickvp="4" data-sticktop="320">
+            <img src="img/lightningbolt.svg" alt="teaser" style="max-width:28px; height:auto;float:left;padding-right:20px;">
+            <h4>Let's say this lightning bolt represented 1 kWh. </h4>
           </figure>
           
-          <div style="height:200vh"></div>
+      <!--    <div style="height:200vh"></div>-->
 
 
 
@@ -103,12 +93,79 @@
       </section>
 
 
+      <div name="Lesson" energy="10000" iconvalue="1" class="resizeable_tiling yellow_bg">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h2 class="dkblue">A page of 11.4 billion of these would take you about 50 days of scrolling fast to reach the end!  </h2></div>
+        </div>
+      </div>
+<div style="height:200vh"></div>
+      <div name="Lesson 2" energy="35000" iconvalue="1" class="resizeable_tiling yellow_bg tiny">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">We could try shrinking the lightning bolts to try to get through the 11.4 billion lightning bolts faster. </h3></div>
+        </div>
+      </div>
+<div style="height:200vh"></div>
+     <div name="Lesson 3" energy="35000" iconvalue="1" class="resizeable_tiling yellow_bg tiny">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">At this rate, it would still take around 20 days to reach the end of this page.</h3></div>
+        </div>
+      </div>
+      <div style="height:200vh"></div>
+      <div name="Lesson 2" energy="85000" iconvalue="1000" class="resizeable_tiling yellow_bg">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">So let's try making the lightning bolts worth more kWh instead... 1000 kWh to be exact.  </h3></div>
+        </div>
+      </div>
+
+      <div name="Lesson 2" energy="35000" iconvalue="1" class="resizeable_tiling yellow_bg tiny">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">What can you do with 1 kWh anyway? </h3></div>
+        </div>
+      </div>
+
+
+      <div name="Lesson 2" energy="35000" iconvalue="1" class="resizeable_tiling yellow_bg tiny">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">What can you do with 1 kWh anyway? </h3></div>
+        </div>
+      </div>
+
+
+      <div name="Lesson 2" energy="35000" iconvalue="1" class="resizeable_tiling yellow_bg tiny">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">What can you do with 1 kWh anyway? </h3></div>
+        </div>
+      </div>
+
+
+      <div name="Lesson 2" energy="35000" iconvalue="1" class="resizeable_tiling yellow_bg tiny">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">What can you do with 1 kWh anyway? </h3></div>
+        </div>
+      </div>
+
+
+      <div name="Lesson 2" energy="35000" iconvalue="1" class="resizeable_tiling yellow_bg tiny">
+        <!-- Stick for 6 viewports from 140px below the top -->
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div class="headline"> <h3 class="dkblue">What can you do with 1 kWh anyway? </h3></div>
+        </div>
+      </div>
+
 
       <div name="Transportation: all Electric Vehicles" energy="20M" iconvalue="1000" class="resizeable_tiling">
         <!-- Stick for 6 viewports from 140px below the top -->
-        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000">
-          <h4>Electric vehicles and transit systems already use 20 million kilowatt-hours every day. As more buses, trains, and cars go electric, this number will grow.</h4>
-          <h4>Choosing clean transportation today helps shape a future where travel is both efficient and powered by renewable energy.</h4>
+        <div class="card"  data-stickvp="6" data-sticktop="240" data-scrollthreshold="5000000" style="background-color:transparent;">
+         <div style="width:50vw;padding:30px;background-color:white;border-radius:30px;"> <h4 style="color:white;">Electric vehicles and transit systems already use 20 million kilowatt-hours every day. As more buses, trains, and cars go electric, this number will grow.</h4>
+          <h4>Choosing clean transportation today helps shape a future where travel is both efficient and powered by renewable energy.</h4></div>
         </div>
       </div>
 

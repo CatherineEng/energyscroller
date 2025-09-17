@@ -8,18 +8,22 @@
     top: 0px;
     position: sticky;
     /* border: 1px solid red; */
-    background-color: #555555;
+   /* background-color: color(display-p3 0.104 0.28 0.466);
     z-index: 1; /* keep above other elements */
+    padding:10px 10px 10px 60px;
+    background-image:url(../img/bg_band_wide.jpg);
+    background-size:100%;
+   
 }
 
 #topbar_info > * { font-family: "Cascadia"; }
 
 #counter, #scroll_counter {
     color: yellow;
-    font-size: 2.5em;
+    font-size: 1.5em;
     font-weight: bold;
     font-family: "Cascadia";
-    background-color: #555555;
+    background-color: transparent;
     display: inline; /* horizontal layout */
 }
 
@@ -55,6 +59,10 @@
   border: 1px solid #FFFFFF20;
 }
 
+.landing {
+  height: 80vh;
+  align-content: center;
+}
 /* put this in your CSS (e.g., info_section.css) */
 #scroll_counter .bolt-label,
 #counter .bolt-label {

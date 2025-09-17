@@ -85,9 +85,7 @@ otherwise it breaks the handles every time one of the 'testme' divs pops in */
     background-repeat: round round;
     background-size: auto 50px; /* 1/40th scale of source: 1000x2000 */
     background-attachment: local;
-    
-    border: 1px solid #777777;
-}
+ }
 
 /* any tiling nested inside resizeable_tiling will resize to fit */
 .resizeable_tiling *:not(.testme) {

@@ -1,11 +1,32 @@
 /* Two-column hero section */
 .dual-pane.hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 40% 60%;
   align-items: flex-start;
   min-height: 100vh;
-  background: #11619A;
+  background: #11619a;
   color: white;
+}
+
+.blue_bg {
+  background-color:#11619A;
+}
+
+.yellow_bg {
+  background-color:#d9d55e;
+}
+
+.dkblue {
+  color:#1A4774;
+}
+
+.tiny {
+  background-size:auto 20px;
+}
+
+.headline {
+  padding:30px 30px 30px 60px !important;
+  width:50vw !important;
 }
 
 /* Sticky system
@@ -20,24 +41,33 @@
 }
 .static {
   position: sticky;
-  top: var(--stick-top, 100px);
+ /* top: var(--stick-top, 100px);*/
+ top:20vh !important;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding-top: 0;
 }
 .static img {
-  max-width: 65%;
+  max-width: 90%;
   height: auto;
 }
 
 /* Right column content flows normally and can be taller than the left */
 .flow {
-  padding: 64px 6vw 96px;
+  padding: 0 6vw 96px;
 }
-.flow h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 56px); }
-.flow h4 { margin: 0 0 32px; font-weight: 500; font-size: clamp(16px, 2.1vw, 24px); }
+.flow h1, h1 { margin: 0 0 8px; font-size: clamp(5em, 4vw, 56px); line-height:1.1em;}
+.flow h3  { margin: 0 0 32px; font-weight: 600; font-size: clamp(1.5em, 3.0vw, 43px); }
+.flow h4, h4 { margin: 0 0 32px; font-weight: 600; font-size: clamp(1em, 2.1vw, 33px); }
+.flow h5, h5 { margin: 0 0 32px; font-weight: 600; font-size: clamp(.9em, 1.3vw, 22px); }
 
+h3 { margin: 0 0 32px; font-weight: 600; font-size: clamp(1em, 3.0vw, 43px); }
+
+
+.flow-sticky.text {
+  top:45vh !important;
+}
 /* Demo spacer to force scrolling; replace with your content */
 .spacer {
   height: 400vh;
