@@ -37,7 +37,7 @@ class TableEntry
     constructor(parentTable, target)
     { // inserts an entry for target into the parent CounterTable
         if (!target.hasAttribute("name"))
-            {target.setAttribute("name", target.innerText.substring(0,6));}
+            {target.setAttribute("name", target.innerText.substring(0,12));}
         let target_name = target.getAttribute("name");
         
         const new_entry = document.createElement("li");
@@ -47,7 +47,7 @@ class TableEntry
         new_entry.textContent = `${scroll_range_text} ${target_name}`
         parentTable.appendChild(new_entry);
         
-        this.threshold = ParseSuffix(target.getAttribute("scrollstart"));;
+        this.threshold = ParseSuffix(target.getAttribute("scrollstart"));
         this.scrollend = ParseSuffix(target.getAttribute("scrollend"));
         this.table_row = new_entry;
     }
@@ -133,16 +133,18 @@ function CalculateTileValue(tile_element)
     //console.log(`new_height: ${tile_height*height_ratio}`);
     tile_height *= height_ratio;
     
-    // TODO: still can't use relative positioning because they want to be relative to the text
     let vertOffset = bounds.top + window.scrollY;
     let scroll_val = Math.round(((-bounds.top)/tile_height)) * num_per_row * icon_value;
     
     // adjusting position of each child element
     let elements = ElementMap.get(tile_element);
-    for (let [target, threshold, scrollend] of elements) {
-        if (scrollend == -1) scrollend = tile_val;
-        if ((scroll_val >= threshold) && (scroll_val <= scrollend)) {
-            target.style.position = "fixed"; target.style.top = "200px";
+    for (let [target, threshold, scrollend, sticky_vh] of elements) {
+        let sticky_offset = ((sticky_vh / tile_height) * num_per_row * icon_value);
+        if (scrollend == -1) scrollend = tile_val; // when end is unspecified, go until the bottom of tile
+        if ((scroll_val >= (threshold-sticky_offset)) && (scroll_val <= scrollend)) {
+            let dist_from_end = ((scrollend-scroll_val)*tile_height)/(num_per_row*icon_value);
+            target.style.top = `${Math.min(sticky_vh, dist_from_end-sticky_vh)}px`;
+            target.style.position = "fixed";
         } else {
             target.style.position = "absolute";
             target.style.top = `${vertOffset+((tile_height*threshold)/(num_per_row*icon_value))}px`

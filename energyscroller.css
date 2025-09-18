@@ -54,10 +54,11 @@ otherwise it breaks the handles every time one of the 'card' divs pops in */
 }
 
 .card {
-    color: cyan;
-    font-size: 1em;
+    color: white;
+    font-size: 2.5em;
     border: 2px solid hotpink;
     position: absolute; /* sticky doesn't work at all - that behavior is implemented manually in JavaScript because CSS is just impossible */
+    z-index: 2; /* above infobar */
 }
 
 /* 'background' must not be set for anything using 'background-image' */

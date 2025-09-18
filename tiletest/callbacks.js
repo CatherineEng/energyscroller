@@ -84,17 +84,18 @@ function InitializeElementMap()
         }
         
         let tuplelist = [];
-        let targetlist = tile_source.getElementsByClassName("card");
-        for (const target of targetlist) {
-            if(!target.hasAttribute("scrollstart"))
-                target.setAttribute("scrollstart", 0);
-            if(!target.hasAttribute("scrollend"))
-                target.setAttribute("scrollend", -1);
+        for (const target of tile_source.getElementsByClassName("card"))
+        {
+            if (!target.hasAttribute("scrollstart")){target.setAttribute("scrollstart",0); }
+            if (!target.hasAttribute("scrollend")) { target.setAttribute("scrollend", -1); }
+            if (!target.hasAttribute("sticky_vh")) { target.setAttribute("sticky_vh",250); }
+            
             let start_val = ParseSuffix(target.getAttribute("scrollstart"));
             let final_val = ParseSuffix(target.getAttribute("scrollend"));
-            tuplelist.push([target, start_val, final_val]);
+            let sticky_vh = target.getAttribute("sticky_vh"); // page height of element when it sticks
+            tuplelist.push([target, start_val, final_val, sticky_vh]);
         }
-        console.log("tuple_list: ", tuplelist);
+        
         ElementMap.set(tile_source, tuplelist);
         TileValues.set(tile_source, 0);
         
