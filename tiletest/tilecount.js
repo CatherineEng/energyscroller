@@ -7,7 +7,11 @@ let isStrictMode = (function() { return (this !== globalThis); })();
 console.log(`strict-mode: ${(isStrictMode? 'enabled':'disabled')}`);
 // --------------------------------------------------------------- //
 
-let VALUE_PER_ICON = 1; // TODO: custom HTML attribute
+let VALUE_PER_ICON = 1;
+let INFOBAR_VISIBILITY_THRESHOLD = 0; // top infobar is hidden until this scrollcount
+// set the visibilty threshold to '-1' to make it always visible
+// set an extremely high value (999999999999) to hide it forever
+
 const TileValues = new Map(); // tile --> stored value
 const ScrollVals = new Map(); // tile --> scroll count
 const ElementMap = new Map(); // tile --> tuple[nested elements (class="card"), scrollstart, scrollend]
@@ -92,6 +96,7 @@ function UpdateScrollCounter() {
     for (const val of ScrollVals.values()){ scroll_total += val; }
     const primary_counter = document.getElementById('scroll_counter');
     primary_counter.innerText = `[${scroll_total}\u26A1 scrolled]`;
+    return scroll_total;
 }
 
 function CalculateTileValue(tile_element)
@@ -165,5 +170,8 @@ function UpdateAll() {
         ScrollVals.set(tile, scrollval);
         CounterMap.get(tile).Update(scrollval);
     }
-    UpdateScrollCounter();
+    let scroll_total = UpdateScrollCounter();
+    const topbar_info = document.getElementById("topbar_info");
+    if (scroll_total <= INFOBAR_VISIBILITY_THRESHOLD) topbar_info.setAttribute("hidden", true);
+    else topbar_info.removeAttribute("hidden");
 }

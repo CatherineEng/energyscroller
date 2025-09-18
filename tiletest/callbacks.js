@@ -1,6 +1,9 @@
 "use strict";
 // import this script at the end of the HTML (after all elements are defined)
 
+// global toggle for jump buttons
+const JUMP_TARGETS_ENABLED = true;
+
 // calculates the necessary height for sections with 'energy' attribute
 function SetSectionHeight(tile_element, energy_count)
 {
@@ -30,7 +33,7 @@ function SetSectionHeight(tile_element, energy_count)
     tile_element.setAttribute("style", `${current_style} height: ${new_height}px;`); // later values override earlier ones
 }
 
-function InitializeElementMap()
+function InitializeElementMap(enableJumpTargets)
 {
     const tile_sources = document.getElementsByClassName("resizeable_tiling");
     console.log("tile sources: ", tile_sources);
@@ -74,7 +77,7 @@ function InitializeElementMap()
                 }
                 
                 jumpTarget.innerText = section_text;
-                tile_source.parentNode.insertBefore(jumpTarget, tile_source);
+                if (enableJumpTargets) tile_source.parentNode.insertBefore(jumpTarget, tile_source);
             }
             
             window.addEventListener("resize", SetSectionHeight.bind(null, tile_source, energy_val));
@@ -145,10 +148,11 @@ function ScrollButtonCallback(target) {
     window.scrollTo(bounds);
 }
 
-function CreateElementButtons()
+function CreateElementButtons(enableJumpTargets)
 {
     const link_container = document.getElementById("jump_container");
     const targetElements = document.getElementsByClassName("target");
+    if (!enableJumpTargets) { link_container.setAttribute("hidden", true); return; }
     
     let target_count = 1;
     for (const target of targetElements) {
@@ -163,8 +167,8 @@ function CreateElementButtons()
 }
 
 
-InitializeElementMap();
-CreateElementButtons();
+InitializeElementMap(JUMP_TARGETS_ENABLED);
+CreateElementButtons(JUMP_TARGETS_ENABLED);
 ConstructCounterTables();
 console.log("ElementMap:", ElementMap);
 console.log("CounterMap:", CounterMap);
