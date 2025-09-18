@@ -56,10 +56,7 @@ function InitializeElementMap()
         }
         
         if (tile_source.hasAttribute("energy")) {
-            let energy_val = tile_source.getAttribute("energy");
-            if (energy_val.endsWith('K')) energy_val = energy_val.replace('K','') * 1000; else
-            if (energy_val.endsWith('M')) energy_val = energy_val.replace('M','') * 1000000; else
-            if (energy_val.endsWith('B')) energy_val = energy_val.replace('B','') * 1000000000;
+            let energy_val = ParseSuffix(tile_source.getAttribute("energy"));
             
             // inserting a jump-target before section if it doesn't contain one already
             // TODO: this wouldn't be necessary if it was possible to jump to 'tiling' elements (for some reason it's not)
@@ -87,12 +84,15 @@ function InitializeElementMap()
         }
         
         let tuplelist = [];
-        let targetlist = tile_source.getElementsByClassName("testme");
+        let targetlist = tile_source.getElementsByClassName("card");
         for (const target of targetlist) {
-            if(!target.hasAttribute("required_scrollcount"))
-                target.setAttribute("required_scrollcount", 0);
-            let threshold = target.getAttribute("required_scrollcount");
-            tuplelist.push([target, threshold]);
+            if(!target.hasAttribute("scrollstart"))
+                target.setAttribute("scrollstart", 0);
+            if(!target.hasAttribute("scrollend"))
+                target.setAttribute("scrollend", -1);
+            let start_val = ParseSuffix(target.getAttribute("scrollstart"));
+            let final_val = ParseSuffix(target.getAttribute("scrollend"));
+            tuplelist.push([target, start_val, final_val]);
         }
         console.log("tuple_list: ", tuplelist);
         ElementMap.set(tile_source, tuplelist);
@@ -135,7 +135,6 @@ function ConstructCounterTables()
     }
 }
 
-// TODO: cannot jump to 'resizeable_tiling' elements, and can only jump to nested elements with class 'testme'!?
 function ScrollButtonCallback(target) {
     let bounds = target.getBoundingClientRect();
     /* modifying the Y-offset to be absolute instead of relative; 'scrollTo' interprets it as an absolute position.

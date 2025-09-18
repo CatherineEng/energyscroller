@@ -10,34 +10,45 @@ console.log(`strict-mode: ${(isStrictMode? 'enabled':'disabled')}`);
 let VALUE_PER_ICON = 1; // TODO: custom HTML attribute
 const TileValues = new Map(); // tile --> stored value
 const ScrollVals = new Map(); // tile --> scroll count
-const ElementMap = new Map(); // tile --> nested elements (class="testme")
+const ElementMap = new Map(); // tile --> tuple[nested elements (class="card"), scrollstart, scrollend]
 const CounterMap = new Map(); // tile --> CounterTable
 
+
+function ParseSuffix(num_string) {
+    switch (num_string.substr(-1)) {
+        case 'K': return num_string.substring(0, num_string.length-1) * 1000;
+        case 'M': return num_string.substring(0, num_string.length-1) * 1_000_000;
+        case 'B': return num_string.substring(0, num_string.length-1) * 1_000_000_000;
+    } return num_string;
+}
 
 class TableEntry
 {
     threshold;
+    scrollend;
     table_row; // the <li> element associated with this
     
     Update(new_val) { // updates the coloring (via CSS)
-        this.table_row.setAttribute("class",
-              ((new_val >= this.threshold)? "good":"bad"));
-        return (new_val >= this.threshold);
+        let is_good = ((new_val >= this.threshold) && ((new_val <= this.scrollend) || (this.scrollend == -1)));
+        this.table_row.setAttribute("class", (is_good? "good":"bad"));
+        return is_good;
     }
     
     constructor(parentTable, target)
     { // inserts an entry for target into the parent CounterTable
-        let threshold = target.getAttribute("required_scrollcount");
         if (!target.hasAttribute("name"))
-            {target.setAttribute("name", target.innerText);}
+            {target.setAttribute("name", target.innerText.substring(0,6));}
         let target_name = target.getAttribute("name");
         
         const new_entry = document.createElement("li");
         new_entry.setAttribute("class", "bad");
-        new_entry.textContent = `[${threshold}] ${target_name}`
+        let scroll_range_text = `[${target.getAttribute("scrollstart")}-${target.getAttribute("scrollend")}]`;
+        if (target.getAttribute("scrollend") == -1) scroll_range_text = `[${target.getAttribute("scrollstart")}]`;
+        new_entry.textContent = `${scroll_range_text} ${target_name}`
         parentTable.appendChild(new_entry);
         
-        this.threshold = threshold;
+        this.threshold = ParseSuffix(target.getAttribute("scrollstart"));;
+        this.scrollend = ParseSuffix(target.getAttribute("scrollend"));
         this.table_row = new_entry;
     }
 }
@@ -47,7 +58,7 @@ class CounterTable
     table_element; // <table class="threshold_table">
     table_counter; // <a class="table_counter">
     tile_source; // <class="resizeable_tiling">
-    target_list; // <class="testme"> elements nested within tile_source
+    target_list; // <class="card"> elements nested within tile_source
     row_entries; // TableEntries
     
     Update(new_val) {
@@ -60,7 +71,7 @@ class CounterTable
         this.table_element = table;
         this.table_counter = table.getElementsByClassName("table_counter")[0];
         this.tile_source = source;
-        this.target_list = source.getElementsByClassName("testme");
+        this.target_list = source.getElementsByClassName("card");
         
         this.row_entries = [];
         for (const target of this.target_list) {
@@ -124,13 +135,18 @@ function CalculateTileValue(tile_element)
     
     // TODO: still can't use relative positioning because they want to be relative to the text
     let vertOffset = bounds.top + window.scrollY;
+    let scroll_val = Math.round(((-bounds.top)/tile_height)) * num_per_row * icon_value;
     
     // adjusting position of each child element
     let elements = ElementMap.get(tile_element);
-    for (const [target, threshold] of elements) {
-        if (tile_val >= threshold) { target.removeAttribute("hidden");
+    for (let [target, threshold, scrollend] of elements) {
+        if (scrollend == -1) scrollend = tile_val;
+        if ((scroll_val >= threshold) && (scroll_val <= scrollend)) {
+            target.style.position = "fixed"; target.style.top = "200px";
+        } else {
+            target.style.position = "absolute";
             target.style.top = `${vertOffset+((tile_height*threshold)/(num_per_row*icon_value))}px`
-        } else { target.setAttribute("hidden", true); }
+        }
     }
     
     // returning scrolled amount
