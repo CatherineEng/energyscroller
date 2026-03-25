@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="tiletest.css">
+        <link rel="stylesheet" href="info_section.css">
+        <script type="text/javascript" src="tilecount.js"></script>
+    </head>
+    
+    <body>
+    <div id="topbar_info">
+        <div id="counter">0 ⚡kWh</div> <!-- unicode: U+26A1 'High Voltage Sign' -->
+        <div id="table_container">
+            <!-- threshold-tables are dynamically constructed and inserted here -->
+            <!-- initializer function 'ConstructCounterTables()' [callbacks.js] -->
+            
+            <!--         example table structure         -->
+            <!-- <table class="threshold_table"> <tbody><th>
+                <a class="table_counter">0⚡</a> Table_1</th></tbody>
+                <li class="good">TESTME_25</li> ... </table> -->
+        </div>
+    </div>
+    <div id="svg_display"></div> <div id="out_display"></div>
+    <div id="background">
+        <div class="resizeable_tiling">[resize me to update counter]
+            <div class="testme" required_scrollcount=25>TESTME 25</div>
+            <div class="testme" required_scrollcount=50>TESTME 50</div>
+            <div class="testme" required_scrollcount=75>TESTME 75</div>
+        </div>
+        <div class="resizeable_tiling" tilesize="auto 250px" iconvalue=5>
+            <div class="testme" required_scrollcount=5 >BIG 5</div>
+            <div class="testme" required_scrollcount=10>BIG 10</div>
+            <div class="testme" required_scrollcount=15>BIG 15</div>
+        </div>
+        <div class="resizeable_tiling" tilesize="auto 200px">
+            <div class="tiling">
+                <div name="tile2_testme1" class="testme" required_scrollcount=10>TESTME 10</div>
+                <div name="tile2_testme2" class="testme" required_scrollcount=20>TESTME 20</div>
+                <div name="tile2_testme3" class="testme" required_scrollcount=40>TESTME 40</div>
+            </div>
+        </div>
+        <div class="tiling"></div>
+    </div>
+    </body>
+    <!-- must be imported AFTER all elements have been defined -->
+    <script type="text/javascript" src="colorcycle.js"></script>
+    <script type="text/javascript" src="callbacks.js"></script>
+</html>
+

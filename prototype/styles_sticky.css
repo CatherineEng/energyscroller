@@ -1,0 +1,89 @@
+/* Card look */
+h4 {
+  font-size: 0.6em;
+  margin-block-start: 0;
+  margin-block-end: 0.8em;
+}
+
+.card {
+  margin: 0 auto;
+  width: min(720px, 90%);
+  padding: 0;
+  border-radius: 30px;
+  color: #000;
+  background: #fff;
+  text-align: left;
+/*  box-shadow: 0 8px 30px rgba(0,0,0,.12);*/
+}
+
+/* Generic "stick for X viewports" system */
+.sticky-wrap {
+  width: 100%;
+  position: relative;
+  /* duration set via JS: --vp */
+  height: calc(var(--vp, 1) * 100vh);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none; /* pass-through except inner */
+}
+
+.sticky-inner {
+  position: sticky;
+  top: var(--sticky-top, 140px);
+  z-index: 10002;
+  pointer-events: auto; /* clickable */
+}
+
+.sticky-inner.is-stuck {}
+
+/* Only cancel absolute positioning for legacy .testme items */
+.testme.sticky-optout { position: static !important; }
+
+[hidden] { display: none !important; }
+
+/* Optional fixed-height helpers */
+.tall-5vh  { height: calc(5 * 100vh); }
+.tall-10vh { height: calc(10 * 100vh); }
+.tall-15vh { height: calc(15 * 100vh); }
+.tall-5000 { height: 5000px; }
+
+.resizeable_tiling.fixed-10vp {
+  width: 100%;
+  height: calc(10 * 100vh);
+  resize: none;
+  background-size: auto 120px;
+}
+
+
+/* --- sticky motion (threshold-based) --- */
+.sticky-inner {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 360ms ease,
+    transform 360ms ease,
+    box-shadow 240ms ease;
+  will-change: transform, opacity;
+}
+
+/* when wrapper hits sticky top: enter */
+.sticky-inner.is-engaged {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* optional “while sticking” look
+.sticky-inner.is-sticking {
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
+} */
+
+/* when wrapper’s duration ends: exit upward */
+.sticky-inner.is-releasing {
+  opacity: 0;
+  transform: translateY(-40px);
+  box-shadow: none;
+}
+
+/* keep wrappers fully hidden until threshold is met */
+.sticky-wrap[hidden] { display: none !important; }

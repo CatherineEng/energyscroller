@@ -1,0 +1,56 @@
+/* -------------------------------------------------- */
+/* Rules for info section at the top of the page */
+/* -------------------------------------------------- */
+
+#topbar_info {
+    top: 0px;
+    position: sticky;
+    /* border: 1px solid red; */
+    background-color: #555555;
+}
+
+#counter {
+    color: yellow;
+    font-size: 2.5em;
+    font-weight: bold;
+    background-color: #555555;
+}
+
+.table_counter {
+    color: yellow;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#table_container {
+    display: flex;
+}
+
+#table_container > table {
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #777777;
+    font-weight: bold;
+    padding: 0px 0px 0px 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    /*display: inline-block;*/
+    width: 100%; /* expand horizontally to fill window */
+}
+
+.threshold_table th {
+    border: 2px solid #00000020;
+}
+
+.threshold_table > li {
+    font-size: 1em;
+    color: #00FF00;
+    background-color: #777777;
+    list-style: inside;
+    /*margin-top: -1px;*/
+    padding-right: 4px;
+    border: 1px solid #FFFFFF20;
+}
+
+.threshold_table > li.good { color: cyan; background-color: #00FF0044; }
+.threshold_table > li.bad { color: #D0D0D088; background-color: #FF000033; }

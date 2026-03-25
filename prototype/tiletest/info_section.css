@@ -1,0 +1,90 @@
+/* -------------------------------------------------- */
+/* Rules for info section at the top of the page */
+/* -------------------------------------------------- */
+@import "../assets/fonts/fonts.css";
+
+
+#topbar_info {
+    top: 0px;
+    position: sticky;
+    /* border: 1px solid red; */
+   /* background-color: color(display-p3 0.104 0.28 0.466);
+    z-index: 1; /* keep above other elements */
+    padding:10px 10px 10px 60px;
+    background-image:url(../img/bg_band_wide.jpg);
+    background-size:100%;
+   
+}
+
+#topbar_info > * { font-family: "Cascadia"; }
+
+#counter, #scroll_counter {
+    color: yellow;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: "Cascadia";
+    background-color: transparent;
+    display: inline; /* horizontal layout */
+}
+
+#scroll_counter { color: orange; }
+
+.table_counter {
+  color: yellow;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#table_container { display: none; gap: 8px; } /* change back to display:flex to show tables */
+
+#table_container > table {
+  font-size: 1em;
+  color: #FFFFFF;
+  background-color: #777777;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.threshold_table th {
+  border: 2px solid #00000020;
+}
+
+.threshold_table > li {
+  font-size: 1em;
+  color: #00FF00;
+  background-color: #777777;
+  list-style: inside;
+  border: 1px solid #FFFFFF20;
+}
+
+.landing {
+  height: 80vh;
+  align-content: center;
+}
+/* put this in your CSS (e.g., info_section.css) */
+#scroll_counter .bolt-label,
+#counter .bolt-label {
+  position: relative;
+  padding-left: 1em; /* space for the bolt */
+}
+
+/* SVG masked so it can inherit color */
+#scroll_counter .bolt-label::before,
+#counter .bolt-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.1em;             /* nudge vertically */
+  width: 1em;
+  height: 1em;
+  background-color: currentColor; /* bolt color */
+  -webkit-mask: url("../img/lightningbolt.svg") no-repeat center / contain;
+          mask: url("../img/lightningbolt.svg") no-repeat center / contain;
+}
+
+.threshold_table > li.good { color: cyan; background-color: #00FF0044; }
+.threshold_table > li.bad  { color: #D0D0D088; background-color: #FF000033; }
+
+#jump_container { display:none; color: lightgrey; padding: 2px; } /* remove display:none to add jump back */

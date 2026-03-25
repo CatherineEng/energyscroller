@@ -1,0 +1,124 @@
+/* Two-column hero section */
+.dual-pane.hero {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: #11619a;
+  color: white;
+}
+
+.blue_bg {
+  background-color:#11619A;
+}
+
+.yellow_bg {
+  background-color:#d9d55e;
+}
+
+.dkblue {
+  color:#1A4774;
+}
+
+.tiny {
+  background-size:auto 20px;
+}
+
+.headline {
+  padding:30px 30px 30px 60px !important;
+  width:50vw !important;
+}
+
+/* Sticky system
+   The JS wraps .static in .static-wrap with height = vp * 100vh.
+   The .static element itself is sticky at data-sticktop (default 100px). */
+.static-wrap {
+  position: relative;
+  height: calc(var(--vp, 1) * 100vh);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.static {
+  position: sticky;
+ /* top: var(--stick-top, 100px);*/
+ top:20vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+}
+.static img {
+  max-width: 90%;
+  height: auto;
+}
+
+/* Right column content flows normally and can be taller than the left */
+.flow {
+  padding: 0 6vw 96px;
+}
+.flow h1, h1 { margin: 0 0 8px; font-size: clamp(5em, 4vw, 56px); line-height:1.1em;}
+.flow h3  { margin: 0 0 32px; font-weight: 600; font-size: clamp(1.5em, 3.0vw, 43px); }
+.flow h4, h4 { margin: 0 0 32px; font-weight: 600; font-size: clamp(1em, 2.1vw, 33px); }
+.flow h5, h5 { margin: 0 0 32px; font-weight: 600; font-size: clamp(.9em, 1.3vw, 22px); }
+
+h3 { margin: 0 0 32px; font-weight: 600; font-size: clamp(1em, 3.0vw, 43px); }
+
+
+.flow-sticky.text {
+  top:45vh !important;
+}
+/* Demo spacer to force scrolling; replace with your content */
+.spacer {
+  height: 400vh;
+  display: grid;
+  place-items: center;
+  color: #fff9;
+}
+
+
+/*mini sticky inside flow */
+
+/* --- flow-sticky system --- */
+.flow-sticky-wrap {
+  position: relative;
+  height: calc(var(--vp, 1) * 100vh);
+  display: flex;
+  align-items: flex-start;
+}
+
+/* the element itself becomes sticky */
+.flow-sticky {
+  position: sticky;
+  top: var(--stick-top, 100px);
+  z-index: 1;
+}
+
+/* optional motion (same feel as hero card) */
+.flow-sticky {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+	opacity 360ms ease,
+	transform 360ms ease,
+	box-shadow 240ms ease;
+  will-change: transform, opacity;
+}
+.flow-sticky.is-engaged {
+  opacity: 1;
+  transform: translateY(0);
+}
+.flow-sticky.is-releasing {
+  opacity: 0;
+  transform: translateY(-40px);
+  box-shadow: none;
+}
+/*end mini sticky ***/
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+  .dual-pane.hero {
+	grid-template-columns: 1fr;
+  }
+  .static img { max-width: 80%; }
+}

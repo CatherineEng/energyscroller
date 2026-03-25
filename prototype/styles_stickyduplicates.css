@@ -1,0 +1,40 @@
+/* The wrapper provides the duration (N viewports) and centers the card */
+.sticky-wrap {
+  position: relative;
+  height: calc(var(--vp, 1) * 100vh); /* data-stickvp controls this */
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: flex-start;    /* start from the top of the wrapper */
+  pointer-events: none;       /* wrapper doesn't intercept clicks */
+}
+
+/* The inner is the actual sticky thing */
+.sticky-inner {
+  position: sticky;
+  top: var(--sticky-top, 120px); /* data-sticktop controls this */
+  z-index: 10002;
+  pointer-events: auto;          /* clickable content */
+  margin: 0 auto;                /* extra centering help */
+}
+
+/* IMPORTANT: do NOT globally force sticky items to static  */
+/* Only cancel absolute-positioning for old .testme stickies */
+.testme.sticky-optout { position: static !important; }
+
+/* Your compact white card look */
+.thisone {
+  display: inline-block;
+  background: #ffffff;
+  color: #000000;
+  padding: 30px;         /* 30px around content */
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.15);
+}
+
+/* Optional: h1 styling inside the card */
+.thisone h1 {
+  margin: 0;
+  text-align: center;
+  color: #000000;
+  font-size: clamp(28px, 5vw, 80px);
+}

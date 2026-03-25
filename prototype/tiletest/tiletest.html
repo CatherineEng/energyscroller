@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="tiletest.css">
+        <link rel="stylesheet" href="info_section.css">
+        <script type="text/javascript" src="tilecount.js"></script>
+    </head>
+    
+    <body>
+    <div id="topbar_info">
+        <div>
+        <div id="counter">0 ⚡kWh</div> <!-- unicode: U+26A1 'High Voltage Sign' -->
+        <div id="scroll_counter">[0⚡ scrolled]</div>
+        </div>
+        <div id="table_container">
+            <!-- threshold-tables are dynamically constructed and inserted here -->
+            <!-- initializer function 'ConstructCounterTables()' [callbacks.js] -->
+            
+            <!--         example table structure         -->
+            <!-- <table class="threshold_table"> <tbody><th>
+                <a class="table_counter">0⚡</a> Table_1</th></tbody>
+                <li class="good">TESTME_25</li> ... </table> -->
+        </div>
+        <div id="jump_container"> Jump To:
+            <!-- buttons that jump the scroll position to page elements -->
+            <!-- see: 'CreateElementButtons()' [callbacks.js] -->
+        </div>
+    </div>
+    <div id="background">
+        <div class="resizeable_tiling">[resize me to update counter]
+            <div class="testme" required_scrollcount=25>TESTME 25</div>
+            <div class="testme" required_scrollcount=50>TESTME 50</div>
+            <div class="testme" required_scrollcount=75>TESTME 75</div>
+        </div>
+        <div class="resizeable_tiling" tilesize="auto 250px" iconvalue=5>
+            <div class="testme" required_scrollcount=50 >BIG 50</div>
+            <div class="testme" required_scrollcount=100>BIG 100</div>
+            <div class="testme" required_scrollcount=150>BIG 150</div>
+        </div>
+        <div name="testname" class="resizeable_tiling" tilesize="auto 200px">
+            <div class="tiling">
+                <div name="tile2_testme1" class="testme" required_scrollcount=10>TESTME 10</div>
+                <div name="tile2_testme2" class="testme" required_scrollcount=20>TESTME 20</div>
+                <div name="tile2_testme3" class="testme" required_scrollcount=40>TESTME 40</div>
+            </div>
+        </div>
+        <div class="target" name="Scroll Test">click the "Scroll Test" button</div>
+        <div class="tiling">
+            <div class="target" style="top: 1500px; position: relative;">inside tiling</div>
+        </div>
+        <div class="target" name="Page End">bottom of the page</div>
+    </div>
+    </body>
+    <!-- must be imported AFTER all elements have been defined -->
+    <script type="text/javascript" src="callbacks.js"></script>
+</html>
+
