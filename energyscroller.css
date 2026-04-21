@@ -8,11 +8,34 @@ html, body {
   text-wrap: pretty;
 }
 
+h1, h2, h3, h4, h5, p {
+  text-wrap: pretty;
+}
+
 .figtree-bold {
   font-family: "Figtree", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
+}
+
+.detail {
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  /* position: absolute; */
+  bottom: 0;
+  margin-top: 20vh;
+}
+
+.block-bottom {
+  height:20vh;
+  display:block;
+  width:50vw;
+}
+
+.is-sticking {
+  top:40vh !important;
 }
 
 .figtree-normal {

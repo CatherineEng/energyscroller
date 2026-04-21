@@ -29,6 +29,11 @@
   width:50vw !important;
 }
 
+.headline-long {
+  padding:30px 30px 30px 60px !important;
+  width:75vw !important;
+}
+
 /* Sticky system
    The JS wraps .static in .static-wrap with height = vp * 100vh.
    The .static element itself is sticky at data-sticktop (default 100px). */
