@@ -24,6 +24,12 @@
   background-size:auto 20px;
 }
 
+.allow-overflow {
+  overflow: visible;
+  border:0 !important;
+}
+
+
 .headline {
   padding:30px 30px 30px 60px !important;
   width:50vw !important;
