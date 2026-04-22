@@ -95,7 +95,7 @@ function UpdateScrollCounter() {
     let scroll_total = 0;
     for (const val of ScrollVals.values()){ scroll_total += val; }
     const primary_counter = document.getElementById('scroll_counter');
-    primary_counter.innerText = `[${scroll_total}\u26A1 scrolled]`;
+    primary_counter.innerText = `[${scroll_total}\u26A1scrolled]`;
     return scroll_total;
 }
 

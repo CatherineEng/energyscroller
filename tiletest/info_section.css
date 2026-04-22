@@ -16,10 +16,10 @@
 
 #counter, #scroll_counter {
     color: yellow;
-    font-size: 2.5em;
+    font-size: 1.5em;
     font-weight: bold;
     font-family: "Cascadia";
-    background-color: #555555;
+    background-color: transparent;
     display: inline; /* horizontal layout */
 }
 
@@ -65,3 +65,15 @@
 .threshold_table > li.bad { color: #D0D0D088; background-color: #FF000033; }
 
 #jump_container { color: lightgrey; padding: 2px; }
+
+#scroll_counter .bolt-label::before, #counter .bolt-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    -webkit-mask: url(../img/lightningbolt.svg) no-repeat center / contain;
+    mask: url(../img/lightningbolt.svg) no-repeat center / contain;
+}
