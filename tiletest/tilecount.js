@@ -4,7 +4,7 @@
     however, within strict-mode it returns 'undefined' instead,
     which allows us to determine whether strict-mode is active. */
 let isStrictMode = (function() { return (this !== globalThis); })();
-console.log(`strict-mode: ${(isStrictMode? 'enabled':'disabled')}`);
+//console.log(`strict-mode: ${(isStrictMode? 'enabled':'disabled')}`);
 // --------------------------------------------------------------- //
 
 let VALUE_PER_ICON = 1;
@@ -172,6 +172,6 @@ function UpdateAll() {
     }
     let scroll_total = UpdateScrollCounter();
     const topbar_info = document.getElementById("topbar_info");
-    if (scroll_total <= INFOBAR_VISIBILITY_THRESHOLD) topbar_info.setAttribute("hidden", true);
-    else topbar_info.removeAttribute("hidden");
+ //   if (scroll_total <= INFOBAR_VISIBILITY_THRESHOLD) topbar_info.setAttribute("hidden", true);
+ //   else topbar_info.removeAttribute("hidden");
 }

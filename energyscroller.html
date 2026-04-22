@@ -5,9 +5,8 @@
         <link rel="stylesheet" href="energyscroller.css"> <!-- overrides -->
         <script type="text/javascript" src="tiletest/tilecount.js"></script>
 
-
     <!-- Base styles -->
-        <link rel="stylesheet" href="homepage_sticky.css" />
+        <link rel="stylesheet" href="homepage_sticky2.css" />
         
         <!-- Sticky overrides -->
         <link rel="stylesheet" href="styles_sticky.css" />
@@ -25,6 +24,7 @@
         background-size: 100%;
         z-index:9999;
     }
+    
     </style>
     
     
@@ -57,65 +57,59 @@
         
         <section class="dual-pane hero">
             <!-- Left column: sticks for X viewports (data-stickvp) -->
-            <div class="static" data-stickvp="43" style="top:25vh !important;">
+            <div class="static" data-stickvp="32" style="top:25vh !important;">
               <img src="img/ACTIONS-Learning_Shape-the-Futurewhite.png"
                   alt="energy scroller" />
             </div>
           
-            <!-- Right column: scrolls normally (make this tall as needed) -->
-            <div class="flow">
-              <div class="landing" style="height:100vh;">
-              <h1>One Nation, One Day of Energy</h1>
-              <h4>Start scrolling and learn how we consume energy every day!</h4>
-              </div>
-          
-              <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-              <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
-                <h3>Have you ever stopped to wonder how much energy we use as a nation, in one day?</h3>
-              </aside>
-        
-        
-              <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
-                <h3>Take a wild guess.</h3>
-              </aside>
-        
-              <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-              <aside class="flow-sticky text" data-flowstickvp="5" data-sticktop="320">
-                <h1>11,400,000,000</h1>
-                <h3>kilowatt hours</h3>
-                <h5>That's 11.4 billion kWh!</h5>
-              </aside>
-        
-        
-              <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-              <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
-                <h4>To understand how much this is, we first have to know something about kilowatt hours.</h4>
-              </aside>
-        
-              <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
-              <aside class="flow-sticky text" data-flowstickvp="3" data-sticktop="320">
-                <h4>Energy is measured in kilowatt hours, or kWh. <br />1 kWh = 1000 watts used in one hour. </h4>
-              </aside>
+             <!-- Right column: scrolls normally (make this tall as needed) -->
+                <div class="flow">
+                  <div class="landing">
+                  <h1>One Nation, One Day of Energy</h1>
+                  <h4>Start scrolling and learn how we consume energy every day!</h4>
+                  </div>
               
-              <!-- More normal content to demonstrate scrolling - very cool - try it 
-              <div style="height:200vh;background-color:#ff5500;width:20vw;"></div>-->
-              
-              <!-- Another sticky inside the same flow column -->
-              <figure class="flow-sticky text" data-flowstickvp="4" data-sticktop="320">
-                <img src="img/lightningbolt.svg" alt="teaser" style="max-width:28px; height:auto;float:left;padding-right:20px;">
-                <h4>Let's say this lightning bolt represented 1 kWh. </h4>
-              </figure>
-              
-          <!--    <div style="height:200vh"></div>-->
-        
-        
-        
-            </div>
+                  <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
+                  <aside class="flow-sticky text" data-flowstickvp="5" data-sticktop="320">
+                    <h3>Have you ever stopped to wonder how much energy we use as a nation, in one day?</h3>
+                  </aside>
+            
+            
+                  <aside class="flow-sticky text" data-flowstickvp="5" data-sticktop="320">
+                    <h3>Take a wild guess.</h3>
+                  </aside>
+            
+                  <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
+                  <aside class="flow-sticky text" data-flowstickvp="6" data-sticktop="320">
+                    <h1>11,400,000,000</h1>
+                    <h3>kilowatt hours</h3>
+                    <h5>That's 11.4 billion kWh!</h5>
+                  </aside>
+            
+            
+                  <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
+                  <aside class="flow-sticky text" data-flowstickvp="5" data-sticktop="320">
+                    <h4>To understand how much this is, we first have to know something about kilowatt hours.</h4>
+                  </aside>
+            
+                  <!-- This block will "stick" for 3 viewport heights as you scroll past it -->
+                  <aside class="flow-sticky text" data-flowstickvp="5" data-sticktop="320">
+                    <h4>Energy is measured in kilowatt hours, or kWh. <br />1 kWh = 1000 watts used in one hour. </h4>
+                  </aside>
+                  
+                  <!-- More normal content to demonstrate scrolling - very cool - try it 
+                  <div style="height:200vh;background-color:#ff5500;width:20vw;"></div>-->
+                  
+                  <!-- Another sticky inside the same flow column -->
+                  <figure class="flow-sticky text" data-flowstickvp="5" data-sticktop="320">
+                    <img src="img/lightningbolt.svg" alt="teaser" style="max-width:28px; height:auto;float:left;padding-right:20px;">
+                    <h4>Let's say this lightning bolt represented 1 kWh. </h4>
+                  </figure>
+                </div>
           </section>
+
         
-        
-        
-        <div name="Transportation: all Electric Vehicles" energy=20M iconvalue=1000 class="resizeable_tiling">
+        <div name="Transportation: all Electric Vehicles" energy=20M iconvalue=1000 class="resizeable_tiling yellow_bg">
             Electric vehicles and transit systems already use 20 million kilowatt-hours every day.<br>
             As more buses, trains, and cars go electric, this number will grow.<br>
             Choosing clean transportation today helps shape a future where travel is both efficient and powered by renewable energy.<br>
@@ -205,8 +199,7 @@
     <script type="text/javascript" src="js/SVG_colors.js"></script>
     <script type="text/javascript" src="tiletest/callbacks.js"></script>
     <!--for card-->
-    <script src="tiletest/tilecount.js" defer></script>
-    <script src="homepage_sticky.js" defer></script>
+    <script src="homepage_sticky.js"></script>
 
 
     

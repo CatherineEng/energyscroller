@@ -31,6 +31,11 @@ body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
   align-items: flex-start;
   padding-top: 0;
 }
+
+.yellow_bg {
+  background-color:#d9d55e;
+}
+
 .static img {
   max-width: 65%;
   height: auto;

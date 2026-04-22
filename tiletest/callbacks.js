@@ -36,7 +36,7 @@ function SetSectionHeight(tile_element, energy_count)
 function InitializeElementMap(enableJumpTargets)
 {
     const tile_sources = document.getElementsByClassName("resizeable_tiling");
-    console.log("tile sources: ", tile_sources);
+  //  console.log("tile sources: ", tile_sources);
     
     let section_count = 0;
     for (const tile_source of tile_sources)
@@ -52,10 +52,10 @@ function InitializeElementMap(enableJumpTargets)
         if (tile_source.hasAttribute("tilesize")) {
             let tilesize = tile_source.getAttribute("tilesize");
             tile_source.style.backgroundSize = tilesize;
-            console.log(`specified tilesize: ${tilesize}`);
+            //console.log(`specified tilesize: ${tilesize}`);
         } else {
             tile_source.style.backgroundSize = getComputedStyle(tile_source).getPropertyValue('background-size');
-            console.log(`default tilesize: ${tile_source.style.backgroundSize}`);
+           // console.log(`default tilesize: ${tile_source.style.backgroundSize}`);
         }
         
         if (tile_source.hasAttribute("energy")) {
@@ -144,7 +144,7 @@ function ScrollButtonCallback(target) {
     /* modifying the Y-offset to be absolute instead of relative; 'scrollTo' interprets it as an absolute position.
     without this adjustment, buttons for onscreen elements would scroll to the top of the page (bounds.Y < scrollY) */
     bounds.y += window.scrollY - (bounds.height/2); // (height/2) offset keeps the entire element onscreen
-    console.log(`scrolling: ${bounds.y}`);
+  //  console.log(`scrolling: ${bounds.y}`);
     window.scrollTo(bounds);
 }
 
@@ -170,8 +170,8 @@ function CreateElementButtons(enableJumpTargets)
 InitializeElementMap(JUMP_TARGETS_ENABLED);
 CreateElementButtons(JUMP_TARGETS_ENABLED);
 ConstructCounterTables();
-console.log("ElementMap:", ElementMap);
-console.log("CounterMap:", CounterMap);
+//console.log("ElementMap:", ElementMap);
+//console.log("CounterMap:", CounterMap);
 
 window.addEventListener('resize', UpdateAll);
 window.addEventListener('scroll', UpdateAll);
